@@ -13,12 +13,16 @@
     "axios": "^0.15.3",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^3.2.3",
+    "css-loader": "^0.28.4",
+    "element-theme-default": "^1.2.1",
+    "element-ui": "^1.2.9",
+    "ionicons": "^2.0.1",
     "jquery": "^3.1.1",
     "laravel-mix": "0.*",
     "lodash": "^4.17.4",
     "vue": "^2.1.10",
     "vue-axios": "^1.2.2",
-    "vuex": "^2.1.1",
-    "ionicons": "^2.0.1"
+    "vue-router": "^2.1.10",
+    "vuex": "^2.1.1"
   }
 }

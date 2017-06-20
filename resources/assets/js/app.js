@@ -19,16 +19,44 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import ElementUI from 'element-ui';
 
+Vue.use(ElementUI);
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 
+let token = document.head.querySelector('meta[name="csrf-token"]');
 Vue.axios.defaults.headers.common = {
-    'X-CSRF-TOKEN': window.Laravel.csrfToken,
+    'X-CSRF-TOKEN': token,
     'X-Requested-With': 'XMLHttpRequest'
 };
-Vue.axios.defaults.baseURL = Laravel.apiUrl;
+Vue.axios.defaults.baseURL = window.Dashboard.apiUrl;
 
 import App from './App.vue';
+import Login from './components/Login.vue';
+import Home from './components/Home.vue';
 
-import Menu from './components/pager/main/menu.vue';
+const router = new VueRouter ({
+    routes: [
+        {
+            path: '/login',
+            name: 'Login',
+            component: Login
+        },
+        {
+            path: '/Home',
+            name: 'Home',
+            component: Home
+        },
+        { path: '/', redirect: '/Home'}
+    ]
+});
+
+Vue.component('App', App);
+
+const app = new Vue({
+    el: '#app',
+    template: '<App/>',
+    router,
+    components: { App }
+}).$mount('#app');
