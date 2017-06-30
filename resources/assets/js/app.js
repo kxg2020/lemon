@@ -34,21 +34,39 @@ Vue.axios.defaults.baseURL = window.Dashboard.apiUrl;
 
 import App from './App.vue';
 import Login from './components/Login.vue';
-import Home from './components/Home.vue';
+// import Home from './components/Home.vue';
+import Main from './components/Main.vue';
+import Post from './components/Post.vue';
+import Links from './components/Links.vue';
 
 const router = new VueRouter ({
     routes: [
         {
             path: '/login',
             name: 'Login',
-            component: Login
+            component: Login,
+            hidden: true
         },
         {
-            path: '/Home',
-            name: 'Home',
-            component: Home
+            path: '/',
+            redirect: '/main',
+            hidden: true
         },
-        { path: '/', redirect: '/Home'}
+        {
+            path: '/main',
+            name: '主页',
+            component: Main
+        },
+        {
+            path: '/Links',
+            name: '友情链接',
+            component: Links
+        },
+        {
+            path: '/post',
+            name: '文章',
+            component: Post
+        },
     ]
 });
 
