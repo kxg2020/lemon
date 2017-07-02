@@ -34,7 +34,6 @@ Vue.axios.defaults.baseURL = window.Dashboard.apiUrl;
 
 import App from './App.vue';
 import Login from './components/Login.vue';
-// import Home from './components/Home.vue';
 import Main from './components/Main.vue';
 import Post from './components/Post.vue';
 import Links from './components/Links.vue';
