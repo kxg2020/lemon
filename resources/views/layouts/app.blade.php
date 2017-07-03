@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('home/css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -76,6 +76,6 @@
 
     <!-- Scripts -->
     <script>window.Dashboard = {'apiUrl': '{{ e(route('dashboard')) }}' }</script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('home/js/app.js') }}"></script>
 </body>
 </html>

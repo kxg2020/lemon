@@ -1,4 +1,13 @@
 {
   "/js/app.js": "/js/app.js",
-  "/css/app.css": "/css/app.css"
+  "/css/app.css": "/css/app.css",
+  "/backend//js/app.js": "/backend//js/app.js",
+  "/home//js/app.js": "/home//js/app.js",
+  "/backend/public/css/app.css": "/backend/public/css/app.css",
+  "/home/public/css/app.css": "/home/public/css/app.css",
+  "/backend/js/app.js": "/backend/js/app.js",
+  "/backend/css/app.css": "/backend/css/app.css",
+  "/home/css/app.css": "/home/css/app.css",
+  "/publi/chome/js/app.js": "/publi/chome/js/app.js",
+  "/home/js/app.js": "/home/js/app.js"
 }
