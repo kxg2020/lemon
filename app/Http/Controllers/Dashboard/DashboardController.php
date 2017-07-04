@@ -8,7 +8,7 @@ class DashboardController extends Controller
 {
     public function __controller()
     {
-//        return $this->middleware('dashboard');
+        return $this->middleware('dashboard');
     }
 
     public function index()
