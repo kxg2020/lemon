@@ -19,20 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => '/dashboard', 'middleware' => 'auth', 'namespace' => 'Dashboard'], function () {
-    Route::get('/', 'dashboardController@index')->name('dashboard');
-    Route::get('/tests', function (){
-        return response()->json([
-            [
-                'id' => 1,
-                'name'  => 'zhangsan'
-            ],
-            [
-                'id' => 2,
-                'name'  => 'lisi'
-            ]
-        ]);
-    });
+Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
+    Route::get('/', 'HomeController@dashboard')->name('dashboard');
     Route::get('/login', function (){
         return response()->json([
             'state' => true,

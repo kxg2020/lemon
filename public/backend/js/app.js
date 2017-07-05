@@ -33149,13 +33149,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {};
     },
-    created: function created() {},
+    created: function created() {
+        this.getMeta();
+    },
 
     methods: {
         getMeta: function getMeta() {
             var _this = this;
             _this.axios.get('/meta').then(function (response) {
                 var res = response.data;
+                console.log(res);
             });
         }
     }

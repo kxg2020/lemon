@@ -20,7 +20,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script>window.Dashboard = {'apiUrl': '{{ e(route('dashboard')) }}' }</script>
+<script>window.Dashboard = {'apiUrl': '{{ e(route('api')) }}' }</script>
 <script src="{{ asset('backend/js/app.js') }}"></script>
 </body>
 </html>
