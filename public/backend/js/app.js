@@ -31596,6 +31596,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_axios___default.a, __WEBPACK_IMPORTED_MODULE_1_axios___default.a);
 
 var token = document.head.querySelector('meta[name="csrf-token"]');
+token = token.getAttribute('content');
 Vue.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': token,
     'X-Requested-With': 'XMLHttpRequest'
@@ -33096,11 +33097,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             logining: false,
             loginForm: {
-                account: 'admin',
-                password: '111111'
+                email: '',
+                password: ''
             },
             loginRules: {
-                account: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+                email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
                 password: [{ required: true, message: "请输入密码", trigger: "blur" }]
             }
         };
@@ -33112,10 +33113,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.$refs.loginForm.validate(function (valid) {
                 if (valid) {
                     _this.logining = true;
-                    var loginParams = { account: _this.loginForm.account, password: _this.loginForm.password };
-                    _this.axios.get('/login', loginParams).then(function (response) {
+                    var loginParams = { email: _this.loginForm.email, password: _this.loginForm.password };
+                    _this.axios.post('/login', loginParams).then(function (response) {
                         var data = response.data;
-                        if (data.state) {
+                        if (data.status == 200) {
                             sessionStorage.setItem('dashboard', JSON.stringify(data.user));
                             _this.$message({
                                 message: "登录成功",
@@ -33125,8 +33126,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             setTimeout(function () {
                                 _this.$router.push({ path: '/home' });
                             });
+                            _this.logining = false;
                         } else {
                             _this.$message.error("登录失败");
+                            _this.logining = false;
                         }
                     });
                 }
@@ -33160,6 +33163,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var res = response.data;
                 console.log(res);
             });
+        },
+        getUser: function getUser() {
+            var _this = this;
+            _this.axios.get('/user').then(function (response) {});
         }
     }
 });
@@ -67517,20 +67524,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "title"
   }, [_vm._v("系统登录")]), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "prop": "account"
+      "prop": "email"
     }
   }, [_c('el-input', {
     attrs: {
       "type": "text",
       "auto-complete": "off",
-      "placeholder": "account"
+      "placeholder": "email"
     },
     model: {
-      value: (_vm.loginForm.account),
+      value: (_vm.loginForm.email),
       callback: function($$v) {
-        _vm.loginForm.account = $$v
+        _vm.loginForm.email = $$v
       },
-      expression: "loginForm.account"
+      expression: "loginForm.email"
     }
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {

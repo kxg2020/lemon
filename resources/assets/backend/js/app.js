@@ -26,6 +26,7 @@ Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
+token = token.getAttribute('content')
 Vue.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': token,
     'X-Requested-With': 'XMLHttpRequest'

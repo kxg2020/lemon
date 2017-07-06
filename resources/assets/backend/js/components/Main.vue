@@ -18,6 +18,12 @@
                     let res = response.data;
                     console.log(res);
                 })
+            },
+            getUser: function () {
+                let _this = this;
+                _this.axios.get('/user').then(function (response) {
+                    
+                })
             }
         }
     }

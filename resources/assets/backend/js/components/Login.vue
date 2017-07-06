@@ -1,8 +1,8 @@
 <template>
     <el-form :model="loginForm" :roules="loginRules" ref="loginForm" label-positin="left" label-width="0px" class="">
         <h3 class="title">系统登录</h3>
-        <el-form-item prop="account">
-            <el-input type="text" v-model="loginForm.account" auto-complete="off" placeholder="account"></el-input>
+        <el-form-item prop="email">
+            <el-input type="text" v-model="loginForm.email" auto-complete="off" placeholder="email"></el-input>
         </el-form-item>
         <el-form-item prop="password">
             <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="password"></el-input>
@@ -20,12 +20,12 @@
             return {
                 logining: false,
                 loginForm: {
-                    account: 'admin',
-                    password: '111111'
+                    email: '',
+                    password: ''
                 },
                 loginRules: {
-                    account: [
-                        {required: true, message: "请输入用户名", trigger: "blur"}
+                    email: [
+                        {required: true, message: "请输入邮箱", trigger: "blur"}
                     ],
                     password: [
                         {required: true, message: "请输入密码", trigger: "blur"}
@@ -39,10 +39,10 @@
                 _this.$refs.loginForm.validate((valid) => {
                     if(valid) {
                         _this.logining = true;
-                        var loginParams = { account: _this.loginForm.account, password: _this.loginForm.password};
-                        _this.axios.get('/login', loginParams).then(function (response) {
+                        var loginParams = { email: _this.loginForm.email, password: _this.loginForm.password};
+                        _this.axios.post('/login', loginParams).then(function (response) {
                             let data = response.data;
-                            if(data.state){
+                            if(data.status == 200){
                                 sessionStorage.setItem('dashboard', JSON.stringify(data.user));
                                 _this.$message({
                                     message: "登录成功",
@@ -52,8 +52,10 @@
                                 setTimeout(function () {
                                     _this.$router.push({path: '/home'})
                                 })
+                                _this.logining = false;
                             }else{
-                                _this.$message.error("登录失败")
+                                _this.$message.error("登录失败");
+                                _this.logining = false;
                             }
                         })
                     }

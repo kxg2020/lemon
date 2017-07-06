@@ -180,7 +180,7 @@ return [
         /**
          * Passport Service Providers...
          */
-        Laravel\Passport\PassportServiceProvider::class,
+//        Laravel\Passport\PassportServiceProvider::class,
     ],
 
     /*
