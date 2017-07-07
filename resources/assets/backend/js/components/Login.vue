@@ -7,7 +7,7 @@
         <el-form-item prop="password">
             <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="password"></el-input>
         </el-form-item>
-        <el-checkbox v-model="loginForm.remember">Remember me</el-checkbox>
+        <!--<el-checkbox v-model="loginForm.remember">Remember me</el-checkbox>-->
         <el-form-item>
             <el-button type="primary" style="width: 100%;" @click.native.prevent="loginFormSubmit" :loading="logining">Login</el-button>
         </el-form-item>
@@ -43,7 +43,7 @@
                         _this.axios.post('/login', loginParams).then(function (response) {
                             let data = response.data;
                             if(data.status == 200){
-                                sessionStorage.setItem('dashboard', JSON.stringify(data.user));
+                                sessionStorage.setItem('lemon', JSON.stringify(data.user));
                                 _this.$message({
                                     message: "登录成功",
                                     type: 'success',

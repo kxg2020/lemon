@@ -16,7 +16,6 @@
                 let _this = this;
                 _this.axios.get('/meta').then(function (response) {
                     let res = response.data;
-                    console.log(res);
                 })
             },
             getUser: function () {

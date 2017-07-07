@@ -19,16 +19,23 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => '/dashboard', 'namespace' => 'Api'], function () {
-    Route::get('/', function (){
-        return view('dashboard.index');
-    })->name('dashboard');
+Route::group(['prefix' => '/dashboard', 'namespace' => 'Api', 'middleware' => 'auth'], function () {
     Route::get('/meta', function (){
         return response()->json([
 
         ]);
     });
+    Route::get('/post', function (){
+        return response()->json([
 
+        ]);
+    });
+});
+
+Route::group(['prefix' => '/dashboard', 'namespace' => 'Api'], function () {
+    Route::get('/', function (){
+        return view('dashboard.index');
+    })->name('dashboard');
     Route::post('/login', 'AuthController@login');
     Route::post('/logout', 'AuthController@logout');
     Route::post('/check', 'AuthController@check');

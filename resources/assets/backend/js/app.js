@@ -45,31 +45,60 @@ const router = new VueRouter ({
             path: '/login',
             name: 'Login',
             component: Login,
+            meta: {
+                requireAuth: false
+            },
             hidden: true
         },
         {
             path: '/',
             redirect: '/main',
+            meta: {
+                requireAuth: false
+            },
             hidden: true
         },
         {
             path: '/main',
             name: '主页',
+            meta: {
+                requireAuth: false
+            },
             component: Main
         },
         {
             path: '/Links',
             name: '友情链接',
+            meta: {
+                requireAuth: true
+            },
             component: Links
         },
         {
             path: '/post',
             name: '文章',
+            meta: {
+                requireAuth: true
+            },
             component: Post
         },
     ]
 });
-
+// 路由监听
+router.beforeEach((to, from, next) => {
+    if(from.meta.requireAuth == false && to.meta.requireAuth == true) {
+        if (JSON.parse(sessionStorage.getItem('lemon'))) {
+            next();
+        }else {
+            next({
+                path: '/login',
+                query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
+            })
+        }
+    }else {
+        next();
+    }
+})
 Vue.component('App', App);
 
 const app = new Vue({

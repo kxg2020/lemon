@@ -27,7 +27,7 @@ class AuthController extends Controller
                 'msg'       =>  '登录成功',
                 'user'      =>  [
                     'name'  =>  $user['name'],
-                    'lemon' =>  Session::getId()
+                    'sid' =>  Session::getId()
                 ]
             ];
         }else{
