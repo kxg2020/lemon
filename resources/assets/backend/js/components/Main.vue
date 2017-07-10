@@ -14,9 +14,6 @@
         methods: {
             getMeta: function()  {
                 let _this = this;
-                _this.axios.get('/meta').then(function (response) {
-                    let res = response.data;
-                })
             },
             getUser: function () {
                 let _this = this;

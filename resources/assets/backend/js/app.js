@@ -34,12 +34,19 @@ Vue.axios.defaults.headers.common = {
 Vue.axios.defaults.baseURL = window.Dashboard.apiUrl;
 
 import App from './App.vue';
-import Login from './components/Login.vue';
 import Main from './components/Main.vue';
-import Post from './components/Post.vue';
+import Menu from './components/Menu.vue';
+import Login from './components/Login.vue';
+
+import Posts from './components/pager/post/Posts.vue';
+import Post from './components/pager/post/Post.vue';
+
+import Categorys from './components/pager/category/Categorys.vue'
+
 import Links from './components/Links.vue';
 
 const router = new VueRouter ({
+    root: '/main',
     routes: [
         {
             path: '/login',
@@ -52,41 +59,40 @@ const router = new VueRouter ({
         },
         {
             path: '/',
-            redirect: '/main',
-            meta: {
-                requireAuth: false
-            },
-            hidden: true
-        },
-        {
-            path: '/main',
-            name: '主页',
-            meta: {
-                requireAuth: false
-            },
-            component: Main
-        },
-        {
-            path: '/Links',
-            name: '友情链接',
-            meta: {
-                requireAuth: true
-            },
-            component: Links
-        },
-        {
-            path: '/post',
-            name: '文章',
-            meta: {
-                requireAuth: true
-            },
-            component: Post
-        },
+            component: Menu,
+            name: '文章管理',
+            children: [
+                {
+                    path: '/posts',
+                    component: Posts,
+                    name: '文章列表',
+                    meta: {
+                        requireAuth: true
+                    }
+                },
+                {
+                    path: '/posts/add',
+                    component: Post,
+                    name: '新建文章',
+                    meta: {
+                        requireAuth: true
+                    }
+                },
+                {
+                    path: '/categorys',
+                    component: Categorys,
+                    name: '分类管理',
+                    meta: {
+                        requireAuth: true
+                    }
+                }
+            ]
+        }
     ]
 });
 // 路由监听
 router.beforeEach((to, from, next) => {
-    if(from.meta.requireAuth == false && to.meta.requireAuth == true) {
+    if(!from.meta.requireAuth  && to.meta.requireAuth) {
         if (JSON.parse(sessionStorage.getItem('lemon'))) {
             next();
         }else {
