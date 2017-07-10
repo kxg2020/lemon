@@ -1,5 +1,5 @@
 <template>
-    <p>this is post</p>
+
 </template>
 <script type="text/ecmascript-6">
     export default{
