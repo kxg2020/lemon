@@ -33,6 +33,9 @@ Vue.axios.defaults.headers.common = {
 };
 Vue.axios.defaults.baseURL = window.Dashboard.apiUrl;
 
+import marked from 'marked';
+Vue.prototype.marked = marked;
+
 import App from './App.vue';
 import Main from './components/Main.vue';
 import Menu from './components/Menu.vue';

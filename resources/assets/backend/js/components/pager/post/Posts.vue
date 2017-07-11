@@ -1,7 +1,9 @@
 <template>
     <el-row>
         <el-row class="main-header">
-            <el-button type="primary">新增</el-button>
+            <router-link to="/posts/add">
+                <el-button type="primary">新增</el-button>
+            </router-link>
         </el-row>
         <el-row>
             <el-table :data="listData" @selection-change="handleSelectionChange">

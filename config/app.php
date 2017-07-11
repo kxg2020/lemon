@@ -181,6 +181,11 @@ return [
          * Passport Service Providers...
          */
 //        Laravel\Passport\PassportServiceProvider::class,
+
+        /**
+         * QiniuFilesystem Service Providers...
+         */
+        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class
     ],
 
     /*
