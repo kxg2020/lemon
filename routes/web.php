@@ -30,6 +30,7 @@ Route::group(['prefix' => '/dashboard', 'namespace' => 'Api', 'middleware' => 'a
 
         ]);
     });
+    Route::resource('/upload', 'FileController');
 });
 
 Route::group(['prefix' => '/dashboard', 'namespace' => 'Api'], function () {

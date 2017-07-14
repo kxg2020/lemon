@@ -33671,11 +33671,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            uploadApi: window.Dashboard.apiUrl + '/upload',
+            headers: { 'X-CSRF-TOKEN': window.Dashboard.csrfToken },
             postModel: {
                 title: '',
                 category_id: '',
@@ -33683,7 +33691,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 content: '',
                 markdown: ''
             },
-            categorys: [{ id: 1, cat_name: 'php' }, { id: 2, cat_name: 'linux' }, { id: 3, cat_name: 'mysql' }]
+            categorys: [{ id: 1, cat_name: 'php' }, { id: 2, cat_name: 'linux' }, { id: 3, cat_name: 'mysql' }],
+            thumbUrl: ''
         };
     },
     created: function created() {
@@ -33705,6 +33714,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         onSubmit: function onSubmit() {
             this.postModel.markdown = this.simplemde.value();
             this.postModel.content = this.simplemde.markdown(this.postModel.markdown);
+        },
+        uploadSuccess: function uploadSuccess(response, file, fileList) {
+            if (response.status == 200) {
+                this.postModel.thumd = response.fileUrl;
+                this.thumbUrl = response.fileUrl;
+            }
         }
     },
     watch: {}
@@ -33846,7 +33861,7 @@ exports = module.exports = __webpack_require__(14)(undefined);
 
 
 // module
-exports.push([module.i, "\n.fullscreen{\n    margin-top: 70px;\n    margin-left: 13%;\n    z-index: 99999 !important;\n}\n.CodeMirror-fullscreen{\n    margin-top: 70px;\n    margin-left: 13%;\n    z-index: 99999 !important;\n}\n.editor-preview-active-side{\n    margin-left: 13%;\n    margin-top: 70px;\n    z-index: 99999 !important;\n}\n", ""]);
+exports.push([module.i, "\n.fullscreen{\n    margin-top: 70px;\n    margin-left: 13%;\n    z-index: 99999 !important;\n}\n.CodeMirror-fullscreen{\n    margin-top: 70px;\n    margin-left: 13%;\n    z-index: 99999 !important;\n}\n.editor-preview-active-side{\n    margin-left: 13%;\n    margin-top: 70px;\n    z-index: 99999 !important;\n}\n.thumb-view{\n}\n", ""]);
 
 // exports
 
@@ -69576,17 +69591,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "upload-demo",
     attrs: {
       "drag": "",
-      "action": "https://jsonplaceholder.typicode.com/posts/",
-      "multiple": ""
+      "action": _vm.uploadApi,
+      "headers": _vm.headers,
+      "on-success": _vm.uploadSuccess,
+      "multiple": false,
+      "show-file-list": false
     }
   }, [_c('i', {
     staticClass: "el-icon-upload"
   }), _vm._v(" "), _c('div', {
     staticClass: "el-upload__text"
-  }, [_vm._v("将文件拖到此处，或"), _c('em', [_vm._v("点击上传")])]), _vm._v(" "), _c('div', {
-    staticClass: "el-upload__tip",
-    slot: "tip"
-  }, [_vm._v("只能上传jpg/png文件，且不超过500kb")])])], 1), _vm._v(" "), _c('el-form-item', {
+  }, [_vm._v("将文件拖到此处，或"), _c('em', [_vm._v("点击上传")])])]), _vm._v(" "), (_vm.thumbUrl) ? _c('img', {
+    staticClass: "thumb-view",
+    attrs: {
+      "src": _vm.thumbUrl
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "正文",
       "prop": "markdown"

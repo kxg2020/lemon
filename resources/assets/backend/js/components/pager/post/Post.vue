@@ -13,12 +13,15 @@
                 <el-upload
                         class="upload-demo"
                         drag
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        multiple>
+                        :action="uploadApi"
+                        :headers="headers"
+                        :on-success="uploadSuccess"
+                        :multiple="false"
+                        :show-file-list="false">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                    <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
                 </el-upload>
+                <img v-if="thumbUrl" :src="thumbUrl" class="thumb-view">
             </el-form-item>
             <el-form-item label="正文" prop="markdown">
                 <textarea id="editor"></textarea>
@@ -48,12 +51,17 @@
         margin-top: 70px;
         z-index: 99999 !important;
     }
+    .thumb-view{
+
+    }
 </style>
 <script type="text/ecmascript-6">
     import { default as SimpleMDE } from 'simplemde/dist/simplemde.min';
     export default{
         data() {
             return {
+                uploadApi: window.Dashboard.apiUrl + '/upload',
+                headers: {'X-CSRF-TOKEN': window.Dashboard.csrfToken},
                 postModel: {
                     title: '',
                     category_id: '',
@@ -65,7 +73,8 @@
                     {id: 1, cat_name: 'php'},
                     {id: 2, cat_name: 'linux'},
                     {id: 3, cat_name: 'mysql'}
-                ]
+                ],
+                thumbUrl: '',
             }
         },
         created() {
@@ -86,6 +95,12 @@
             onSubmit: function () {
                 this.postModel.markdown = this.simplemde.value();
                 this.postModel.content = this.simplemde.markdown(this.postModel.markdown);
+            },
+            uploadSuccess(response, file, fileList) {
+                if(response.status == 200) {
+                    this.postModel.thumd = response.fileUrl;
+                    this.thumbUrl = response.fileUrl;
+                }
             }
         },
         watch: {
