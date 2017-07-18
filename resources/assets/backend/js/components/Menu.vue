@@ -110,7 +110,24 @@
                         console.log(error);
                     })
                 })
+            },
+            checklogin: function () {
+                let _this = this;
+                let user = JSON.parse(sessionStorage.getItem('lemon'));
+                if(!user){
+                    _this.$router.push({path: '/login'});
+                }
+                _this.axios.post('/check').then(function (response) {
+                    let res = response.data;
+                    if(!res.status){
+                        sessionStorage.removeItem('lemon');
+                        _this.$router.push({path: '/login'});
+                    }
+                })
             }
+        },
+        created: function () {
+            this.checklogin();
         }
     }
 </script>

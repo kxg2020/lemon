@@ -56,7 +56,7 @@
                                     duration: 2000
                                 });
                                 setTimeout(function () {
-                                    _this.$router.push({path: '/main'})
+                                    _this.$router.push({path: '/posts'})
                                 })
                                 _this.logining = false;
                             }else{

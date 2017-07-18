@@ -6,7 +6,7 @@
             </router-link>
         </el-row>
         <el-row>
-            <el-table :data="listData" @selection-change="handleSelectionChange">
+            <el-table :data="listData" v-loading="listLoading" @selection-change="handleSelectionChange">
                 <el-table-column type="selection"></el-table-column>
                 <el-table-column label="标题" prop="title">
                     <template scope="scope">
@@ -29,30 +29,30 @@
     export default{
         data(){
             return {
-                listData: [
-                    {
-                        id: 1,
-                        title: 'ha',
-                        category_name: 'php',
-                        create_at: '2017-06-17',
-                    },
-                    {
-                        id: 2,
-                        title: 'hi',
-                        category_name: 'linux',
-                        create_at: '2017-06-17',
-                    },
-                    {
-                        id: 3,
-                        title: 'e',
-                        category_name: 'js',
-                        create_at: '2017-06-17',
-                    }
-                ],
+                listData: [],
                 checkedAll: [],
+                listLoading: true
             }
         },
+        mounted() {
+            this.getPosts();
+        },
         methods: {
+            getPosts(){
+                let _this = this;
+                _this.axios.get('/posts').then(function (response) {
+                    let res = response.data;
+                    if(res.status == 'success'){
+                        _this.listData = res.data;
+                        _this.listLoading = false;
+                    }else {
+                        _this.$message({
+                            message: "获取数据失败",
+                            type: 'error'
+                        })
+                    }
+                });
+            },
             deleteRow(index, rows){
                 rows.splice(index, 1);
             },

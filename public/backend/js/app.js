@@ -33391,7 +33391,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 duration: 2000
                             });
                             setTimeout(function () {
-                                _this.$router.push({ path: '/main' });
+                                _this.$router.push({ path: '/posts' });
                             });
                             _this.logining = false;
                         } else {
@@ -33553,7 +33553,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(error);
                 });
             });
+        },
+        checklogin: function checklogin() {
+            var _this = this;
+            var user = JSON.parse(sessionStorage.getItem('lemon'));
+            if (!user) {
+                _this.$router.push({ path: '/login' });
+            }
+            _this.axios.post('/check').then(function (response) {
+                var res = response.data;
+                if (!res.status) {
+                    sessionStorage.removeItem('lemon');
+                    _this.$router.push({ path: '/login' });
+                }
+            });
         }
+    },
+    created: function created() {
+        this.checklogin();
     }
 });
 
@@ -33578,36 +33595,103 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            listData: [{
-                id: 1,
-                cat_name: 'php',
-                cat_desc: 100,
-                is_nav: 1
-            }, {
-                id: 2,
-                cat_name: 'linux',
-                cat_desc: 200,
-                is_nav: 1
-            }, {
-                id: 3,
-                cat_name: 'mysql',
-                cat_desc: 10,
-                is_nav: 0
-            }],
-            checkedAll: []
+            listData: [],
+            listLoading: true,
+            checkedAll: [],
+            categoryModel: {
+                cat_name: '',
+                cat_desc: '',
+                is_nav: '1'
+            },
+            categoryRules: {
+                cat_name: [{ required: true, type: 'string', message: '请填写分类名称', trigger: 'blur' }],
+                cat_desc: [{ required: true, validator: function validator(rule, value, callback) {
+                        if (/^\d+/.test(value) == false) {
+                            callback(new Error('排序只能输入数字'));
+                        } else {
+                            callback();
+                        }
+                    }, trigger: 'blur' }]
+            }
         };
+    },
+    mounted: function mounted() {
+        this.getData();
     },
 
     methods: {
+        getData: function getData() {
+            var _this = this;
+            _this.axios.get('/categorys').then(function (response) {
+                var res = response.data;
+                if (res.status == 'success') {
+                    _this.listData = res.data;
+                    _this.listLoading = false;
+                } else {
+                    _this.$message({
+                        message: "获取数据失败",
+                        type: 'error'
+                    });
+                }
+            });
+        },
         deleteRow: function deleteRow(index, rows) {
             rows.splice(index, 1);
         },
         handleSelectionChange: function handleSelectionChange(val) {
             this.checkedAll = val;
+        },
+        onSubmit: function onSubmit() {
+            var _this = this;
+            _this.$refs.categoryForm.validate(function (valid) {
+                if (!valid) {
+                    console.log("submit error");
+                    return false;
+                }
+                _this.axios.post('/categorys', _this.categoryModel).then(function (response) {
+                    var res = response.data;
+                    if (res.status == 'success') {
+                        _this.$message({
+                            message: "添加成功",
+                            type: 'success'
+                        });
+                        _this.$refs.categoryForm.resetFields();
+                        _this.$router.replace('/categorys');
+                        _this.getData();
+                    } else {
+                        _this.$message({
+                            message: "添加失败",
+                            type: 'error'
+                        });
+                    }
+                });
+            });
+        },
+        closeForm: function closeForm() {
+            this.$refs[categoryRules].resetFields();
+            this.categoryModel = {
+                cat_name: '',
+                cat_desc: '',
+                is_nav: '1'
+            };
         }
     }
 });
@@ -33686,17 +33770,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             headers: { 'X-CSRF-TOKEN': window.Dashboard.csrfToken },
             postModel: {
                 title: '',
-                category_id: '',
-                thumd: '',
+                cat_id: '',
+                thumb: '',
                 content: '',
                 markdown: ''
             },
-            categorys: [{ id: 1, cat_name: 'php' }, { id: 2, cat_name: 'linux' }, { id: 3, cat_name: 'mysql' }],
-            thumbUrl: ''
+            categorys: [],
+            thumbUrl: '',
+            postRules: {
+                title: [{ required: true, type: 'string', message: '请填写标题', trigger: 'blur' }]
+            }
         };
     },
     created: function created() {
-        //            this.getPost();
+        this.getCategorys();
     },
     mounted: function mounted() {
         this.simplemde = new __WEBPACK_IMPORTED_MODULE_0_simplemde_dist_simplemde_min___default.a({
@@ -33705,19 +33792,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        getPost: function getPost() {
+        getCategorys: function getCategorys() {
             var _this = this;
-            _this.axios.get('/post').then(function (response) {
+            _this.axios.get('/categorys').then(function (response) {
                 var res = response.data;
+                if (res.status == 'success') {
+                    if (res.data.length < 1) {
+                        _this.$message({
+                            message: "请添加至少一个分类",
+                            type: 'error'
+                        });
+                    }
+                    _this.categorys = res.data;
+                } else {
+                    _this.$message({
+                        message: "获取数据失败",
+                        type: 'error'
+                    });
+                }
             });
         },
         onSubmit: function onSubmit() {
-            this.postModel.markdown = this.simplemde.value();
-            this.postModel.content = this.simplemde.markdown(this.postModel.markdown);
+            var _this = this;
+            _this.postModel.markdown = this.simplemde.value();
+            _this.postModel.content = this.simplemde.markdown(this.postModel.markdown);
+            _this.$refs.postForm.validate(function (valid) {
+                if (!valid) {
+                    console.log("submit error");
+                    return false;
+                }
+                if (_this.postModel.markdown.length < 1) {
+                    _this.$message({
+                        message: "请输入正文",
+                        type: 'error'
+                    });
+                }
+                if (_this.postModel.content.length < 1) {
+                    _this.$message({
+                        message: "内容转换失败",
+                        type: 'error'
+                    });
+                }
+                _this.axios.post('/posts', _this.postModel).then(function (response) {
+                    var res = response.data;
+                    if (res.status == 'success') {
+                        _this.$message({
+                            message: "添加成功",
+                            type: 'success'
+                        });
+                        _this.$refs.postForm.resetFields();
+                        _this.$router.replace('/posts/add');
+                        _this.thumbUrl = '';
+                        _this.simplemde.value() == '';
+                    } else {
+                        _this.$message({
+                            message: "添加失败",
+                            type: 'error'
+                        });
+                    }
+                });
+            });
         },
         uploadSuccess: function uploadSuccess(response, file, fileList) {
             if (response.status == 200) {
-                this.postModel.thumd = response.fileUrl;
+                this.postModel.thumb = response.fileUrl;
                 this.thumbUrl = response.fileUrl;
             }
         }
@@ -33762,27 +33900,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            listData: [{
-                id: 1,
-                title: 'ha',
-                category_name: 'php',
-                create_at: '2017-06-17'
-            }, {
-                id: 2,
-                title: 'hi',
-                category_name: 'linux',
-                create_at: '2017-06-17'
-            }, {
-                id: 3,
-                title: 'e',
-                category_name: 'js',
-                create_at: '2017-06-17'
-            }],
-            checkedAll: []
+            listData: [],
+            checkedAll: [],
+            listLoading: true
         };
+    },
+    mounted: function mounted() {
+        this.getPosts();
     },
 
     methods: {
+        getPosts: function getPosts() {
+            var _this = this;
+            _this.axios.get('/posts').then(function (response) {
+                var res = response.data;
+                if (res.status == 'success') {
+                    _this.listData = res.data;
+                    _this.listLoading = false;
+                } else {
+                    _this.$message({
+                        message: "获取数据失败",
+                        type: 'error'
+                    });
+                }
+            });
+        },
         deleteRow: function deleteRow(index, rows) {
             rows.splice(index, 1);
         },
@@ -69540,9 +69682,10 @@ module.exports = Component.exports
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('el-row', [_c('el-form', {
-    ref: "form",
+    ref: "postForm",
     attrs: {
       "model": _vm.postModel,
+      "rules": _vm.postRules,
       "label-width": "80px"
     }
   }, [_c('el-form-item', {
@@ -69561,18 +69704,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "分类",
-      "prop": "category_id"
+      "prop": "cat_id"
     }
   }, [_c('el-select', {
     attrs: {
       "placeholder": "请选择分类"
     },
     model: {
-      value: (_vm.postModel.category_id),
+      value: (_vm.postModel.cat_id),
       callback: function($$v) {
-        _vm.postModel.category_id = $$v
+        _vm.postModel.cat_id = $$v
       },
-      expression: "postModel.category_id"
+      expression: "postModel.cat_id"
     }
   }, _vm._l((_vm.categorys), function(item) {
     return _c('el-option', {
@@ -69771,6 +69914,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "primary"
     }
   }, [_vm._v("新增")])], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-table', {
+    directives: [{
+      name: "loading",
+      rawName: "v-loading",
+      value: (_vm.listLoading),
+      expression: "listLoading"
+    }],
     attrs: {
       "data": _vm.listData
     },
@@ -69824,13 +69973,21 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-row', [_c('el-row', {
-    staticClass: "main-header"
-  }, [_c('el-button', {
+  return _c('el-row', {
     attrs: {
-      "type": "primary"
+      "gutter": 20
     }
-  }, [_vm._v("新增")])], 1), _vm._v(" "), _c('el-row', [_c('el-table', {
+  }, [_c('el-col', {
+    attrs: {
+      "span": 11
+    }
+  }, [_c('el-table', {
+    directives: [{
+      name: "loading",
+      rawName: "v-loading",
+      value: (_vm.listLoading),
+      expression: "listLoading"
+    }],
     attrs: {
       "data": _vm.listData
     },
@@ -69856,7 +70013,75 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "是否导航",
       "prop": "is_nav"
     }
-  })], 1)], 1)], 1)
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    staticStyle: {
+      "border": "1px solid #bfcbd9",
+      "padding": "10px"
+    },
+    attrs: {
+      "span": 11
+    }
+  }, [_c('el-form', {
+    ref: "categoryForm",
+    attrs: {
+      "model": _vm.categoryModel,
+      "rules": _vm.categoryRules,
+      "label-width": "80px"
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "分类名称",
+      "prop": "cat_name"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.categoryModel.cat_name),
+      callback: function($$v) {
+        _vm.categoryModel.cat_name = $$v
+      },
+      expression: "categoryModel.cat_name"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "排序",
+      "prop": "cat_desc"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.categoryModel.cat_desc),
+      callback: function($$v) {
+        _vm.categoryModel.cat_desc = $$v
+      },
+      expression: "categoryModel.cat_desc"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "首页导航"
+    }
+  }, [_c('el-switch', {
+    attrs: {
+      "on-text": "是",
+      "off-text": "否",
+      "on-value": "1",
+      "off-value": "0"
+    },
+    model: {
+      value: (_vm.categoryModel.is_nav),
+      callback: function($$v) {
+        _vm.categoryModel.is_nav = $$v
+      },
+      expression: "categoryModel.is_nav"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.onSubmit()
+      }
+    }
+  }, [_vm._v("立即创建")]), _vm._v(" "), _c('el-button', [_vm._v("取消")])], 1)], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

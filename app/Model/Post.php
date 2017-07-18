@@ -7,4 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     //
+    protected $table = 'posts';
+
+    public function categorys()
+    {
+        return $this->belongsTo(Category::class, 'cat_id');
+    }
 }

@@ -1,11 +1,11 @@
 <template>
     <el-row>
-        <el-form ref="form" :model="postModel" label-width="80px">
+        <el-form ref="postForm" :model="postModel" :rules="postRules" label-width="80px">
             <el-form-item label="标题" prop="title">
                 <el-input v-model="postModel.title"></el-input>
             </el-form-item>
-            <el-form-item label="分类" prop="category_id">
-                <el-select v-model="postModel.category_id" placeholder="请选择分类">
+            <el-form-item label="分类" prop="cat_id">
+                <el-select v-model="postModel.cat_id" placeholder="请选择分类">
                     <el-option v-for="item in categorys" :label="item.cat_name" :value="item.id" :key="item.id"></el-option>
                 </el-select>
             </el-form-item>
@@ -64,21 +64,22 @@
                 headers: {'X-CSRF-TOKEN': window.Dashboard.csrfToken},
                 postModel: {
                     title: '',
-                    category_id: '',
-                    thumd: '',
+                    cat_id: '',
+                    thumb: '',
                     content: '',
                     markdown: '',
                 },
-                categorys: [
-                    {id: 1, cat_name: 'php'},
-                    {id: 2, cat_name: 'linux'},
-                    {id: 3, cat_name: 'mysql'}
-                ],
+                categorys: [],
                 thumbUrl: '',
+                postRules: {
+                    title: [
+                        {required: true, type: 'string', message: '请填写标题', trigger: 'blur'}
+                    ]
+                }
             }
         },
         created() {
-//            this.getPost();
+            this.getCategorys();
         },
         mounted() {
             this.simplemde = new SimpleMDE({
@@ -86,19 +87,70 @@
             })
         },
         methods: {
-            getPost: function()  {
+            getCategorys: function()  {
                 let _this = this;
-                _this.axios.get('/post').then(function (response) {
+                _this.axios.get('/categorys').then(function (response) {
                     let res = response.data;
+                    if(res.status == 'success'){
+                        if(res.data.length < 1){
+                            _this.$message({
+                                message: "请添加至少一个分类",
+                                type: 'error'
+                            })
+                        }
+                        _this.categorys = res.data;
+                    }else {
+                        _this.$message({
+                            message: "获取数据失败",
+                            type: 'error'
+                        })
+                    }
                 })
             },
             onSubmit: function () {
-                this.postModel.markdown = this.simplemde.value();
-                this.postModel.content = this.simplemde.markdown(this.postModel.markdown);
+                let _this = this;
+                _this.postModel.markdown = this.simplemde.value();
+                _this.postModel.content = this.simplemde.markdown(this.postModel.markdown);
+                _this.$refs.postForm.validate((valid) => {
+                    if(!valid){
+                        console.log("submit error");
+                        return false;
+                    }
+                    if(_this.postModel.markdown.length < 1){
+                        _this.$message({
+                            message: "请输入正文",
+                            type: 'error'
+                        })
+                    }
+                    if(_this.postModel.content.length < 1){
+                        _this.$message({
+                            message: "内容转换失败",
+                            type: 'error'
+                        })
+                    }
+                    _this.axios.post('/posts', _this.postModel).then(function (response) {
+                        let res = response.data;
+                        if(res.status == 'success'){
+                            _this.$message({
+                                message: "添加成功",
+                                type: 'success'
+                            })
+                            _this.$refs.postForm.resetFields();
+                            _this.$router.replace('/posts/add');
+                            _this.thumbUrl = '';
+                            _this.simplemde.value() == '';
+                        }else {
+                            _this.$message({
+                                message: "添加失败",
+                                type: 'error'
+                            })
+                        }
+                    })
+                })
             },
             uploadSuccess(response, file, fileList) {
                 if(response.status == 200) {
-                    this.postModel.thumd = response.fileUrl;
+                    this.postModel.thumb = response.fileUrl;
                     this.thumbUrl = response.fileUrl;
                 }
             }
