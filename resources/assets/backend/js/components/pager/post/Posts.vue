@@ -13,9 +13,20 @@
                         <router-link :to="{path: 'post/edit/' + scope.row.id}" class="link">{{scope.row.title}}</router-link>
                     </template>
                 </el-table-column>
-                <el-table-column label="分类" prop="category_name"></el-table-column>
-                <el-table-column label="日期" prop="create_at"></el-table-column>
+                <el-table-column label="分类" prop="category.cat_name"></el-table-column>
+                <el-table-column label="日期" prop="created_at"></el-table-column>
             </el-table>
+        </el-row>
+        <el-row class="main-page">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[10, 15, 20]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="total">
+            </el-pagination>
         </el-row>
     </el-row>
 </template>
@@ -31,7 +42,10 @@
             return {
                 listData: [],
                 checkedAll: [],
-                listLoading: true
+                listLoading: true,
+                currentPage: 1,
+                pageSize: 10,
+                total: 0
             }
         },
         mounted() {
@@ -40,10 +54,18 @@
         methods: {
             getPosts(){
                 let _this = this;
-                _this.axios.get('/posts').then(function (response) {
+                _this.listLoading = true;
+                let query = {
+                    page_size:  _this.pageSize,
+                    page: _this.currentPage
+                }
+                _this.axios.get('/posts', {params: query}).then(function (response) {
                     let res = response.data;
                     if(res.status == 'success'){
-                        _this.listData = res.data;
+                        let _data = res.data;
+                        _this.total = _data.total,
+                        _this.currentPage = _data.current_page,
+                        _this.listData = _data.data;
                         _this.listLoading = false;
                     }else {
                         _this.$message({
@@ -58,6 +80,14 @@
             },
             handleSelectionChange(val){
                 this.checkedAll = val;
+            },
+            handleSizeChange(val) {
+                this.pageSize = val;
+                this.getPosts()
+            },
+            handleCurrentChange(val) {
+                this.currentPage = val;
+                this.getPosts();
             }
         }
     }

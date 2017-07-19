@@ -21,6 +21,9 @@
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
+                <el-input placeholder="" v-model="postModel.thumbInput" v-on:blur="thumbInputSuccess()">
+                    <template slot="prepend">{{thumbInputPrefix}}</template>
+                </el-input>
                 <img v-if="thumbUrl" :src="thumbUrl" class="thumb-view">
             </el-form-item>
             <el-form-item label="正文" prop="markdown">
@@ -68,9 +71,11 @@
                     thumb: '',
                     content: '',
                     markdown: '',
+                    thumbInput: ''
                 },
                 categorys: [],
                 thumbUrl: '',
+                thumbInputPrefix: 'http://img.it9g.com/',
                 postRules: {
                     title: [
                         {required: true, type: 'string', message: '请填写标题', trigger: 'blur'}
@@ -136,7 +141,7 @@
                                 type: 'success'
                             })
                             _this.$refs.postForm.resetFields();
-                            _this.$router.replace('/posts/add');
+                            this.$router.replace('/posts');
                             _this.thumbUrl = '';
                             _this.simplemde.value() == '';
                         }else {
@@ -148,10 +153,25 @@
                     })
                 })
             },
-            uploadSuccess(response, file, fileList) {
+            uploadSuccess: function(response, file, fileList) {
                 if(response.status == 200) {
                     this.postModel.thumb = response.fileUrl;
                     this.thumbUrl = response.fileUrl;
+                }
+            },
+            thumbInputSuccess: function () {
+                this.postModel.thumb = this.thumbInputPrefix + this.postModel.thumbInput;
+                //判断图片是否存在
+                let imgObj = new Image();
+                imgObj.src = this.postModel.thumb;
+                if (imgObj.fileSize <= 0 || (imgObj.width <= 0 || imgObj.height <= 0)) {
+                    this.$message({
+                        message: "图片地址无效",
+                        type: 'error'
+                    });
+                    this.thumbUrl = this.thumbInputPrefix + '404.gif';
+                }else {
+                    this.thumbUrl = this.thumbInputPrefix + this.postModel.thumbInput;
                 }
             }
         },

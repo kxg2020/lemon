@@ -9,9 +9,10 @@ use App\Http\Controllers\Controller;
 class PostsController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $listData = Post::all();
+        $page_size = $request->page_size > 0 ? $request->page_size : 20;
+        $listData = Post::with('category')->paginate($page_size);
         return response()->json([
             'status'    =>  'success',
             'data'      =>  $listData

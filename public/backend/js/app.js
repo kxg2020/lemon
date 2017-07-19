@@ -33511,6 +33511,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -33761,6 +33764,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -33773,10 +33779,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 cat_id: '',
                 thumb: '',
                 content: '',
-                markdown: ''
+                markdown: '',
+                thumbInput: ''
             },
             categorys: [],
             thumbUrl: '',
+            thumbInputPrefix: 'http://img.it9g.com/',
             postRules: {
                 title: [{ required: true, type: 'string', message: '请填写标题', trigger: 'blur' }]
             }
@@ -33841,7 +33849,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             type: 'success'
                         });
                         _this.$refs.postForm.resetFields();
-                        _this.$router.replace('/posts/add');
+                        this.$router.replace('/posts');
                         _this.thumbUrl = '';
                         _this.simplemde.value() == '';
                     } else {
@@ -33857,6 +33865,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (response.status == 200) {
                 this.postModel.thumb = response.fileUrl;
                 this.thumbUrl = response.fileUrl;
+            }
+        },
+        thumbInputSuccess: function thumbInputSuccess() {
+            this.postModel.thumb = this.thumbInputPrefix + this.postModel.thumbInput;
+
+            var imgObj = new Image(); //判断图片是否存在
+            imgObj.src = this.postModel.thumb;
+            if (imgObj.fileSize <= 0 || imgObj.width <= 0 || imgObj.height <= 0) {
+                this.$message({
+                    message: "图片地址无效",
+                    type: 'error'
+                });
+                this.thumbUrl = this.thumbInputPrefix + '404.gif';
+            } else {
+                this.thumbUrl = this.thumbInputPrefix + this.postModel.thumbInput;
             }
         }
     },
@@ -33896,13 +33919,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             listData: [],
             checkedAll: [],
-            listLoading: true
+            listLoading: true,
+            currentPage: 1,
+            pageSize: 10,
+            total: 0
         };
     },
     mounted: function mounted() {
@@ -33912,10 +33949,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         getPosts: function getPosts() {
             var _this = this;
-            _this.axios.get('/posts').then(function (response) {
+            _this.listLoading = true;
+            var query = {
+                page_size: _this.pageSize,
+                page: _this.currentPage
+            };
+            _this.axios.get('/posts', { params: query }).then(function (response) {
                 var res = response.data;
                 if (res.status == 'success') {
-                    _this.listData = res.data;
+                    var _data = res.data;
+                    _this.total = _data.total, _this.currentPage = _data.current_page, _this.listData = _data.data;
                     _this.listLoading = false;
                 } else {
                     _this.$message({
@@ -33930,6 +33973,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         handleSelectionChange: function handleSelectionChange(val) {
             this.checkedAll = val;
+        },
+        handleSizeChange: function handleSizeChange(val) {
+            this.pageSize = val;
+            this.getPosts();
+        },
+        handleCurrentChange: function handleCurrentChange(val) {
+            this.currentPage = val;
+            this.getPosts();
         }
     }
 });
@@ -34045,7 +34096,7 @@ exports = module.exports = __webpack_require__(14)(undefined);
 
 
 // module
-exports.push([module.i, "\n.nav{\n    position: fixed;\n    z-index: 999;\n}\n.menu{\n    position: fixed;\n    top: 60px;\n    z-index: 99;\n    bottom: 0;\n    background: #324157;\n}\n.content{\n    position: absolute;\n    top: 60px;\n    left: 12.5%;\n    z-index: 9;\n    padding: 20px;\n}\n.content-nav{\n    padding-bottom: 15px;\n}\n.content-main{\n}\n.main-header{\n    margin: 15px 0;\n}\n", ""]);
+exports.push([module.i, "\n.nav{\n    position: fixed;\n    z-index: 999;\n}\n.menu{\n    position: fixed;\n    top: 60px;\n    z-index: 99;\n    bottom: 0;\n    background: #324157;\n}\n.content{\n    position: absolute;\n    top: 60px;\n    left: 12.5%;\n    z-index: 9;\n    padding: 20px;\n}\n.content-nav{\n    padding-bottom: 15px;\n}\n.content-main{\n}\n.main-header{\n    margin: 15px 0;\n}\n.main-page{\n    margin: 15px 0;\n}\n", ""]);
 
 // exports
 
@@ -69744,7 +69795,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "el-icon-upload"
   }), _vm._v(" "), _c('div', {
     staticClass: "el-upload__text"
-  }, [_vm._v("将文件拖到此处，或"), _c('em', [_vm._v("点击上传")])])]), _vm._v(" "), (_vm.thumbUrl) ? _c('img', {
+  }, [_vm._v("将文件拖到此处，或"), _c('em', [_vm._v("点击上传")])])]), _vm._v(" "), _c('el-input', {
+    attrs: {
+      "placeholder": ""
+    },
+    on: {
+      "blur": function($event) {
+        _vm.thumbInputSuccess()
+      }
+    },
+    model: {
+      value: (_vm.postModel.thumbInput),
+      callback: function($$v) {
+        _vm.postModel.thumbInput = $$v
+      },
+      expression: "postModel.thumbInput"
+    }
+  }, [_c('template', {
+    slot: "prepend"
+  }, [_vm._v(_vm._s(_vm.thumbInputPrefix))])], 2), _vm._v(" "), (_vm.thumbUrl) ? _c('img', {
     staticClass: "thumb-view",
     attrs: {
       "src": _vm.thumbUrl
@@ -69951,14 +70020,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('el-table-column', {
     attrs: {
       "label": "分类",
-      "prop": "category_name"
+      "prop": "category.cat_name"
     }
   }), _vm._v(" "), _c('el-table-column', {
     attrs: {
       "label": "日期",
-      "prop": "create_at"
+      "prop": "created_at"
     }
-  })], 1)], 1)], 1)
+  })], 1)], 1), _vm._v(" "), _c('el-row', {
+    staticClass: "main-page"
+  }, [_c('el-pagination', {
+    attrs: {
+      "current-page": _vm.currentPage,
+      "page-sizes": [10, 15, 20],
+      "page-size": _vm.pageSize,
+      "layout": "total, sizes, prev, pager, next, jumper",
+      "total": _vm.total
+    },
+    on: {
+      "size-change": _vm.handleSizeChange,
+      "current-change": _vm.handleCurrentChange
+    }
+  })], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

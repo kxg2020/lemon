@@ -8,4 +8,9 @@ class Category extends Model
 {
     //
     protected $table = 'categorys';
+
+    public function post()
+    {
+        return $this->hasMany(Post::class, 'cat_id');
+    }
 }

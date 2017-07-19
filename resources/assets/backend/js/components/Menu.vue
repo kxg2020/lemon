@@ -68,6 +68,9 @@
     .main-header{
         margin: 15px 0;
     }
+    .main-page{
+        margin: 15px 0;
+    }
 </style>
 <script type="text/ecmascript-6">
     export default {

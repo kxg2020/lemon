@@ -9,7 +9,7 @@ class Post extends Model
     //
     protected $table = 'posts';
 
-    public function categorys()
+    public function category()
     {
         return $this->belongsTo(Category::class, 'cat_id');
     }
