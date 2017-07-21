@@ -17,7 +17,7 @@
                         <el-submenu :index="index + ''">
                             <template slot="title">{{item.name}}</template>
                             <el-menu-item-group>
-                                <template v-for="(menu, index2) in item.children">
+                                <template v-for="(menu, index2) in item.children" v-if="menu.name">
                                     <el-menu-item :index="menu.path" >{{menu.name}}</el-menu-item>
                                 </template>
                             </el-menu-item-group>

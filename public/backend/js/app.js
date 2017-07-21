@@ -31958,6 +31958,12 @@ var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
                 requireAuth: true
             }
         }, {
+            path: '/posts/edit/:id',
+            component: __WEBPACK_IMPORTED_MODULE_10__components_pager_post_Post_vue___default.a,
+            meta: {
+                requireAuth: true
+            }
+        }, {
             path: '/categorys',
             component: __WEBPACK_IMPORTED_MODULE_11__components_pager_category_Categorys_vue___default.a,
             name: '分类管理',
@@ -33787,10 +33793,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             thumbInputPrefix: 'http://img.it9g.com/',
             postRules: {
                 title: [{ required: true, type: 'string', message: '请填写标题', trigger: 'blur' }]
-            }
+            },
+            postType: 'add',
+            sumitTitle: '立即创建'
         };
     },
     created: function created() {
+        if (this.$route.params.id != undefined) {
+            this.postType = 'edit';
+            this.getPost(this.$route.params.id);
+            this.sumitTitle = '立即修改';
+        }
         this.getCategorys();
     },
     mounted: function mounted() {
@@ -33800,6 +33813,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        getPost: function getPost(id) {
+            var _this = this;
+            _this.axios.get('/posts/' + id).then(function (response) {
+                var res = response.data;
+                if (res.status == 'success') {
+                    _this.postModel = res.data;
+                    _this.thumbUrl = res.data.thumb;
+                    _this.simplemde.value(res.data.markdown);
+                }
+            });
+        },
         getCategorys: function getCategorys() {
             var _this = this;
             _this.axios.get('/categorys').then(function (response) {
@@ -33841,24 +33865,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         type: 'error'
                     });
                 }
-                _this.axios.post('/posts', _this.postModel).then(function (response) {
-                    var res = response.data;
-                    if (res.status == 'success') {
-                        _this.$message({
-                            message: "添加成功",
-                            type: 'success'
-                        });
-                        _this.$refs.postForm.resetFields();
-                        this.$router.replace('/posts');
-                        _this.thumbUrl = '';
-                        _this.simplemde.value() == '';
-                    } else {
-                        _this.$message({
-                            message: "添加失败",
-                            type: 'error'
-                        });
-                    }
-                });
+                if (_this.postType == 'add') {
+                    _this.axios.post('/posts', _this.postModel).then(function (response) {
+                        var res = response.data;
+                        if (res.status == 'success') {
+                            _this.$message({
+                                message: "添加成功",
+                                type: 'success'
+                            });
+                            _this.$refs.postForm.resetFields();
+                            _this.thumbUrl = '';
+                            _this.simplemde.value('');
+                            _this.$router.push({ path: '/posts' });
+                        } else {
+                            _this.$message({
+                                message: "添加失败",
+                                type: 'error'
+                            });
+                        }
+                    });
+                } else {
+                    _this.axios.put('/posts/update', _this.postModel).then(function (response) {
+                        var res = response.data;
+                        if (res.status == 'success') {
+                            _this.$message({
+                                message: "修改成功",
+                                type: 'success'
+                            });
+                            _this.$refs.postForm.resetFields();
+                            _this.thumbUrl = '';
+                            _this.simplemde.value() == '';
+                            _this.$router.push({ path: '/posts' });
+                        } else {
+                            _this.$message({
+                                message: "修改失败",
+                                type: 'error'
+                            });
+                        }
+                    });
+                }
             });
         },
         uploadSuccess: function uploadSuccess(response, file, fileList) {
@@ -33869,8 +33914,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         thumbInputSuccess: function thumbInputSuccess() {
             this.postModel.thumb = this.thumbInputPrefix + this.postModel.thumbInput;
-
-            var imgObj = new Image(); //判断图片是否存在
+            //判断图片是否存在
+            var imgObj = new Image();
             imgObj.src = this.postModel.thumb;
             if (imgObj.fileSize <= 0 || imgObj.width <= 0 || imgObj.height <= 0) {
                 this.$message({
@@ -69856,7 +69901,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.onSubmit
     }
-  }, [_vm._v("立即创建")]), _vm._v(" "), _c('el-button', [_vm._v("取消")])], 1)], 1)], 1)
+  }, [_vm._v(_vm._s(_vm.sumitTitle))]), _vm._v(" "), _c('el-button', [_vm._v("取消")])], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -70011,7 +70056,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           staticClass: "link",
           attrs: {
             "to": {
-              path: 'post/edit/' + scope.row.id
+              path: 'posts/edit/' + scope.row.id
             }
           }
         }, [_vm._v(_vm._s(scope.row.title))])]
@@ -70244,11 +70289,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('template', {
       slot: "title"
     }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('el-menu-item-group', [_vm._l((item.children), function(menu, index2) {
-      return [_c('el-menu-item', {
+      return (menu.name) ? [_c('el-menu-item', {
         attrs: {
           "index": menu.path
         }
-      }, [_vm._v(_vm._s(menu.name))])]
+      }, [_vm._v(_vm._s(menu.name))])] : _vm._e()
     })], 2)], 2)] : _vm._e()
   })], 2)], 1), _vm._v(" "), _c('el-col', {
     staticClass: "content",

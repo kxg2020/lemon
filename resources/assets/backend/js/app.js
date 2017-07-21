@@ -82,6 +82,13 @@ const router = new VueRouter ({
                     }
                 },
                 {
+                    path: '/posts/edit/:id',
+                    component: Post,
+                    meta: {
+                        requireAuth: true
+                    }
+                },
+                {
                     path: '/categorys',
                     component: Categorys,
                     name: '分类管理',

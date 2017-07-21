@@ -36,4 +36,36 @@ class PostsController extends Controller
             'status'    =>  'success'
         ]);
     }
+    public function show($id){
+        $post = Post::with('category')->find($id);
+        return response()->json([
+            'status'    =>  'success',
+            'data'  =>  $post
+        ]);
+    }
+    public function update(Request $request){
+        if (empty($request->id)) {
+            return response()->json([
+                'status'    =>  'error',
+                'message'   =>  'ID 不能为空'
+            ]);
+        }
+        $this->validate($request, [
+            'title'  =>  'required|unique:posts',
+            'thumb'  =>  'required',
+            'content'    =>  'required',
+            'markdown'    =>  'required',
+        ]);
+        $post = Post::find($request->id);
+        $post->title = $request->title;
+        $post->thumb = $request->thumb;
+        $post->cat_id = $request->cat_id;
+        $post->content = $request->content;
+        $post->markdown = $request->markdown;
+        $post->save();
+        return response()->json([
+            'status'    =>  'success'
+        ]);
+
+    }
 }

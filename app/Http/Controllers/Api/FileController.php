@@ -13,9 +13,6 @@ namespace APP\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Lemon\QiniuUploads;
 use Illuminate\Http\Request;
-use Qiniu\Auth;
-use Qiniu\Etag;
-use Qiniu\Storage\UploadManager;
 
 class FileController extends Controller
 {

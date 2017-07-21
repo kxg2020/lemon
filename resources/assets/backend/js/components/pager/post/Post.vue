@@ -32,7 +32,7 @@
             </el-form-item>
             <el-form-item>
                 <el-input type="hidden" v-model="postModel.content"></el-input>
-                <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                <el-button type="primary" @click="onSubmit">{{sumitTitle}}</el-button>
                 <el-button>取消</el-button>
             </el-form-item>
         </el-form>
@@ -80,10 +80,17 @@
                     title: [
                         {required: true, type: 'string', message: '请填写标题', trigger: 'blur'}
                     ]
-                }
+                },
+                postType: 'add',
+                sumitTitle: '立即创建'
             }
         },
         created() {
+            if(this.$route.params.id != undefined){
+                this.postType = 'edit';
+                this.getPost(this.$route.params.id);
+                this.sumitTitle = '立即修改';
+            }
             this.getCategorys();
         },
         mounted() {
@@ -92,6 +99,17 @@
             })
         },
         methods: {
+            getPost: function (id) {
+                let _this = this;
+                _this.axios.get('/posts/'+id).then(function (response) {
+                    let res = response.data;
+                    if(res.status == 'success'){
+                        _this.postModel = res.data;
+                        _this.thumbUrl = res.data.thumb;
+                        _this.simplemde.value(res.data.markdown);
+                    }
+                })
+            },
             getCategorys: function()  {
                 let _this = this;
                 _this.axios.get('/categorys').then(function (response) {
@@ -133,24 +151,45 @@
                             type: 'error'
                         })
                     }
-                    _this.axios.post('/posts', _this.postModel).then(function (response) {
-                        let res = response.data;
-                        if(res.status == 'success'){
-                            _this.$message({
-                                message: "添加成功",
-                                type: 'success'
-                            })
-                            _this.$refs.postForm.resetFields();
-                            this.$router.replace('/posts');
-                            _this.thumbUrl = '';
-                            _this.simplemde.value() == '';
-                        }else {
-                            _this.$message({
-                                message: "添加失败",
-                                type: 'error'
-                            })
-                        }
-                    })
+                    if(_this.postType == 'add') {
+                        _this.axios.post('/posts', _this.postModel).then(function (response) {
+                            let res = response.data;
+                            if (res.status == 'success') {
+                                _this.$message({
+                                    message: "添加成功",
+                                    type: 'success'
+                                })
+                                _this.$refs.postForm.resetFields();
+                                _this.thumbUrl = '';
+                                _this.simplemde.value('');
+                                _this.$router.push({ path: '/posts' });
+                            } else {
+                                _this.$message({
+                                    message: "添加失败",
+                                    type: 'error'
+                                })
+                            }
+                        })
+                    }else {
+                        _this.axios.put('/posts/update', _this.postModel).then(function (response) {
+                            let res = response.data;
+                            if (res.status == 'success') {
+                                _this.$message({
+                                    message: "修改成功",
+                                    type: 'success'
+                                })
+                                _this.$refs.postForm.resetFields();
+                                _this.thumbUrl = '';
+                                _this.simplemde.value() == '';
+                                _this.$router.push({ path: '/posts' });
+                            } else {
+                                _this.$message({
+                                    message: "修改失败",
+                                    type: 'error'
+                                })
+                            }
+                        })
+                    }
                 })
             },
             uploadSuccess: function(response, file, fileList) {
