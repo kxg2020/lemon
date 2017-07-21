@@ -63,7 +63,7 @@
     export default{
         data() {
             return {
-                uploadApi: window.Dashboard.apiUrl + '/upload',
+                uploadApi: window.Dashboard.apiUrl + '/posts/upload',
                 headers: {'X-CSRF-TOKEN': window.Dashboard.csrfToken},
                 postModel: {
                     title: '',
@@ -120,6 +120,9 @@
                                 message: "请添加至少一个分类",
                                 type: 'error'
                             })
+                            setTimeout(function () {
+                                _this.$router.replace('/categorys');
+                            }, 2000)
                         }
                         _this.categorys = res.data;
                     }else {
@@ -159,10 +162,9 @@
                                     message: "添加成功",
                                     type: 'success'
                                 })
-                                _this.$refs.postForm.resetFields();
-                                _this.thumbUrl = '';
-                                _this.simplemde.value('');
-                                _this.$router.push({ path: '/posts' });
+                                setTimeout(function () {
+                                    _this.$router.replace('/posts');
+                                }, 2000)
                             } else {
                                 _this.$message({
                                     message: "添加失败",
@@ -178,10 +180,9 @@
                                     message: "修改成功",
                                     type: 'success'
                                 })
-                                _this.$refs.postForm.resetFields();
-                                _this.thumbUrl = '';
-                                _this.simplemde.value() == '';
-                                _this.$router.push({ path: '/posts' });
+                                setTimeout(function () {
+                                    _this.$router.replace('/posts');
+                                }, 2000)
                             } else {
                                 _this.$message({
                                     message: "修改失败",

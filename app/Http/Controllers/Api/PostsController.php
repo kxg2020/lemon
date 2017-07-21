@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\APi;
 
+use App\Lemon\QiniuUploads;
 use App\Model\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
+    protected $fileDir = 'blog';
     //
     public function index(Request $request)
     {
@@ -35,6 +37,11 @@ class PostsController extends Controller
         return response()->json([
             'status'    =>  'success'
         ]);
+    }
+    public function upload(QiniuUploads $qiniuUploads, Request $request)
+    {
+        $reult =  $qiniuUploads->upload($this->fileDir, $request);
+        return response()->json($reult);
     }
     public function show($id){
         $post = Post::with('category')->find($id);

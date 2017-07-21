@@ -44,6 +44,8 @@ import Login from './components/Login.vue';
 import Posts from './components/pager/post/Posts.vue';
 import Post from './components/pager/post/Post.vue';
 
+import Files from './components/pager/file/Files.vue';
+
 import Categorys from './components/pager/category/Categorys.vue'
 
 import Links from './components/Links.vue';
@@ -53,17 +55,16 @@ const router = new VueRouter ({
     routes: [
         {
             path: '/login',
-            name: 'Login',
             component: Login,
             meta: {
                 requireAuth: false
-            },
-            hidden: true
+            }
         },
         {
             path: '/',
             component: Menu,
             name: '文章管理',
+            leaf: true,
             children: [
                 {
                     path: '/posts',
@@ -92,6 +93,22 @@ const router = new VueRouter ({
                     path: '/categorys',
                     component: Categorys,
                     name: '分类管理',
+                    meta: {
+                        requireAuth: true
+                    }
+                }
+            ]
+        },
+        {
+            path: '/',
+            component: Menu,
+            name: '文件管理',
+            leaf: false,
+            children: [
+                {
+                    path: '/files',
+                    component: Files,
+                    name: '文件列表',
                     meta: {
                         requireAuth: true
                     }

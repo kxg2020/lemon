@@ -14,14 +14,19 @@
             <el-col :span="3" class="menu">
                 <el-menu default-active="2" class="el-menu-vertical-demo"   theme="dark" style="border-radius: 0;" :router="routerState">
                     <template v-for="(item, index) in $router.options.routes" v-if="item.children">
-                        <el-submenu :index="index + ''">
-                            <template slot="title">{{item.name}}</template>
-                            <el-menu-item-group>
-                                <template v-for="(menu, index2) in item.children" v-if="menu.name">
-                                    <el-menu-item :index="menu.path" >{{menu.name}}</el-menu-item>
-                                </template>
-                            </el-menu-item-group>
-                        </el-submenu>
+                        <template v-if="item.leaf">
+                            <el-submenu :index="index + ''">
+                                <template slot="title">{{item.name}}</template>
+                                <el-menu-item-group>
+                                    <template v-for="(menu, index2) in item.children" v-if="menu.name">
+                                        <el-menu-item :index="menu.path" >{{menu.name}}</el-menu-item>
+                                    </template>
+                                </el-menu-item-group>
+                            </el-submenu>
+                        </template>
+                        <template v-else>
+                            <el-menu-item :index="item.children[0].path" >{{item.children[0].name}}</el-menu-item>
+                        </template>
                     </template>
                 </el-menu>
             </el-col>

@@ -20,19 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => '/dashboard', 'namespace' => 'Api', 'middleware' => 'auth'], function () {
-    Route::get('/meta', function (){
-        return response()->json([
-
-        ]);
-    });
-    Route::get('/post', function (){
-        return response()->json([
-
-        ]);
-    });
-    Route::resource('/upload', 'FileController');
+    Route::post('/posts/upload', 'postsController@upload');
     Route::resource('/categorys', 'categorysController');
     Route::resource('/posts', 'postsController');
+    Route::resource('/files', 'filesController');
 });
 
 Route::group(['prefix' => '/dashboard', 'namespace' => 'Api'], function () {

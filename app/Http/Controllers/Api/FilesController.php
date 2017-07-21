@@ -12,13 +12,19 @@ namespace APP\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Lemon\QiniuUploads;
+use App\Model\File;
 use Illuminate\Http\Request;
 
-class FileController extends Controller
+class FilesController extends Controller
 {
-    public function index(QiniuUploads $qiniuUploads, Request $request)
+    public function index(Request $request)
     {
-
+        $page_size = $request->page_size > 0 ? $request->page_size : 20;
+        $listData = File::ofDir($request->dir)->paginate($page_size);
+        return response()->json([
+            'status'    =>  'success',
+            'data'      =>  $listData
+        ]);
     }
 
     public function store(QiniuUploads $qiniuUploads, Request $request)
