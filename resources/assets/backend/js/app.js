@@ -45,6 +45,7 @@ import Posts from './components/pager/post/Posts.vue';
 import Post from './components/pager/post/Post.vue';
 
 import Files from './components/pager/file/Files.vue';
+import File from './components/pager/file/File.vue';
 
 import Categorys from './components/pager/category/Categorys.vue'
 
@@ -103,12 +104,20 @@ const router = new VueRouter ({
             path: '/',
             component: Menu,
             name: '文件管理',
-            leaf: false,
+            leaf: true,
             children: [
                 {
                     path: '/files',
                     component: Files,
                     name: '文件列表',
+                    meta: {
+                        requireAuth: true
+                    }
+                },
+                {
+                    path: '/files/add',
+                    component: File,
+                    name: '上传文件',
                     meta: {
                         requireAuth: true
                     }

@@ -1,6 +1,6 @@
 <template>
     <el-row>
-        <el-form ref="postForm" :model="postModel" :rules="postRules" label-width="80px">
+        <el-form ref="postForm" :model="postModel" :rules="postRules" label-width="80px" v-loading="formLoading">
             <el-form-item label="标题" prop="title">
                 <el-input v-model="postModel.title"></el-input>
             </el-form-item>
@@ -63,6 +63,7 @@
     export default{
         data() {
             return {
+                formLoading: true,
                 uploadApi: window.Dashboard.apiUrl + '/posts/upload',
                 headers: {'X-CSRF-TOKEN': window.Dashboard.csrfToken},
                 postModel: {
@@ -125,6 +126,7 @@
                             }, 2000)
                         }
                         _this.categorys = res.data;
+                        _this.formLoading = false;
                     }else {
                         _this.$message({
                             message: "获取数据失败",

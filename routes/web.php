@@ -24,6 +24,7 @@ Route::group(['prefix' => '/dashboard', 'namespace' => 'Api', 'middleware' => 'a
     Route::resource('/categorys', 'categorysController');
     Route::resource('/posts', 'postsController');
     Route::resource('/files', 'filesController');
+    Route::get('dirs', 'filesController@dirs');
 });
 
 Route::group(['prefix' => '/dashboard', 'namespace' => 'Api'], function () {

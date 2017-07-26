@@ -33,4 +33,11 @@ class FilesController extends Controller
         return response()->json($reult);
     }
 
+    public function dirs(File $file){
+        $dirs = $file->getDirs();
+        return response()->json([
+            'status'    =>  'success',
+            'data'      =>  $dirs
+        ]);
+    }
 }

@@ -1,9 +1,7 @@
 <template>
     <el-row>
         <el-row class="main-header">
-            <router-link to="/posts/add">
-                <el-button type="primary">上传</el-button>
-            </router-link>
+            <el-button type="text" @click="openUpload">上传</el-button>
         </el-row>
         <el-row>
             <el-table :data="listData" v-loading="listLoading" @selection-change="handleSelectionChange">
@@ -11,6 +9,17 @@
                 <el-table-column label="目录" prop="dir"></el-table-column>
                 <el-table-column label="文件名" prop="file_name"></el-table-column>
                 <el-table-column label="文件类型" prop="file_ext"></el-table-column>
+                <el-table-column label="操作">
+                    <template scope="scope">
+                        <el-popover
+                                placement="bottom"
+                                width="300"
+                                trigger="click">
+                            <img :src="imgPrefix + scope.row.file_name" alt="">
+                            <el-button slot="reference">预览</el-button>
+                        </el-popover>
+                    </template>
+                </el-table-column>
             </el-table>
         </el-row>
         <el-row class="main-page">
@@ -41,7 +50,8 @@
                 listLoading: true,
                 currentPage: 1,
                 pageSize: 10,
-                total: 0
+                total: 0,
+                imgPrefix: 'http://img.it9g.com/',
             }
         },
         mounted() {
@@ -84,6 +94,9 @@
             handleCurrentChange(val) {
                 this.currentPage = val;
                 this.getFiles();
+            },
+            openUpload() {
+
             }
         }
     }
