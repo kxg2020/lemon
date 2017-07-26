@@ -20,11 +20,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => '/dashboard', 'namespace' => 'Api', 'middleware' => 'auth'], function () {
-    Route::post('/posts/upload', 'postsController@upload');
-    Route::resource('/categorys', 'categorysController');
-    Route::resource('/posts', 'postsController');
-    Route::resource('/files', 'filesController');
-    Route::get('dirs', 'filesController@dirs');
+    Route::post('/posts/upload', 'PostsController@upload');
+    Route::resource('/categorys', 'CategorysController');
+    Route::resource('/posts', 'PostsController');
+    Route::resource('/files', 'FilesController');
+    Route::get('dirs', 'FilesController@dirs');
 });
 
 Route::group(['prefix' => '/dashboard', 'namespace' => 'Api'], function () {
