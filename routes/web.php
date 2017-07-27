@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Auth::routes();
 
-Auth::routes();
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/category/{cat_id}', 'HomeController@category')->name('category');
+Route::get('/post/{id}', 'HomeController@post')->name('post');
 
-Route::get('/home', 'HomeController@index')->name('home');
+
 
 Route::group(['prefix' => '/dashboard', 'namespace' => 'Api', 'middleware' => 'auth'], function () {
     Route::post('/posts/upload', 'PostsController@upload');

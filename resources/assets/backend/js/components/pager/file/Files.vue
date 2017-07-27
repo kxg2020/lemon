@@ -1,7 +1,9 @@
 <template>
     <el-row>
         <el-row class="main-header">
-            <el-button type="text" @click="openUpload">上传</el-button>
+            <router-link to="/files/add">
+                <el-button type="primary">上传</el-button>
+            </router-link>
         </el-row>
         <el-row>
             <el-table :data="listData" v-loading="listLoading" @selection-change="handleSelectionChange">

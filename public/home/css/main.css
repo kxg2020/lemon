@@ -1,0 +1,111 @@
+body {
+    color: #505050;
+    line-height: 1.75em;
+    background: #ebebeb;
+    position: relative;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+}
+.btn-default {
+    border: 1px solid coral;
+    background-color: coral;
+    color: #ffffff;
+}
+.btn-default:hover {
+    border: 1px solid #303030;
+    background: #303030;
+    color: coral;
+}
+.coral {
+    color: coral
+}
+a:hover {
+    color: coral;
+}
+.active {
+    border-bottom: 1px solid coral;
+}
+
+.menu ul {
+    width: auto;
+    float: none;
+    text-align: center;
+}
+.menu ul li {
+    display: inline-block;
+    float: none;
+}
+@media (max-width: 767px) {
+    .menu ul {
+        text-align: left;
+    }
+    .menu ul li {
+        display: block;
+    }
+}
+::selection {
+    color: #ffffff;
+    background: coral;
+    text-shadow: none;
+}
+.post {
+    padding: 35px;
+    background: #ffffff;
+    margin-bottom: 35px;
+    position: relative;
+    overflow: hidden;
+}
+.post .post-head {
+    text-align: center;
+}
+.post .post-head .post-title {
+    margin: 0;
+    font-size: 2.5em;
+    line-height: 1em;
+}
+.post .post-head .post-title a:hover {
+    text-decoration: none;
+}
+.post .post-head .post-meta {
+    color: #959595;
+    margin: 14px 0 0px;
+}
+.post .post-head .post-meta {
+    color: #959595;
+    margin: 14px 0 0px;
+}
+.post-content {
+    margin: 30px 0;
+    font: 400 18px/1.62 "Georgia", "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
+    color: #444443;
+}
+.post .post-footer {
+    margin-top: 30px;
+    border-top: 1px solid #ebebeb;
+    padding: 21px 0 0;
+}
+.post .post-footer .tag-list {
+    color: #959595;
+    line-height: 28px;
+}
+
+.widget {
+    background: #ffffff;
+    padding: 21px 30px;
+    margin-bottom: 35px;
+}
+.widget .title {
+    margin-top: 0;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 21px;
+    position: relative;
+}
+.widget .title:after {
+    content: "";
+    width: 90px;
+    height: 1px;
+    background: #e67e22;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+}

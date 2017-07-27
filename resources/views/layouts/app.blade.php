@@ -12,10 +12,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('home/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('home/css/main.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <header style="background-image: url('http://img.it9g.com/404notFound.jpg'); height: 200px">
+
+        </header>
+        <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
 
@@ -28,54 +32,60 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+
                 </div>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <div class="collapse navbar-collapse menu" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li @if(Route::currentRouteName() == 'home') class="active" @endif><a href="/">首页</a></li>
+                        @foreach($categorys as $category)
+                            <li @if(isset($cat_id) && $cat_id == $category['id']) class="active" @endif><a href="{{route('category', ['cat_id' => $category['id']])}}">{{$category['cat_name']}}</a></li>
+                        @endforeach
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                        
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
                     </ul>
                 </div>
             </div>
         </nav>
-
-        @yield('content')
     </div>
-
+    <div class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content">
+                    @yield('content')
+                </main>
+                <aside class="col-md-4 sidebar">
+                    <div class="widget">
+                        <h4 class="title">XX</h4>
+                        <div class="content community">
+                            <p>xxxxx</p>
+                            <p><a href="/" title="title" target="_blank" ><i class="fa fa-comments"></i> XXXX</a></p>
+                            <p><a href="" title="title" target="_blank" ><i class="fa fa-weibo"></i> XXXX</a></p>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <h4 class="title">标签云</h4>
+                        <div class="content tag-cloud">
+                            <a href="tag/jquery/index.html">jQuery</a>
+                            <a href="tag/ghost-0-7-ban-ben/index.html">Ghost 0.7 版本</a>
+                            <a href="tag/opensource/index.html">开源</a>
+                            <a href="tag/zhu-shou-han-shu/index.html">助手函数</a>
+                            <a href="tag/tag-cloud/index.html">标签云</a>
+                            <a href="tag/navigation/index.html">导航</a>
+                            <a href="tag-cloud/index.html">...</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
     <!-- Scripts -->
-    <script>window.Dashboard = {'apiUrl': '{{ e(route('dashboard')) }}' }</script>
     <script src="{{ asset('home/js/app.js') }}"></script>
 </body>
 </html>
