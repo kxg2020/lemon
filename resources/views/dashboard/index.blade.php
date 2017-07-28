@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Styles -->
-    <link href="{{ asset('backend/css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('backend/css/app.css') }}" rel="stylesheet">
     <title>Laravel</title>
 
     <!-- Fonts -->
@@ -21,6 +21,6 @@
 <body>
 <div id="app"></div>
 <script>window.Dashboard = {'apiUrl': '{{ e(route('dashboard')) }}', 'csrfToken': '{{e(csrf_token())}}' }</script>
-<script src="{{ asset('backend/js/app.js') }}"></script>
+<script src="{{ mix('backend/js/app.js') }}"></script>
 </body>
 </html>
