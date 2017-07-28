@@ -58,7 +58,7 @@ class PostsController extends Controller
             ]);
         }
         $this->validate($request, [
-            'title'  =>  'required|unique:posts',
+            'title'  =>  'required',
             'thumb'  =>  'required',
             'content'    =>  'required',
             'markdown'    =>  'required',

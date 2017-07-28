@@ -14,10 +14,10 @@
                 <el-table-column label="操作">
                     <template scope="scope">
                         <el-popover
-                                placement="bottom"
+                                placement="left"
                                 width="300"
                                 trigger="click">
-                            <img :src="imgPrefix + scope.row.file_name" alt="">
+                            <img :src="imgPrefix + scope.row.file_name + '?imageMogr2/auto-orient/thumbnail/300x200/blur/1x0/quality/100|imageslim'" alt="">
                             <el-button slot="reference">预览</el-button>
                         </el-popover>
                     </template>
