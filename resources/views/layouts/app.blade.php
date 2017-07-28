@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('home/css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('home/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('home/css/main.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -86,6 +86,6 @@
         </div>
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('home/js/app.js') }}"></script>
+    <script src="{{ mix('home/js/app.js') }}"></script>
 </body>
 </html>
