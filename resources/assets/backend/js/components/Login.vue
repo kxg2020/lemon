@@ -26,8 +26,8 @@
             return {
                 logining: false,
                 loginForm: {
-                    email: '1225039937@qq.com',
-                    password: '111111'
+                    email: '',
+                    password: ''
                 },
                 loginRules: {
                     email: [
