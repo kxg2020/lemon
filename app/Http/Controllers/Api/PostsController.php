@@ -14,7 +14,14 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         $page_size = $request->page_size > 0 ? $request->page_size : 20;
-        $listData = Post::with('category')->paginate($page_size);
+        $listData = Post::with([
+            'category' => function($query){
+                $query->select("id", "cat_name");
+            },
+            'tags'  =>  function($query){
+                $query->select('tag_id', "tag_name");
+            }
+        ])->paginate($page_size);
         return response()->json([
             'status'    =>  'success',
             'data'      =>  $listData
@@ -27,6 +34,7 @@ class PostsController extends Controller
             'thumb'  =>  'required',
             'content'    =>  'required',
             'markdown'    =>  'required',
+            'tags'   =>  'required',
         ]);
         $post->title = $request->title;
         $post->thumb = $request->thumb;
@@ -34,6 +42,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->markdown = $request->markdown;
         $post->save();
+        $post->tags()->attach($request->tags);
         return response()->json([
             'status'    =>  'success'
         ]);
@@ -44,7 +53,14 @@ class PostsController extends Controller
         return response()->json($reult);
     }
     public function show($id){
-        $post = Post::with('category')->find($id);
+        $post = Post::with([
+            'category' => function($query){
+                $query->select("id", "cat_name");
+            },
+            'tags'  =>  function($query){
+                $query->select('tag_id');
+            }
+        ])->find($id);
         return response()->json([
             'status'    =>  'success',
             'data'  =>  $post

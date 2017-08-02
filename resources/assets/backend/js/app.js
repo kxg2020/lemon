@@ -49,6 +49,8 @@ import File from './components/pager/file/File.vue';
 
 import Categorys from './components/pager/category/Categorys.vue'
 
+import Tags from './components/pager/tag/Tags.vue'
+
 import Links from './components/Links.vue';
 
 const router = new VueRouter ({
@@ -94,6 +96,14 @@ const router = new VueRouter ({
                     path: '/categorys',
                     component: Categorys,
                     name: '分类管理',
+                    meta: {
+                        requireAuth: true
+                    }
+                },
+                {
+                    path: '/tags',
+                    component: Tags,
+                    name: '标签管理',
                     meta: {
                         requireAuth: true
                     }

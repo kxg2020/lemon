@@ -16,8 +16,8 @@
 </head>
 <body>
     <div id="app">
-        <header style="background-image: url('http://img.it9g.com/milky-way.jpg'); height: 200px">
-
+        <header style="/* background-image: url('http://img.it9g.com/bg/milky-way.jpg'); height: 200px */">
+            <img src="http://img.it9g.com/bg/milky-way.jpg" alt="" style="width: 100%;max-height: 300px;">
         </header>
         <nav class="navbar navbar-default">
             <div class="container">

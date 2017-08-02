@@ -9,6 +9,16 @@
                     <el-option v-for="item in categorys" :label="item.cat_name" :value="item.id" :key="item.id"></el-option>
                 </el-select>
             </el-form-item>
+            <el-form-item label="标签" prop="tags">
+                <el-select v-model="postModel.tags" multiple placeholder="请选择">
+                    <el-option
+                            v-for="item in tags"
+                            :key="item.tag_id"
+                            :label="item.tag_name"
+                            :value="item.tag_id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item label="首页图" prop="thumb">
                 <el-upload
                         class="upload-demo"
@@ -69,17 +79,22 @@
                 postModel: {
                     title: '',
                     cat_id: '',
+                    tags: [],
                     thumb: '',
                     content: '',
                     markdown: '',
-                    thumbInput: ''
+                    thumbInput: '',
                 },
                 categorys: [],
+                tags: [],
                 thumbUrl: '',
                 thumbInputPrefix: 'http://img.it9g.com/',
                 postRules: {
                     title: [
                         {required: true, type: 'string', message: '请填写标题', trigger: 'blur'}
+                    ],
+                    tags: [
+                        {required: true, type: 'array', message: '请选择标签', trigger: 'click'}
                     ]
                 },
                 postType: 'add',
@@ -87,12 +102,14 @@
             }
         },
         created() {
+            this.getCategorys();
+            this.getTags();
             if(this.$route.params.id != undefined){
                 this.postType = 'edit';
                 this.getPost(this.$route.params.id);
                 this.sumitTitle = '立即修改';
             }
-            this.getCategorys();
+            this.formLoading = false;
         },
         mounted() {
             this.simplemde = new SimpleMDE({
@@ -126,7 +143,29 @@
                             }, 2000)
                         }
                         _this.categorys = res.data;
-                        _this.formLoading = false;
+                    }else {
+                        _this.$message({
+                            message: "获取数据失败",
+                            type: 'error'
+                        })
+                    }
+                })
+            },
+            getTags: function()  {
+                let _this = this;
+                _this.axios.get('/tags').then(function (response) {
+                    let res = response.data;
+                    if(res.status == 'success'){
+                        if(res.data.length < 1){
+                            _this.$message({
+                                message: "请添加至少一个标签",
+                                type: 'error'
+                            })
+                            setTimeout(function () {
+                                _this.$router.replace('/tags');
+                            }, 2000)
+                        }
+                        _this.tags = res.data;
                     }else {
                         _this.$message({
                             message: "获取数据失败",
