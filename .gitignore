@@ -13,3 +13,4 @@ npm-debug.log
 /public/backend/css/app*.css
 /public/home/js/app*.js
 /public/home/css/app*.css
+/public/mix-manifest.json
