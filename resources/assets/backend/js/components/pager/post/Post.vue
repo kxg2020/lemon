@@ -79,7 +79,7 @@
                 postModel: {
                     title: '',
                     cat_id: '',
-                    tags: [],
+                    tags: {},
                     thumb: '',
                     content: '',
                     markdown: '',

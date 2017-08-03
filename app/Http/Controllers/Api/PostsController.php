@@ -4,6 +4,7 @@ namespace App\Http\Controllers\APi;
 
 use App\Lemon\QiniuUploads;
 use App\Model\Post;
+use App\Model\Post_tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -57,10 +58,15 @@ class PostsController extends Controller
             'category' => function($query){
                 $query->select("id", "cat_name");
             },
-            'tags'  =>  function($query){
-                $query->select('tag_id');
+            'tags' => function($query){
+                $query->select("tag_id");
             }
-        ])->find($id);
+        ])->find($id)->toArray();
+        $tag_ids = [];
+        foreach ($post['tags'] as $tag){
+            array_push($tag_ids, $tag['tag_id']);
+        }
+        $post['tags'] = $tag_ids;
         return response()->json([
             'status'    =>  'success',
             'data'  =>  $post
@@ -86,6 +92,8 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->markdown = $request->markdown;
         $post->save();
+        Post_tag::where('post_id', $post->id)->delete();
+        $post->tags()->attach($request->tags);
         return response()->json([
             'status'    =>  'success'
         ]);
