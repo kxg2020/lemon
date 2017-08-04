@@ -22,7 +22,10 @@ a:hover {
     color: coral;
 }
 .active {
-    border-bottom: 1px solid coral;
+    border-bottom: 1px solid coral !important;
+}
+.active_content {
+    color: coral !important;
 }
 
 .menu ul {
@@ -86,6 +89,9 @@ a:hover {
 .post .post-footer .tag-list {
     color: #959595;
     line-height: 28px;
+}
+.tag-list {
+    padding-right: 10px;
 }
 
 .widget {

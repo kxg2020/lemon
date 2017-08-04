@@ -40,7 +40,7 @@
                     <ul class="nav navbar-nav">
                         <li @if(Route::currentRouteName() == 'home') class="active" @endif><a href="/">首页</a></li>
                         @foreach($categorys as $category)
-                            <li @if(isset($cat_id) && $cat_id == $category['id']) class="active" @endif><a href="{{route('category', ['cat_id' => $category['id']])}}">{{$category['cat_name']}}</a></li>
+                            <li @if(isset($cat_id) && $cat_id == $category['id']) class="active" @endif><a href="{{route('category', ['cat_id' => $category['id']])}}" @if(isset($cat_id) && $cat_id == $category['id'])class="active_content"@endif>{{$category['cat_name']}}</a></li>
                         @endforeach
                     </ul>
 
@@ -62,23 +62,33 @@
                 </main>
                 <aside class="col-md-4 sidebar">
                     <div class="widget">
-                        <h4 class="title">XX</h4>
+                        <h4 class="title">Lemon</h4>
                         <div class="content community">
-                            <p>xxxxx</p>
-                            <p><a href="/" title="title" target="_blank" ><i class="fa fa-comments"></i> XXXX</a></p>
-                            <p><a href="" title="title" target="_blank" ><i class="fa fa-weibo"></i> XXXX</a></p>
+                            <p></p>
+                            <p><a href="javascript:void(0)" title="title" target="_blank" ><i class="fa fa-comments"></i> 玩王者吗 我露娜一打五 </a></p>
+                            <p><a href="javascript:void(0)" title="title" target="_blank" ><i class="fa fa-weibo"></i> - </a></p>
                         </div>
                     </div>
                     <div class="widget">
                         <h4 class="title">标签云</h4>
                         <div class="content tag-cloud">
-                            <a href="tag/jquery/index.html">jQuery</a>
-                            <a href="tag/ghost-0-7-ban-ben/index.html">Ghost 0.7 版本</a>
-                            <a href="tag/opensource/index.html">开源</a>
-                            <a href="tag/zhu-shou-han-shu/index.html">助手函数</a>
-                            <a href="tag/tag-cloud/index.html">标签云</a>
-                            <a href="tag/navigation/index.html">导航</a>
-                            <a href="tag-cloud/index.html">...</a>
+                            @if($tags)
+                                @foreach($tags as $tag)
+                                    <a href="
+                                        @if(isset($tag_id) && $tag_id == $tag['id'])
+                                            javascript:void(0);
+                                        @else
+                                            {{route('tag', ['tag_id' => $tag['id']])}}
+                                        @endif
+                                            "
+                                    class="
+                                        @if(isset($tag_id) && $tag_id == $tag['id'])
+                                            active active_content
+                                        @endif">{{$tag['tag_name']}}</a>
+                                @endforeach
+                            @else
+                                <p>抱歉！！！没有内容</p>
+                            @endif
                         </div>
                     </div>
                 </aside>

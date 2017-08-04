@@ -16,6 +16,7 @@
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{cat_id}', 'HomeController@category')->name('category');
 Route::get('/post/{id}', 'HomeController@post')->name('post');
+Route::get('/tag/{tag_id}', 'HomeController@tag')->name('tag');
 
 
 

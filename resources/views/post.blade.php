@@ -20,6 +20,15 @@
                 <!--tags-->
                 <span>分类：<a class="coral" href="{{route('category', ['cat_id' => $post['cat_id']])}}">{{$post['category']['cat_name']}}</a></span>
             </div>
+            <div class="pull-left tag-list">
+                <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+                <!--tags-->
+                <span>标签：
+                    @foreach($post['tags'] as $tag)
+                        <a class="coral" href="{{route('tag', ['tag_id' => $tag['tag_id']])}}">{{$tag['tag_name']}}</a>
+                    @endforeach
+                </span>
+            </div>
             <div class="pull-right share">
                 <!--share-->
             </div>
