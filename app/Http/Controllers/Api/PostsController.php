@@ -5,6 +5,7 @@ namespace App\Http\Controllers\APi;
 use App\Lemon\QiniuUploads;
 use App\Model\Post;
 use App\Model\Post_tag;
+use App\Model\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -43,7 +44,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->markdown = $request->markdown;
         $post->save();
-        $post->tags()->attach($request->tags);
+        $post->tags()->attach($this->rewriteTag($request->tags));
         return response()->json([
             'status'    =>  'success'
         ]);
@@ -93,10 +94,23 @@ class PostsController extends Controller
         $post->markdown = $request->markdown;
         $post->save();
         Post_tag::where('post_id', $post->id)->delete();
-        $post->tags()->attach($request->tags);
+        $post->tags()->attach($this->rewriteTag($request->tags));
         return response()->json([
             'status'    =>  'success'
         ]);
+    }
 
+    protected function rewriteTag($tags){
+        $newTags = [];
+        foreach ($tags as $k => $tag){
+            if(is_string($tag)){
+                $tagModel = new Tag();
+                $tagModel->tag_name = $tag;
+                $tagModel->save();
+                $tag = $tagModel->id;
+            }
+            array_push($newTags, $tag);
+        }
+        return $newTags;
     }
 }

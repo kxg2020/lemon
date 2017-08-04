@@ -10,7 +10,12 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="标签" prop="tags">
-                <el-select v-model="postModel.tags" multiple placeholder="请选择">
+                <el-select
+                    v-model="postModel.tags"
+                    multiple
+                    filterable
+                    allow-create
+                    placeholder="请选择">
                     <el-option
                             v-for="item in tags"
                             :key="item.tag_id"
