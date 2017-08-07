@@ -8,7 +8,7 @@
         </el-col>
         <el-col :span="11" style="border: 1px solid #bfcbd9; padding: 10px;">
             <el-form ref="tagForm" :model="tagModel" :rules="tagRules" label-width="80px">
-                <el-form-item label="分类名称" prop="tag_name">
+                <el-form-item label="标签名称" prop="tag_name">
                     <el-input v-model="tagModel.tag_name"></el-input>
                 </el-form-item>
                 <el-form-item>
