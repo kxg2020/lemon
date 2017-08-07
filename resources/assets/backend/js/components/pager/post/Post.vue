@@ -161,6 +161,7 @@
                 _this.axios.get('/tags').then(function (response) {
                     let res = response.data;
                     if(res.status == 'success'){
+                        /*
                         if(res.data.length < 1){
                             _this.$message({
                                 message: "请添加至少一个标签",
@@ -170,6 +171,7 @@
                                 _this.$router.replace('/tags');
                             }, 2000)
                         }
+                        */
                         _this.tags = res.data;
                     }else {
                         _this.$message({
