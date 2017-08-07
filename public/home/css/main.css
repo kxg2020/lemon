@@ -76,6 +76,10 @@ a:hover {
     color: #959595;
     margin: 14px 0 0px;
 }
+.post-thumb {
+    text-align: center;
+    margin: 40px;
+}
 .post-content {
     margin: 30px 0;
     font: 400 18px/1.62 "Georgia", "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;

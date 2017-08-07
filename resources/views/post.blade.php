@@ -9,6 +9,9 @@
                 <time class="post-date" datetime="{{$post['created_at']}}" title="{{$post['created_at']}}">{{$post['created_at']}}</time>
             </div>
         </heder>
+        <div class="post-thumb">
+            <img src="{{$post['thumb']}}" alt="">
+        </div>
         <div class="post-content">
             <div class="markdown">
                 {!! $post['content'] !!}
