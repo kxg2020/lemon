@@ -29,7 +29,7 @@
                         <!--tags-->
                         <span>标签：
                             @foreach($post['tags'] as $tag)
-                                <a class="coral" href="{{route('tag', ['tag_id' => $tag['tag_id']])}}">{{$tag['tag_name']}}</a>
+                                <a class="coral" href="{{route('tag', ['id' => $tag['id']])}}">{{$tag['tag_name']}}</a>
                             @endforeach
                         </span>
                     </div>

@@ -17,6 +17,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{cat_id}', 'HomeController@category')->name('category');
 Route::get('/post/{id}', 'HomeController@post')->name('post');
 Route::get('/tag/{tag_id}', 'HomeController@tag')->name('tag');
+Route::get('/demo', 'DemoController@index');
 
 
 
@@ -25,7 +26,7 @@ Route::group(['prefix' => '/dashboard', 'namespace' => 'Api', 'middleware' => 'a
     Route::resource('/categorys', 'CategorysController');
     Route::resource('/posts', 'PostsController');
     Route::resource('/files', 'FilesController');
-    Route::get('dirs', 'FilesController@dirs');
+    Route::get('/dirs', 'FilesController@dirs');
     Route::resource('/tags', 'TagsController');
 });
 

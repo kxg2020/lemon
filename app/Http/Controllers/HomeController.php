@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = $this->getPosts();
+        $posts = Post::with('tags','category')->orderBy('created_at', 'desc')->get()->toArray();
         return view('home', ['posts' => $posts]);
     }
 
@@ -38,9 +38,10 @@ class HomeController extends Controller
      */
     public function tag($tag_id)
     {
-        $tag = Tag::where('id', $tag_id)->first();
+        $tag = Tag::find($tag_id);
         !empty($tag) ?: abort(404, "404 NOT FOUND.");
-        $posts = $this->getPosts(null, null, $tag_id);
+
+        $posts = $tag->posts()->with('tags', 'category')->get()->toArray();
         return view('home', ['posts' => $posts, 'tag_id' => $tag_id]);
     }
 
@@ -50,10 +51,10 @@ class HomeController extends Controller
      */
     public function category($cat_id)
     {
-        $category = Category::where('id', $cat_id)->first();
+        $category = Category::find($cat_id);
         !empty($category) ?: abort(404, "404 NOT FOUND.");
 
-        $posts = $this->getPosts(null, $cat_id, null);
+        $posts = $category->posts()->with('tags','category')->get()->toArray();
         return view('home', ['posts' => $posts, 'cat_id' => $cat_id]);
     }
 
@@ -65,39 +66,7 @@ class HomeController extends Controller
         $post = Post::where('id', $id)->first();
         !empty($post) ?: abort(404, "404 NOT FOUND.");
 
-        $post = $this->getPosts($id, null, null);
+        $post = $post->with('tags','category')->first()->toArray();
         return view('post', ['post' => $post]);
     }
-
-    /**
-     * @param null $post_id
-     * @param null $cat_id
-     * @param null $tag_id
-     * @return array
-     */
-    protected function getPosts($post_id = null, $cat_id = null, $tag_id = null)
-    {
-        $post =  Post::with([
-            'tags'  =>  function($query) use($tag_id){
-                $query->select("tag_id", "tag_name");
-                if(!empty($tag_id)){
-                    $query->whereRaw("tags.id = $tag_id");
-                }
-            },
-            'category'  =>  function($query) use($cat_id){
-                $query->select("id", "cat_name");
-                if(!empty($cat_id)){
-                    $query->whereRaw("categorys.id = $cat_id");
-                }
-            }
-        ]);
-        if(!empty($post_id)){
-            $post->whereRaw( "posts.id = $post_id");
-            return $post->orderBy("created_at", "desc")->first()->toArray();
-        }else{
-            return $post->orderBy("created_at", "desc")->get()->toArray();
-        }
-    }
-
-
 }
