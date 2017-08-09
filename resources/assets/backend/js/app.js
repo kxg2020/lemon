@@ -66,6 +66,21 @@ const router = new VueRouter ({
         {
             path: '/',
             component: Menu,
+            name: '主页',
+            children: [
+                {
+                    path: '/main',
+                    component: Main,
+                    name: '主页',
+                    meta: {
+                        requireAuth: true
+                    }
+                }
+            ]
+        },
+        {
+            path: '/',
+            component: Menu,
             name: '文章管理',
             leaf: true,
             children: [
@@ -88,6 +103,8 @@ const router = new VueRouter ({
                 {
                     path: '/posts/edit/:id',
                     component: Post,
+                    name: '修改文章',
+                    hidden: true,
                     meta: {
                         requireAuth: true
                     }

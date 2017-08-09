@@ -12,7 +12,6 @@
 
     <!-- Styles -->
     <link href="{{ mix('home/css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('home/css/main.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

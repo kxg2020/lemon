@@ -18,7 +18,7 @@
                             <el-submenu :index="index + ''">
                                 <template slot="title">{{item.name}}</template>
                                 <el-menu-item-group>
-                                    <template v-for="(menu, index2) in item.children" v-if="menu.name">
+                                    <template v-for="(menu, index2) in item.children" v-if="!menu.hidden">
                                         <el-menu-item :index="menu.path" >{{menu.name}}</el-menu-item>
                                     </template>
                                 </el-menu-item-group>
@@ -82,8 +82,8 @@
         data() {
             return {
                 routerState: true,
-                pathName: '文章列表',
-                pathNameParent: '文章管理',
+                pathName: '主页',
+                pathNameParent: '',
                 pathParent: '/posts'
             };
         },
