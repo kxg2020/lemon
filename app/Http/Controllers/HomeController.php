@@ -68,7 +68,7 @@ class HomeController extends Controller
         $post = Post::where('id', $id)->first();
         !empty($post) ?: abort(404, "404 NOT FOUND.");
 
-        $post = $post->with('tags','category')->first()->toArray();
+        $post = Post::with('tags','category')->find($id)->toArray();
         return view('post', ['post' => $post]);
     }
 }
