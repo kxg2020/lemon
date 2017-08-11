@@ -3,7 +3,6 @@ body {
     line-height: 1.75em;
     background: #eeeeee;
     position: relative;
-    font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
 }
 .btn-default {
     border: 1px solid coral;
@@ -118,4 +117,14 @@ a:hover {
     position: absolute;
     left: 0;
     bottom: -1px;
+}
+.main-footer {
+    background: #202020;
+    min-height: 80px;
+    color: #959595;
+    text-align: center;
+    line-height: 80px;
+}
+.main-footer a {
+    color: coral;
 }

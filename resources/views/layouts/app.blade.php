@@ -90,10 +90,36 @@
                             @endif
                         </div>
                     </div>
+                    <div class="widget">
+                        <h4 class="title">最新文章</h4>
+                        <div class="content recent-post">
+                            @if($posts_hot)
+                                @foreach($posts_hot as $post_hot)
+                                    <div class="recent-single-post">
+                                        <a href="{{route('post', ['id' => $post_hot['id']])}}" class="post-title">{{$post_hot['title']}}</a>
+                                        <div class="date">{{$post_hot['created_at']}}</div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <p>抱歉！！！没有内容</p>
+                            @endif
+                        </div>
+                    </div>
                 </aside>
             </div>
         </div>
     </div>
+
+    <footer class="main-footer">
+        <p>
+            © 2017-2017 Lemon
+            |
+            <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17009035号</a>
+            |
+            <a href="http://www.qiniu.com" target="_blank">七牛云</a>
+        </p>
+        </p>
+    </footer>
     <!-- Scripts -->
     <script src="{{ mix('home/js/app.js') }}"></script>
 </body>
