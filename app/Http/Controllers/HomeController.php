@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Model\Category;
 use App\Model\Post;
 use App\Model\Tag;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller
 {
@@ -29,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('tags','category')->orderBy('created_at', 'desc')->get()->toArray();
+        $posts = Post::with('tags','category')->orderBy('created_at', 'desc')->paginate(5);
         return view('home', ['posts' => $posts]);
     }
 
@@ -43,7 +40,7 @@ class HomeController extends Controller
         $tag = Tag::find($tag_id);
         !empty($tag) ?: abort(404, "404 NOT FOUND.");
 
-        $posts = $tag->posts()->with('tags', 'category')->get()->toArray();
+        $posts = $tag->posts()->with('tags', 'category')->orderBy('created_at', 'desc')->paginate(5);
         return view('home', ['posts' => $posts, 'tag_id' => $tag_id]);
     }
 
@@ -56,7 +53,7 @@ class HomeController extends Controller
         $category = Category::find($cat_id);
         !empty($category) ?: abort(404, "404 NOT FOUND.");
 
-        $posts = $category->posts()->with('tags','category')->get()->toArray();
+        $posts = $category->posts()->with('tags','category')->orderBy('created_at', 'desc')->paginate(5);
         return view('home', ['posts' => $posts, 'cat_id' => $cat_id]);
     }
 

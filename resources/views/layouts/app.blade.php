@@ -61,75 +61,76 @@
                 </div>
             </div>
         </nav>
-    </div>
-    <div class="content-wrap">
-        <div class="container">
-            <div class="row">
-                <main class="col-md-8 main-content">
-                    @yield('content')
-                </main>
-                <aside class="col-md-4 sidebar">
-                    <div class="widget">
-                        <h4 class="title">Lemon</h4>
-                        <div class="content community">
-                            <p></p>
-                            <p><a href="javascript:void(0)" title="title" target="_blank" ><i class="fa fa-comments"></i> 玩王者吗 我露娜一打五 </a></p>
-                            <p><a href="javascript:void(0)" title="title" target="_blank" ><i class="fa fa-weibo"></i> - </a></p>
+        <div class="content-wrap">
+            <div class="container">
+                <div class="row">
+                    <main class="col-md-8 main-content">
+                        @yield('content')
+                    </main>
+                    <aside class="col-md-4 sidebar">
+                        <div class="widget">
+                            <h4 class="title">Lemon</h4>
+                            <div class="content community">
+                                <p></p>
+                                <p><a href="javascript:void(0)" title="title" target="_blank" ><i class="fa fa-comments"></i> 玩王者吗 我露娜一打五 </a></p>
+                                <p><a href="javascript:void(0)" title="title" target="_blank" ><i class="fa fa-weibo"></i> - </a></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="widget">
-                        <h4 class="title">标签云</h4>
-                        <div class="content tag-cloud">
-                            @if($tags)
-                                @foreach($tags as $tag)
-                                    <a href="
+                        <div class="widget">
+                            <h4 class="title">标签云</h4>
+                            <div class="content tag-cloud">
+                                @if($tags)
+                                    @foreach($tags as $tag)
+                                        <a href="
                                         @if(isset($tag_id) && $tag_id == $tag['id'])
-                                            javascript:void(0);
-                                        @else
-                                            {{route('tag', ['tag_id' => $tag['id']])}}
+                                                javascript:void(0);
+                                            @else
+                                        {{route('tag', ['tag_id' => $tag['id']])}}
                                         @endif
-                                            "
-                                    class="
+                                                "
+                                           class="
                                         @if(isset($tag_id) && $tag_id == $tag['id'])
-                                            active active_content
-                                        @endif">{{$tag['tag_name']}}</a>
-                                @endforeach
-                            @else
-                                <p>抱歉！！！没有内容</p>
-                            @endif
+                                                   active active_content
+                                               @endif">{{$tag['tag_name']}}</a>
+                                    @endforeach
+                                @else
+                                    <p>抱歉！！！没有内容</p>
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                    <div class="widget">
-                        <h4 class="title">最新文章</h4>
-                        <div class="content recent-post">
-                            @if($posts_hot)
-                                @foreach($posts_hot as $post_hot)
-                                    <div class="recent-single-post">
-                                        <a href="{{route('post', ['id' => $post_hot['id']])}}" class="post-title">{{$post_hot['title']}}</a>
-                                        <div class="date">{{$post_hot['created_at']}}</div>
-                                    </div>
-                                @endforeach
-                            @else
-                                <p>抱歉！！！没有内容</p>
-                            @endif
+                        <div class="widget">
+                            <h4 class="title">最新文章</h4>
+                            <div class="content recent-post">
+                                @if($posts_hot)
+                                    @foreach($posts_hot as $post_hot)
+                                        <div class="recent-single-post">
+                                            <a href="{{route('post', ['id' => $post_hot['id']])}}" class="post-title">{{$post_hot['title']}}</a>
+                                            <div class="date">{{$post_hot['created_at']}}</div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <p>抱歉！！！没有内容</p>
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                </aside>
+                    </aside>
+                </div>
             </div>
         </div>
-    </div>
 
-    <footer class="main-footer">
-        <p>
-            © 2017-2017 Lemon
-            |
-            <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17009035号</a>
-            |
-            <a href="http://www.qiniu.com" target="_blank">七牛云</a>
-        </p>
-        </p>
-    </footer>
+        <footer class="main-footer">
+            <p>
+                © 2017-2017 Lemon
+                |
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17009035号</a>
+                |
+                <a href="http://www.qiniu.com" target="_blank">七牛云</a>
+            </p>
+            </p>
+        </footer>
+    </div>
     <!-- Scripts -->
+    <script>window.Home = {'apiUrl': '{{ e(route('home')) }}', 'csrfToken': '{{e(csrf_token())}}' }</script>
     <script src="{{ mix('home/js/app.js') }}"></script>
 </body>
 </html>

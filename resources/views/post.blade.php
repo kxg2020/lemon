@@ -2,15 +2,15 @@
 
 @section('content')
     <article id="{{$post['id']}}" class="post">
-        <heder class="post-head">
+        <header class="post-head">
             <h1 class="post-title coral">{{$post['title']}}</h1>
             <div class="post-meta">
                 <span class="author"></span>
                 <time class="post-date" datetime="{{$post['created_at']}}" title="{{$post['created_at']}}">{{$post['created_at']}}</time>
             </div>
-        </heder>
+        </header>
         <div class="post-thumb">
-            <img src="{{$post['thumb']}}" alt="">
+            <img src="{{$post['thumb']}}" alt="" style="width: 100%">
         </div>
         <div class="post-content">
             <div class="markdown">
@@ -35,6 +35,9 @@
             <div class="pull-right share">
                 <!--share-->
             </div>
+        </footer>
+        <footer class="post-footer">
+            <comment post-id="{{$post['id']}}"></comment>
         </footer>
     </article>
 @endsection

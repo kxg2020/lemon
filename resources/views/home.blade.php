@@ -39,6 +39,8 @@
                 </footer>
             </article>
         @endforeach
+
+        {{$posts->links()}}
     @else
         <h1 >抱歉！！！没有内容</h1>
     @endif

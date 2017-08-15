@@ -1,57 +1,40 @@
+window.Vue = require('vue')
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import VueRouter from 'vue-router'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import ElementUI from 'element-ui'
 
-require('./bootstrap');
+Vue.use(ElementUI)
+Vue.use(VueRouter)
+Vue.use(VueAxios, axios)
 
-window.Vue = require('vue');
-
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-import VueRouter from 'vue-router';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-import ElementUI from 'element-ui';
-
-Vue.use(ElementUI);
-Vue.use(VueRouter);
-Vue.use(VueAxios, axios);
-
-let token = document.head.querySelector('meta[name="csrf-token"]');
+let token = document.head.querySelector('meta[name="csrf-token"]')
 token = token.getAttribute('content')
 Vue.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': token,
     'X-Requested-With': 'XMLHttpRequest'
-};
-Vue.axios.defaults.baseURL = window.Dashboard.apiUrl;
+}
+Vue.axios.defaults.baseURL = window.Dashboard.apiUrl
 
-import marked from 'marked';
-Vue.prototype.marked = marked;
+import marked from 'marked'
+Vue.prototype.marked = marked
 
-import App from './App.vue';
-import Main from './components/Main.vue';
-import Menu from './components/Menu.vue';
-import Login from './components/Login.vue';
+import App from './App.vue'
+import Main from './components/Main.vue'
+import Menu from './components/Menu.vue'
+import Login from './components/Login.vue'
 
-import Posts from './components/pager/post/Posts.vue';
-import Post from './components/pager/post/Post.vue';
+import Posts from './components/pager/post/Posts.vue'
+import Post from './components/pager/post/Post.vue'
 
-import Files from './components/pager/file/Files.vue';
-import File from './components/pager/file/File.vue';
+import Files from './components/pager/file/Files.vue'
+import File from './components/pager/file/File.vue'
 
 import Categorys from './components/pager/category/Categorys.vue'
 
 import Tags from './components/pager/tag/Tags.vue'
 
-import Links from './components/Links.vue';
 
 const router = new VueRouter ({
     root: '/main',
@@ -152,12 +135,12 @@ const router = new VueRouter ({
             ]
         }
     ]
-});
+})
 // 路由监听
 router.beforeEach((to, from, next) => {
     if(!from.meta.requireAuth  && to.meta.requireAuth) {
         if (JSON.parse(sessionStorage.getItem('lemon'))) {
-            next();
+            next()
         }else {
             next({
                 path: '/login',
@@ -165,14 +148,14 @@ router.beforeEach((to, from, next) => {
             })
         }
     }else {
-        next();
+        next()
     }
 })
-Vue.component('App', App);
+Vue.component('App', App)
 
 const app = new Vue({
     el: '#app',
     template: '<App/>',
     router,
     components: { App }
-}).$mount('#app');
+}).$mount('#app')
