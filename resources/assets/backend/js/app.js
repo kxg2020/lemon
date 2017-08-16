@@ -35,6 +35,7 @@ import Categorys from './components/pager/category/Categorys.vue'
 
 import Tags from './components/pager/tag/Tags.vue'
 
+import Comments from './components/pager/comment/comments.vue'
 
 const router = new VueRouter ({
     root: '/main',
@@ -128,6 +129,22 @@ const router = new VueRouter ({
                     path: '/files/add',
                     component: File,
                     name: '上传文件',
+                    meta: {
+                        requireAuth: true
+                    }
+                }
+            ]
+        },
+        {
+            path: '/',
+            component: Menu,
+            name: '评论管理',
+            leaf: true,
+            children: [
+                {
+                    path: '/comments',
+                    component: Comments,
+                    name: '评论列表',
                     meta: {
                         requireAuth: true
                     }

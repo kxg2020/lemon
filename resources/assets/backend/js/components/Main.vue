@@ -27,7 +27,7 @@
         data(){
             return {
                 listLoading: true,
-                post_conunt: 0,
+                post_count: 0,
                 page_view: 0,
             }
         },
