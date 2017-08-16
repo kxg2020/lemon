@@ -5,13 +5,6 @@ use Illuminate\Http\Request;
 use Qiniu\Etag;
 use zgldh\QiniuStorage\QiniuStorage;
 
-/**
- * Created by PhpStorm.
- * User: wei gao
- * Email:1225039937@qq.com
- * Date: 2017/7/12
- * Time: 11:34
- */
 class QiniuUploads
 {
     protected $client_id = '127.0.0.1';

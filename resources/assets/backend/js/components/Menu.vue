@@ -76,6 +76,9 @@
     .main-page{
         margin: 15px 0;
     }
+    .el-submenu .el-menu-item {
+         min-width: 100px;
+    }
 </style>
 <script type="text/ecmascript-6">
     export default {
