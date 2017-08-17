@@ -21,6 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ mix('home/css/app.css') }}" rel="stylesheet">
+    @yield('styles')
 </head>
 <body>
     <div id="app">
@@ -132,5 +133,6 @@
     <!-- Scripts -->
     <script>window.Home = {'apiUrl': '{{ e(route('home')) }}', 'csrfToken': '{{e(csrf_token())}}' }</script>
     <script src="{{ mix('home/js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

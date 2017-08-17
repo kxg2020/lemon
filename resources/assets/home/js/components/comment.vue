@@ -4,7 +4,7 @@
             <div class="comment-header">
                 <h2 class="comment-header-title">{{comment_count}}条评论</h2>
             </div>
-            <template v-for="(comment, index) in comments" v-if="comment">
+            <template v-for="(comment, index) in comments" v-if="comments">
                 <div class="comment-item">
                     <div class="comment-item-meta">
                         <span class="user-link"><a class="user-link-link" target="_blank" :href="comment.url">{{comment.email}}</a></span>
@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group" id="url-group">
                             <label for="url">个人站点</label>
-                            <input type="email" class="form-control" id="url" name="url" v-model="newComment.url" placeholder="url">
+                            <input type="text" class="form-control" id="url" name="url" v-model="newComment.url" placeholder="url">
                         </div>
                     </div>
                     <div class="comment-form-edit">
@@ -139,6 +139,7 @@ export default {
         getUserInfo: function () {
             let userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
             if(userinfo){
+                console.log(userinfo)
                 this.newComment.email = userinfo.email
                 this.newComment.url = userinfo.url
             }

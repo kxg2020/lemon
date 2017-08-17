@@ -6,6 +6,8 @@ require('bootstrap-sass')
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+window.hljs = require('../../vendor/highlight.min');
+
 Vue.use(VueAxios, axios)
 
 let token = document.head.querySelector('meta[name="csrf-token"]')

@@ -13,7 +13,7 @@
             <img src="{{$post['thumb']}}" alt="" style="width: 100%">
         </div>
         <div class="post-content">
-            <div class="markdown">
+            <div class="markdown" v-pre>
                 {!! $post['content'] !!}
             </div>
         </div>
@@ -40,4 +40,18 @@
             <comment post-id="{{$post['id']}}"></comment>
         </footer>
     </article>
+@endsection
+
+@section('scripts')
+    <script>
+        hljs.initHighlightingOnLoad()
+    </script>
+@endsection
+
+@section('styles')
+    <style>
+        pre{
+            background-color: #282c34;
+        }
+    </style>
 @endsection
