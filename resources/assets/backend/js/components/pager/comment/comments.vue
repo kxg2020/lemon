@@ -9,7 +9,7 @@
                 <el-table-column label="email" prop="email"></el-table-column>
                 <el-table-column label="url" prop="url">
                     <template scope="scope">
-                        <a :href="scope.row.url" class="link">{{scope.row.url}}</a>
+                        <a :href="scope.row.url" class="link" target="_blank">{{scope.row.url}}</a>
                     </template>
                 </el-table-column>
                 <el-table-column label="评论" prop="body_show">
