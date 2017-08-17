@@ -22,14 +22,14 @@
                     <div class="pull-left tag-list">
                         <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                         <!--tags-->
-                        <span>分类：<a class="coral" href="{{route('category', ['cat_id' => $post['cat_id']])}}">{{$post['category']['cat_name']}}</a></span>
+                        <span>分类：<a class="coral" href="{{route('category', ['cat_id' => $post['cat_id']])}}"><code>{{$post['category']['cat_name']}}</code></a></span>
                     </div>
                     <div class="pull-left tag-list">
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
                         <!--tags-->
                         <span>标签：
                             @foreach($post['tags'] as $tag)
-                                <a class="coral" href="{{route('tag', ['id' => $tag['id']])}}">{{$tag['tag_name']}}</a>
+                                <a class="coral" href="{{route('tag', ['id' => $tag['id']])}}"><code>{{$tag['tag_name']}}</code></a>
                             @endforeach
                         </span>
                     </div>

@@ -92,7 +92,7 @@
                                            class="
                                         @if(isset($tag_id) && $tag_id == $tag['id'])
                                                    active active_content
-                                               @endif">{{$tag['tag_name']}}</a>
+                                               @endif"><code>{{$tag['tag_name']}}</code></a>
                                     @endforeach
                                 @else
                                     <p>抱歉！！！没有内容</p>

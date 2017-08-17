@@ -4,6 +4,9 @@ body {
     background: #eeeeee;
     position: relative;
 }
+a{
+    text-decoration-line: none !important;
+}
 .btn-default {
     border: 1px solid coral;
     background-color: coral;
