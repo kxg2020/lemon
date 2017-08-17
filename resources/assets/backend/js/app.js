@@ -17,7 +17,6 @@ Vue.axios.defaults.headers.common = {
 }
 Vue.axios.defaults.baseURL = window.Dashboard.apiUrl
 
-
 import App from './App.vue'
 import Main from './components/Main.vue'
 import Menu from './components/Menu.vue'
@@ -167,6 +166,46 @@ router.beforeEach((to, from, next) => {
     }
 })
 Vue.component('App', App)
+
+// 请求拦截
+Vue.axios.interceptors.request.use(
+    config  =>  {
+        return config
+    },
+    error   =>  {
+        if(error.response){
+            switch (error.response.status){
+                case 403:
+                    this.router.$router.push({path: '/login'})
+                    break
+                case 200:
+                    this.this.router.$router.push({path: '/main'})
+                    break
+            }
+        }
+        return Promise.reject(error.response.data)
+    }
+)
+
+// 响应拦截
+Vue.axios.interceptors.response.use(
+    response    =>  {
+        return response
+    },
+    error   =>  {
+        if(error.response){
+            switch (error.response.status){
+                case 403:
+                    this.router.$router.push({path: '/login'})
+                    break
+                case 200:
+                    this.this.router.$router.push({path: '/main'})
+                    break
+            }
+        }
+        return Promise.reject(error.response.data)
+    }
+)
 
 const app = new Vue({
     el: '#app',
