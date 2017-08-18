@@ -5,7 +5,7 @@ body {
     position: relative;
 }
 a{
-    text-decoration-line: none !important;
+    text-decoration: none !important;
 }
 .btn-default {
     border: 1px solid coral;
