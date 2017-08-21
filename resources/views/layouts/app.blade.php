@@ -17,7 +17,19 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} - @if(Route::currentRouteName() == 'home') 首页 @else {{$post['title']}} @endif</title>
+    <title>@if(Route::currentRouteName() == 'home')
+            首页
+        @else
+            @if(isset($tag_id))
+                文章标签
+            @elseif(isset($cat_id))
+                文章分类
+            @elseif(isset($post))
+                {{$post['title']}}
+            @endif
+        @endif
+         - {{ config('app.name', 'Laravel') }}
+    </title>
 
     <!-- Styles -->
     <link href="{{ mix('home/css/app.css') }}" rel="stylesheet">
@@ -82,17 +94,11 @@
                             <div class="content tag-cloud">
                                 @if($tags)
                                     @foreach($tags as $tag)
-                                        <a href="
-                                        @if(isset($tag_id) && $tag_id == $tag['id'])
-                                                javascript:void(0);
-                                            @else
-                                        {{route('tag', ['tag_id' => $tag['id']])}}
-                                        @endif
-                                                "
-                                           class="
-                                        @if(isset($tag_id) && $tag_id == $tag['id'])
-                                                   active active_content
-                                               @endif"><code>{{$tag['tag_name']}}</code></a>
+                                        <a href="@if(isset($tag_id) && $tag_id == $tag['id']) javascript:void(0); @else {{route('tag', ['tag_id' => $tag['id']])}} @endif"
+                                           class="@if(isset($tag_id) && $tag_id == $tag['id']) active active_content @endif"
+                                        >
+                                            <code>{{$tag['tag_name']}}</code>
+                                        </a>
                                     @endforeach
                                 @else
                                     <p>抱歉！！！没有内容</p>
