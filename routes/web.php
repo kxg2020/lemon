@@ -11,7 +11,7 @@
 |
 */
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{cat_id}', 'HomeController@category')->name('category');
