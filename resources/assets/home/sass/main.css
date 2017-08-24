@@ -131,3 +131,11 @@ a:hover {
 .main-footer a {
     color: coral;
 }
+.new-post-title{
+    line-height: 28px;
+    font-size: 16px;
+}
+.date{
+    font-size: 14px;
+    color: #8590a6;
+}

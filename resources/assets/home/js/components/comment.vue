@@ -7,6 +7,11 @@
             <template v-for="(comment, index) in comments" v-if="comments">
                 <div class="comment-item">
                     <div class="comment-item-meta">
+                        <span class="user-link comment-gravatar">
+                            <div class="comment-gravatar-p">
+                                <img :src="comment.gravatar_src" alt="" style="width: 36px">
+                            </div>
+                        </span>
                         <span class="user-link"><a class="user-link-link" target="_blank" :href="comment.url">{{comment.email}}</a></span>
                         <span class="comment-item-date">{{comment.created_at}}</span>
                     </div>
@@ -55,7 +60,7 @@
     }
     .comment-item-meta{
         position: relative;
-        height: 27px;
+        height: 48px;
         padding-right: 3px;
         padding-left: 1px;
         margin-bottom: 5px;
@@ -63,6 +68,13 @@
     }
     .user-link{
 
+    }
+    .comment-gravatar{
+        margin-right: 8px;
+    }
+    .comment-gravatar-p{
+        position: relative;
+        display: inline-block;
     }
     .user-link-link{
         /*color: inherit;*/
@@ -111,6 +123,7 @@ export default {
                 email: '',
                 url: 'http://',
                 body: '',
+                gravatar_src: ''
             },
             submitStatus: false
         }
