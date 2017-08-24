@@ -35,4 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'baidu_trans' => [
+        'access_key' => env('BAIDU_TRANS_ACCESS_KEY', ''),
+        'secret_key' =>  env('BAIDU_TEANS_SECRET_KEY', ''),
+    ]
+
 ];

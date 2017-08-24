@@ -33,12 +33,14 @@ class PostsController extends Controller
     {
         $this->validate($request, [
             'title'  =>  'required|unique:posts',
+            'slug'  =>  'required|unique:posts',
             'thumb'  =>  'required',
             'content'    =>  'required',
             'markdown'    =>  'required',
             'tags'   =>  'required',
         ]);
         $post->title = $request->title;
+        $post->slug = $request->slug;
         $post->thumb = $request->thumb;
         $post->cat_id = $request->cat_id;
         $post->content = $request->content;
@@ -82,12 +84,14 @@ class PostsController extends Controller
         }
         $this->validate($request, [
             'title'  =>  'required',
+            'slug'  =>  'required',
             'thumb'  =>  'required',
             'content'    =>  'required',
             'markdown'    =>  'required',
         ]);
         $post = Post::find($request->id);
         $post->title = $request->title;
+        $post->slug = $request->slug;
         $post->thumb = $request->thumb;
         $post->cat_id = $request->cat_id;
         $post->content = $request->content;

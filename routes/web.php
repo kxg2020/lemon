@@ -15,7 +15,7 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{cat_id}', 'HomeController@category')->name('category');
-Route::get('/post/{id}', 'HomeController@post')->name('post');
+Route::get('/post/{slug}', 'HomeController@post')->name('post');
 Route::get('/tag/{tag_id}', 'HomeController@tag')->name('tag');
 Route::get('/demo', 'DemoController@index');
 Route::get('/comment/{post_id}', 'CommentsController@comment')->name('comment');
@@ -32,6 +32,7 @@ Route::group(['prefix' => '/dashboard', 'namespace' => 'Api', 'middleware' => 'a
     Route::resource('/tags', 'TagsController');
     Route::get('/main', 'MainController@getData');
     Route::resource('/comments', 'CommentsController');
+    Route::get('/trans/{query}', 'TransController@trans');
 });
 
 Route::group(['prefix' => '/dashboard', 'namespace' => 'Api'], function () {

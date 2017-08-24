@@ -2,7 +2,10 @@
     <el-row>
         <el-form ref="postForm" :model="postModel" :rules="postRules" label-width="80px" v-loading="formLoading">
             <el-form-item label="标题" prop="title">
-                <el-input v-model="postModel.title"></el-input>
+                <el-input v-model="postModel.title" @blur="transSlug"></el-input>
+            </el-form-item>
+            <el-form-item label="缩略名" prop="slug">
+                <el-input v-model="postModel.slug" readonly></el-input>
             </el-form-item>
             <el-form-item label="分类" prop="cat_id">
                 <el-select v-model="postModel.cat_id" placeholder="请选择分类">
@@ -83,6 +86,7 @@
                 headers: {'X-CSRF-TOKEN': window.Dashboard.csrfToken},
                 postModel: {
                     title: '',
+                    slug: '',
                     cat_id: '',
                     tags: {},
                     thumb: '',
@@ -97,6 +101,9 @@
                 postRules: {
                     title: [
                         {required: true, type: 'string', message: '请填写标题', trigger: 'blur'}
+                    ],
+                    slug: [
+                        {required: true, type: 'string', message: '请填写缩略名', trigger: 'submit'}
                     ],
                     tags: [
                         {required: true, type: 'array', message: '请选择标签', trigger: 'click'}
@@ -261,6 +268,24 @@
                 }else {
                     this.thumbUrl = this.thumbInputPrefix + this.postModel.thumbInput;
                 }
+            },
+            transSlug: function () {
+                let _this = this
+                if(_this.postModel.title.length < 1){
+                    return false
+                }
+                _this.axios.get('/trans/' + _this.postModel.title).then(function (response) {
+                    let res = response.data;
+                    if(res.status == 'success'){
+                        let slug = res.data.dst.toLowerCase()
+                        _this.postModel.slug = slug.replace(/\s/g, '-')
+                    }else {
+                        this.$message({
+                            message: res.message,
+                            type: 'error'
+                        });
+                    }
+                })
             }
         },
         watch: {

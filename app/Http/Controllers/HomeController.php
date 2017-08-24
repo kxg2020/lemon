@@ -61,11 +61,11 @@ class HomeController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function post($id){
-        $post = Post::where('id', $id)->first();
+    public function post($slug){
+        $post = Post::where('slug', $slug)->first();
         !empty($post) ?: abort(404, "404 NOT FOUND.");
 
-        $post = Post::with('tags','category')->find($id)->toArray();
+        $post = Post::with('tags','category')->find($post->id)->toArray();
         return view('post', ['post' => $post]);
     }
 }
