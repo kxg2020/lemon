@@ -18,7 +18,7 @@ var colorStatus = 1;
 window.onload = function() {
 
     $.getJSON({
-        url: 'http://open.iciba.com/dsapi?callback=?',
+        url: 'https://open.iciba.com/dsapi?callback=?',
         success: function (response) {
             var str = response.content + '\n' + response.note;
             if(str.length > 1){
