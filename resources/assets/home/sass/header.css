@@ -58,7 +58,7 @@ header{
 
 .letterAnimBottom {
     display: inline;
-    position: absolute;
+    /*position: absolute;*/
     -webkit-animation: dropBottom .1s ease;
     -moz-animation: dropBottom .1s ease;
     color: #fcf8e3;

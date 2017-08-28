@@ -27,7 +27,6 @@ window.onload = function() {
         }
     })
 
-
     isMobile = navigator && navigator.platform && navigator.platform.match(/^(iPad|iPod|iPhone)$/);
 
     isIE = (navigator.appName == 'Microsoft Internet Explorer');
