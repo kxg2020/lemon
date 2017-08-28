@@ -37,8 +37,12 @@
 </head>
 <body>
     <div id="app">
-        <header style="/* background-image: url('http://img.it9g.com/bg/milky-way.jpg'); height: 200px */">
-            <img src="http://img.it9g.com/bg/milky-way.jpg" alt="" style="width: 100%;max-height: 300px;">
+        <header>
+            <div class="header-message" id="header-message">
+                <div id="input"></div>
+                <input type="text" id="hiddenInput">
+                <div id="content_end" style="height: 0; overflow: hidden"></div>
+            </div>
         </header>
         <nav class="navbar navbar-default">
             <div class="container">

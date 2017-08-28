@@ -23,6 +23,8 @@ Vue.component('comment', require('./components/comment.vue'))
 
 new Vue().$mount('#app')
 
+require('./header.js')
+
 console.log('%c      ___       ___           ___           ___           ___     \n' +
     '     /\\__\\     /\\  \\         /\\__\\         /\\  \\         /\\__\\    \n' +
     '    /:/  /    /::\\  \\       /::|  |       /::\\  \\       /::|  |   \n' +
