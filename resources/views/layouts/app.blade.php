@@ -39,9 +39,7 @@
     <div id="app">
         <header>
             <div class="header-message" id="header-message">
-                <div id="input"></div>
-                <input type="text" id="hiddenInput">
-                <div id="content_end" style="height: 0; overflow: hidden"></div>
+                <div id="header-text" class="header-text"></div>
             </div>
         </header>
         <nav class="navbar navbar-default">

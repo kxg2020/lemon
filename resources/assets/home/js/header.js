@@ -1,150 +1,37 @@
 var input;
-var header_message;
-var cursor;
-var hiddenInput;
-var content = [];
-var lastContent = "", targetContent = "";
-var inputLock = false;
-var autoWriteTimer;
+var content = 'Well you only need the light when it\'s burning low\n' +
+    '只有在朦胧黯淡时才念及灯火光亮\n' +
+    'Only miss the sun when it starts to snow\n' +
+    '只有在冰天雪地时才怀念阳光温暖，\n' +
+    'Only know you love her when you let her go\n' +
+    '只有在已然放手后才始知那是真爱，\n' +
+    'Only know you\'ve been high when you\'re feeling low\n' +
+    '只有在身处低谷时才遥想过去峥嵘，\n' +
+    'Only hate the road when you\'re missing home\n' +
+    '只有在乡愁涌动时才痛恨旅途遥远\n' +
+    'Only know you love her when you let her go\n' +
+    '只有在让她走之后才始知那是真爱\n' +
+    'And you let her go\n' +
+    '你就让她走吧。';
 
-var isMobile, isIE;
-
-var content = "Lemon..."
-
-var colors = ['#fcf8e3', '#333333'];
-
-var colorStatus = 1;
-
-window.onload = function() {
-
-    $.getJSON({
-        url: 'https://open.iciba.com/dsapi?callback=?',
-        success: function (response) {
-            var str = response.content + '\n' + response.note;
-            if(str.length > 1){
-                content = str;
-            }
+input = document.getElementById("header-text");
+$.getJSON({
+    url: 'https://open.iciba.com/dsapi?callback=?',
+    success: function success(response) {
+        var str = response.content + '\n' + response.note;
+        if (str.length > 1) {
+            content = str;
         }
-    })
-
-    isMobile = navigator && navigator.platform && navigator.platform.match(/^(iPad|iPod|iPhone)$/);
-
-    isIE = (navigator.appName == 'Microsoft Internet Explorer');
-
-    input = document.getElementById('input');
-
-    header_message = document.getElementById('header-message');
-
-    hiddenInput = document.getElementById('hiddenInput');
-    hiddenInput.focus();
-
-    cursor = document.createElement('cursor');
-    cursor.setAttribute('class', 'blink');
-    cursor.innerHTML = "|";
-
-    if (!isMobile && !isIE) input.appendChild(cursor);
-
-    function refresh() {
-
-        inputLock = true;
-
-        if (targetContent.length - lastContent.length == 0) return;
-
-        var v = targetContent.substring(0, lastContent.length + 1);
-
-        content = [];
-
-        var blinkPadding = false;
-
-        for (var i = 0; i < v.length; i++) {
-            var l = v.charAt(i);
-
-            var d = document.createElement('div');
-            d.setAttribute('class', 'letterContainer');
-
-            var d2 = document.createElement('div');
-
-            var animClass = (i % 2 == 0) ? 'letterAnimTop' : 'letterAnimBottom';
-
-            var letterClass = (lastContent.charAt(i) == l) ? 'letterStatic' : animClass;
-
-            if (letterClass != 'letterStatic') blinkPadding = true;
-
-            d2.setAttribute('class', letterClass);
-
-            d.appendChild(d2);
-
-            d2.innerHTML = l;
-
-            if(l == '\n'){
-                d = document.createElement('br');
-            }
-
-            content.push(d);
-        }
-
-        input.innerHTML = '';
-
-        for (var i = 0; i < content.length; i++) {
-            input.appendChild(content[i]);
-            header_message.scrollTop = header_message.scrollHeight;
-        }
-
-        cursor.style.paddingLeft = (blinkPadding) ? '22px' : '0';
-
-        cursor.style.color = colorStatus > 0 ? colors[0] : colors[1];
-        colorStatus = -colorStatus;
-
-        if(targetContent.length - lastContent.length == 1){
-            cursor.style.color = colors[0];
-        }
-
-        if (!isMobile && !isIE) input.appendChild(cursor);
-
-        if (targetContent.length - lastContent.length > 1) setTimeout(refresh, 150);
-        else inputLock = false;
-
-        lastContent = v;
     }
+});
 
-    if (document.addEventListener) {
-
-        document.addEventListener('touchstart', function(e) {
-            clearInterval(autoWriteTimer);
-            targetContent = lastContent;
-        }, false);
-
-        document.addEventListener('click', function(e) {
-            clearInterval(autoWriteTimer);
-            targetContent = lastContent;
-            hiddenInput.focus();
-        }, false);
-
-        if (!isIE) {
-            // Input event is buggy on IE, so don't bother
-            // (https://msdn.microsoft.com/en-us/library/gg592978(v=vs.85).aspx#feedback)
-            // We will use a timer instead (below)
-            hiddenInput.addEventListener('input', function(e) {
-                e.preventDefault();
-                targetContent = hiddenInput.value;
-                if (!inputLock) refresh();
-
-            }, false);
-        } else {
-            setInterval(function() {
-                targetContent = hiddenInput.value;
-
-                if (targetContent != lastContent && !inputLock) refresh();
-            }, 100);
-        }
-
-    }
-
-    hiddenInput.value = "";
-
-    autoWriteTimer = setTimeout(function() {
-        if (lastContent != "") return;
-        targetContent = content;
-        refresh();
-    }, 2000);
+function refresh(content, i) {
+    var v = content.substring(0, i);
+    input.innerText = v;
 }
+var i = 1;
+setInterval(function() {
+    if(i > content.length) return;
+    refresh(content, i);
+    i++;
+}, 200);
