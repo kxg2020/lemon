@@ -113,7 +113,7 @@
                                 @if($posts_hot)
                                     @foreach($posts_hot as $post_hot)
                                         <div class="recent-single-post">
-                                            <a href="{{route('post', ['id' => $post_hot['id']])}}" class="new-post-title">{{$post_hot['title']}}</a>
+                                            <a href="{{route('post', ['slug' => $post['slug']])}}" class="new-post-title">{{$post_hot['title']}}</a>
                                             <div class="date">{{$post_hot['created_at']}}</div>
                                         </div>
                                     @endforeach
