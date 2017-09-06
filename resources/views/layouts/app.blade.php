@@ -103,7 +103,8 @@
                                         </a>
                                     @endforeach
                                 @else
-                                    <p>抱歉！！！没有内容</p>
+                                    @component('vendor.empty')
+                                    @endcomponent
                                 @endif
                             </div>
                         </div>
@@ -118,7 +119,8 @@
                                         </div>
                                     @endforeach
                                 @else
-                                    <p>抱歉！！！没有内容</p>
+                                    @component('vendor.empty')
+                                    @endcomponent
                                 @endif
                             </div>
                         </div>
