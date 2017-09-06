@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @if($posts)
+    @if(count($posts) > 0)
         @foreach($posts as $post)
             <article id="{{$post['id']}}" class="post">
                 <div class="post-head">
