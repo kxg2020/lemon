@@ -8,6 +8,7 @@ use App\Model\Post_tag;
 use App\Model\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redis;
 
 class PostsController extends Controller
 {
@@ -97,6 +98,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->markdown = $request->markdown;
         $post->save();
+        Redis::del('post:'.$post->slug);
         Post_tag::where('post_id', $post->id)->delete();
         $post->tags()->attach($this->rewriteTag($request->tags));
         return response()->json([

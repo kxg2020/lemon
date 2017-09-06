@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Category;
 use App\Model\Post;
 use App\Model\Tag;
+use Illuminate\Support\Facades\Redis;
 
 class HomeController extends Controller
 {
@@ -58,14 +59,19 @@ class HomeController extends Controller
     }
 
     /**
-     * @param $id
+     * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function post($slug){
-        $post = Post::where('slug', $slug)->first();
-        !empty($post) ?: abort(404, "404 NOT FOUND.");
+        if($post_str = Redis::get('post:'.$slug)){
+            $post = unserialize($post_str);
+        }else {
+            $post = Post::where('slug', $slug)->first();
+            !empty($post) ?: abort(404, "404 NOT FOUND.");
 
-        $post = Post::with('tags','category')->find($post->id)->toArray();
+            $post = Post::with('tags', 'category')->find($post->id)->toArray();
+            Redis::set('post:'.$slug, serialize($post));
+        }
         return view('post', ['post' => $post]);
     }
 }
