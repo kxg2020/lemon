@@ -9,7 +9,7 @@
 
     <!-- Styles -->
     <link href="{{ mix('backend/css/app.css') }}" rel="stylesheet">
-    <title>Laravel</title>
+    <title>Lemon - Dashboard</title>
 
     <!-- Fonts -->
 
