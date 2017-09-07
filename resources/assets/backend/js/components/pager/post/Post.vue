@@ -127,6 +127,14 @@
             this.simplemde = new SimpleMDE({
                 element: document.getElementById("editor")
             })
+            // 阻止浏览器默认打开拖拽文件
+            window.addEventListener("drop",function(e){
+                e = e || event
+                if (e.target.className == "CodeMirror-scroll") {  // check wich element is our target
+                    e.preventDefault()
+                }
+            },false)
+            this.mdeUpload()
         },
         methods: {
             getPost: function (id) {
@@ -249,7 +257,7 @@
                 })
             },
             uploadSuccess: function(response, file, fileList) {
-                if(response.status == 200) {
+                if(response.status == 'success') {
                     this.postModel.thumb = response.fileUrl;
                     this.thumbUrl = response.fileUrl;
                 }
@@ -284,6 +292,62 @@
                             message: res.message,
                             type: 'error'
                         });
+                    }
+                })
+            },
+            mdeUpload: function () {
+                let _this = this
+                this.simplemde.codemirror.on('drop', function (editor, e) {
+                    if(!(e.dataTransfer&&e.dataTransfer.files)){
+                        _this.$message({
+                            message: "该浏览器不支持操作",
+                            type: 'error'
+                        })
+                        return
+                    }
+                    let dataList = e.dataTransfer.files
+                    for (let i = 0; i < dataList.length; i++){
+                        if(dataList[i].type.indexOf('image') === -1){
+                            _this.$message({
+                                message: "仅支持Image上传",
+                                type: 'error'
+                            })
+                            continue
+                        }
+                        let formData = new FormData()
+                        formData.append('file', dataList[i])
+                        _this.contentAddFile(formData)
+                    }
+                })
+                this.simplemde.codemirror.on('paste', function (editor, e) {
+                    if(!(e.clipboardData&&e.clipboardData.items)){
+                        _this.$message({
+                            message: "该浏览器不支持操作",
+                            type: 'error'
+                        })
+                        return
+                    }
+                    let dataList = e.clipboardData.items
+                    for (let i = 0; i < dataList.length; i++){
+                        if(dataList[i].kind === 'string'){
+                            dataList[i].getAsString(function (str) {
+//                                console.log(str)
+                            })
+                        }else if(dataList[i].kind === 'file'){
+                            let file = dataList[i].getAsFile()
+                            let formData = new FormData()
+                            formData.append('file', file)
+                            _this.contentAddFile(formData)
+                        }
+                    }
+                })
+            },
+            contentAddFile: function (formData) {
+                let _this = this
+                _this.axios.post('/posts/upload', formData).then(function (response) {
+                    let res = response.data
+                    if(res.status == 'success'){
+                        _this.simplemde.value(_this.simplemde.value() + "![](" + res.fileUrl + ")")
                     }
                 })
             }

@@ -15,11 +15,11 @@ class QiniuUploads
         $this->client_id = $request->ip();
 
         if(!$file->isValid()){
-            return ['status' => 400];
+            return ['status' => 'error'];
         }
 
         $fileUrl = $this->put($dir, $file);
-        return ['status' => 200, 'fileUrl' => $fileUrl];
+        return ['status' => 'success', 'fileUrl' => $fileUrl];
     }
 
     public function put($dir, $file)
