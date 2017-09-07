@@ -15,7 +15,7 @@
                     <p>{{mb_substr(strip_tags($post['content']), 0, 200, 'utf-8')}}</p>
                 </div>
                 <div class="post-permalink">
-                    <a href="{{route('post', ['id' => $post['id']])}}" class="btn btn-default">阅读全文</a>
+                    <a href="{{route('post', ['slug' => $post['slug']])}}" class="btn btn-default">阅读全文</a>
                 </div>
 
                 <footer class="post-footer clearfix">
