@@ -297,7 +297,7 @@
             },
             mdeUpload: function () {
                 let _this = this
-                this.simplemde.codemirror.on('drop', function (editor, e) {
+                _this.simplemde.codemirror.on('drop', function (editor, e) {
                     if(!(e.dataTransfer&&e.dataTransfer.files)){
                         _this.$message({
                             message: "该浏览器不支持操作",
@@ -319,7 +319,7 @@
                         _this.contentAddFile(formData)
                     }
                 })
-                this.simplemde.codemirror.on('paste', function (editor, e) {
+                _this.simplemde.codemirror.on('paste', function (editor, e) {
                     if(!(e.clipboardData&&e.clipboardData.items)){
                         _this.$message({
                             message: "该浏览器不支持操作",
