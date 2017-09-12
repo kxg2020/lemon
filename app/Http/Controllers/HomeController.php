@@ -74,4 +74,10 @@ class HomeController extends Controller
         }
         return view('post', ['post' => $post]);
     }
+
+    public function search($key)
+    {
+        $posts = Post::search($key)->get()->toArray();
+        var_dump($posts);
+    }
 }

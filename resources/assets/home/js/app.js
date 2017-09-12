@@ -25,6 +25,10 @@ new Vue().$mount('#app')
 
 require('./header.js')
 
+window.algoliasearch = require('algoliasearch')
+
+require('./search.js')
+
 console.log('%c      ___       ___           ___           ___           ___     \n' +
     '     /\\__\\     /\\  \\         /\\__\\         /\\  \\         /\\__\\    \n' +
     '    /:/  /    /::\\  \\       /::|  |       /::\\  \\       /::|  |   \n' +

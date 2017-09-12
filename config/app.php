@@ -190,7 +190,12 @@ return [
         /**
          * LaravelGravatar Service Providers...
          */
-        Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class
+        Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
+
+        /**
+         * Laravel Scout Service Providers...
+         */
+        Laravel\Scout\ScoutServiceProvider::class
     ],
 
     /*

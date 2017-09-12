@@ -37,7 +37,7 @@
 </head>
 <body>
     <div id="app">
-        <header>
+        <header @if(Route::currentRouteName() != 'home')style="display: none"@endif>
             <div class="header-message" id="header-message">
                 <div id="header-text" class="header-text"></div>
             </div>
@@ -65,12 +65,11 @@
                         @foreach($categorys as $category)
                             <li @if(isset($cat_id) && $cat_id == $category['id']) class="active" @endif><a href="{{route('category', ['cat_id' => $category['id']])}}" @if(isset($cat_id) && $cat_id == $category['id'])class="active_content"@endif>{{$category['cat_name']}}</a></li>
                         @endforeach
+                        <li><a href="javascript:void(0)" id="search-show"><i class="glyphicon glyphicon-search"></i></a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        
-
 
                     </ul>
                 </div>
@@ -87,7 +86,7 @@
                             <h4 class="title">Lemon</h4>
                             <div class="content community">
                                 <p></p>
-                                <p><a href="javascript:void(0)" title="title" target="_blank" ><i class="fa fa-comments"></i> 玩王者吗 我露娜一打五 </a></p>
+                                <p><a href="javascript:void(0)" title="title" target="_blank" ><i class="fa fa-comments"></i> 大吉大利 今晚吃鸡！ </a></p>
                                 <p><a href="javascript:void(0)" title="title" target="_blank" ><i class="fa fa-weibo"></i> - </a></p>
                             </div>
                         </div>
@@ -140,8 +139,30 @@
             </p>
         </footer>
     </div>
+    <!-- Search -->
+    <div class="search-bg" style="display: none"></div>
+    <div class="search" style="display: none">
+        <div class="search-input">
+            <span>
+                <input id="search-input" type="text" class="form-control search-input" placeholder="请输入关键词">
+                <i class="glyphicon glyphicon-remove" id="search-hide"></i>
+            </span>
+        </div>
+        <div class="search-content">
+            <div class="search-header">
+                <span><span id="search-msg">输入关键词开始搜索</span> <a href="https://www.algolia.com" target="_blank" style="float: right;"><img src="/images/algolia_logo.svg" alt="" style="width: 70px;"></a></span>
+            </div>
+            <div class="search-list">
+
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
-    <script>window.Home = {'apiUrl': '{{ e(route('home')) }}', 'csrfToken': '{{e(csrf_token())}}' }</script>
+    <script>
+        window.Home = {'apiUrl': '{{ e(route('home')) }}', 'csrfToken': '{{e(csrf_token())}}' };
+        window.algolia_config = {'app_id': '{{env("ALGOLIA_APP_ID")}}', 'app_key': '{{env("ALGOLIA_SEARCH")}}'}
+    </script>
     <script src="{{ mix('home/js/app.js') }}"></script>
     @yield('scripts')
 </body>
