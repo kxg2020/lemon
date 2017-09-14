@@ -33,8 +33,7 @@
     line-height: 40px;
 }
 .search-input{
-    display: inherit !important;
-    width: 90% !important;
+
 }
 .search-list{
     min-height: 500px;
@@ -42,4 +41,18 @@
 .search-highlight{
     color: coral;
     font-style: normal;
+    background-color: #0f0f0f;
+}
+
+.search-left{
+    float: left;
+    width: 85%;
+}
+.search-right{
+    float: right;
+    width: 5%;
+}
+.search-list-item{
+    height: 35px;
+    border-bottom: 1px dashed #ccc;
 }

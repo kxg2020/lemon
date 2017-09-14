@@ -43,12 +43,12 @@
         <ul class="pager">
             @if (!$paginator->onFirstPage())
                 {{-- 上一页有内容 --}}
-                <li class="previous"><a href="{{ $paginator->previousPageUrl() }}"><span aria-hidden="true">&larr;</span> Older</a></li>
+                <li class="previous"><a href="{{ $paginator->previousPageUrl() }}" style="background-color: #1b1a1a;color: white;"><span aria-hidden="true">&larr;</span> Older</a></li>
             @endif
 
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
-                <li class="next"><a href="{{ $paginator->nextPageUrl() }}">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                <li class="next"><a href="{{ $paginator->nextPageUrl() }}"  style="background-color: #1b1a1a;color: white;">Newer <span aria-hidden="true">&rarr;</span></a></li>
             @endif
         </ul>
     </nav>

@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="post-content">
-                    <p>{{mb_substr(strip_tags($post['content']), 0, 200, 'utf-8')}}</p>
+                    <p>{{mb_substr(strip_tags($post['content']), 0, 200, 'utf-8')}}......</p>
                 </div>
                 <div class="post-permalink">
                     <a href="{{route('post', ['slug' => $post['slug']])}}" class="btn btn-default">阅读全文</a>

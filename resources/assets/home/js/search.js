@@ -22,7 +22,7 @@ $("#search-input").bind('input propertychange', function() {
             var searchHeaderMsg = response.nbHits + " results found in " + response.processingTimeMS +  " ms"
             var searchListHtml = "<div class=\"content recent-post\">"
             $.each(response.hits, function (index, item) {
-                searchListHtml += "<div class=\"recent-single-post\">\n" +
+                searchListHtml += "<div class=\"search-list-item\">\n" +
                     "<a href=\"/post/" + item.slug + "\" class=\"new-post-title\">" + highSearch(key, item.title) + "</a>\n" +
                     "</div>"
             })

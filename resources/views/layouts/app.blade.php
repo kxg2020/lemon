@@ -132,32 +132,15 @@
             <p>
                 © 2017-2017 Lemon
                 |
-                <a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17009035号</a>
+                <a href="http://www.miitbeian.gov.cn/" target="_blank" style="color: #959595;">蜀ICP备17009035号</a>
                 |
-                <a href="http://www.qiniu.com" target="_blank">七牛云</a>
+                <a href="http://www.qiniu.com" target="_blank" style="color: #959595;">七牛云</a>
             </p>
             </p>
         </footer>
     </div>
-    <!-- Search -->
-    <div class="search-bg" style="display: none"></div>
-    <div class="search" style="display: none">
-        <div class="search-input">
-            <span>
-                <input id="search-input" type="text" class="form-control search-input" placeholder="请输入关键词">
-                <i class="glyphicon glyphicon-remove" id="search-hide"></i>
-            </span>
-        </div>
-        <div class="search-content">
-            <div class="search-header">
-                <span><span id="search-msg">输入关键词开始搜索</span> <a href="https://www.algolia.com" target="_blank" style="float: right;"><img src="/images/algolia_logo.svg" alt="" style="width: 70px;"></a></span>
-            </div>
-            <div class="search-list">
-
-            </div>
-        </div>
-    </div>
-
+    @component('vendor.search')
+    @endcomponent
     <!-- Scripts -->
     <script>
         window.Home = {'apiUrl': '{{ e(route('home')) }}', 'csrfToken': '{{e(csrf_token())}}' };
