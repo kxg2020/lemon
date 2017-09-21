@@ -9,11 +9,27 @@ use App\Model\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Validator;
 
 class PostsController extends Controller
 {
     protected $fileDir = 'blog';
     //
+
+    protected function getRules($type = 'add'){
+        $rules = [
+                'title'  =>  'required|unique:posts',
+                'slug'  =>  'required|unique:posts',
+                'thumb'  =>  'required',
+                'content'    =>  'required',
+                'markdown'    =>  'required',
+            ];
+        if($type == 'add'){
+            $rules['tags'] = 'required';
+        }
+        return $rules;
+    }
+
     public function index(Request $request)
     {
         $page_size = $request->page_size > 0 ? $request->page_size : 20;
@@ -32,14 +48,14 @@ class PostsController extends Controller
     }
     public function store(Post $post, Request $request)
     {
-        $this->validate($request, [
-            'title'  =>  'required|unique:posts',
-            'slug'  =>  'required|unique:posts',
-            'thumb'  =>  'required',
-            'content'    =>  'required',
-            'markdown'    =>  'required',
-            'tags'   =>  'required',
-        ]);
+        $validator = Validator::make($request->all(), $this->getRules('add'));
+        if($validator->fails()){
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()->toArray()
+            ]);
+        }
+
         $post->title = $request->title;
         $post->slug = $request->slug;
         $post->thumb = $request->thumb;
@@ -77,20 +93,25 @@ class PostsController extends Controller
         ]);
     }
     public function update(Request $request){
-        if (empty($request->id)) {
+        $post = Post::find($request->id);
+        if (!$post) {
             return response()->json([
                 'status'    =>  'error',
-                'message'   =>  'ID 不能为空'
+                'errors'   =>  [
+                    'id'    => [ "'ID 不能为空'"]
+                ]
             ]);
         }
-        $this->validate($request, [
-            'title'  =>  'required',
-            'slug'  =>  'required',
-            'thumb'  =>  'required',
-            'content'    =>  'required',
-            'markdown'    =>  'required',
-        ]);
-        $post = Post::find($request->id);
+
+        $validator = Validator::make($request->all(), $this->getRules('update'));
+
+        if($validator->fails()){
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()->toArray()
+            ]);
+        }
+
         $post->title = $request->title;
         $post->slug = $request->slug;
         $post->thumb = $request->thumb;

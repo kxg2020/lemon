@@ -67,8 +67,9 @@
                        _this.listData = res.data;
                        _this.listLoading = false;
                    }else {
-                       _this.$message({
-                           message: "获取数据失败",
+                       _this.$notify({
+                           title: 'error',
+                           message: '获取数据失败',
                            type: 'error'
                        })
                    }
@@ -90,17 +91,19 @@
                     _this.axios.post('/categorys', _this.categoryModel).then(function (response) {
                         let res = response.data;
                         if(res.status == 'success'){
-                            _this.$message({
-                                message: "添加成功",
+                            _this.$notify({
+                                title: 'success',
+                                message: '添加成功',
                                 type: 'success'
                             })
                             _this.$refs.categoryForm.resetFields();
                             _this.$router.replace('/categorys');
                             _this.getData();
                         }else {
-                            _this.$message({
-                                message: "添加失败",
-                                type: 'error'
+                            _this.$notify({
+                                title: 'erorr',
+                                message: '添加失败',
+                                type: 'erorr'
                             })
                         }
                     })

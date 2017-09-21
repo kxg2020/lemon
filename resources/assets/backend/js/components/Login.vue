@@ -50,17 +50,22 @@
                             let data = response.data;
                             if(data.status == 200){
                                 sessionStorage.setItem('lemon', JSON.stringify(data.user));
-                                _this.$message({
-                                    message: "登录成功",
+                                _this.$notify({
+                                    title: 'success',
+                                    message: '登录成功',
                                     type: 'success',
                                     duration: 2000
-                                });
+                                })
                                 setTimeout(function () {
                                     _this.$router.push({path: '/main'})
                                 })
                                 _this.logining = false;
                             }else{
-                                _this.$message.error("登录失败");
+                                _this.$notify({
+                                    title: 'error',
+                                    message: '登录失败',
+                                    type: 'error'
+                                })
                                 _this.logining = false;
                             }
                         })

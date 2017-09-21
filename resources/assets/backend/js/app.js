@@ -48,11 +48,13 @@ const router = new VueRouter ({
             path: '/',
             component: Menu,
             name: '主页',
+            icon: 'ion-home',
             children: [
                 {
                     path: '/main',
                     component: Main,
                     name: '主页',
+                    icon: 'ion-home',
                     meta: {
                         requireAuth: true
                     }
@@ -63,6 +65,7 @@ const router = new VueRouter ({
             path: '/',
             component: Menu,
             name: '文章管理',
+            icon: 'ion-navicon-round',
             leaf: true,
             children: [
                 {
@@ -112,6 +115,7 @@ const router = new VueRouter ({
             path: '/',
             component: Menu,
             name: '文件管理',
+            icon: 'ion-ios-folder',
             leaf: true,
             children: [
                 {
@@ -136,6 +140,7 @@ const router = new VueRouter ({
             path: '/',
             component: Menu,
             name: '评论管理',
+            icon: 'ion-ios-chatbubble',
             leaf: true,
             children: [
                 {

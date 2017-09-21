@@ -154,8 +154,9 @@
                     let res = response.data;
                     if(res.status == 'success'){
                         if(res.data.length < 1){
-                            _this.$message({
-                                message: "请添加至少一个分类",
+                            _this.$notify({
+                                title: 'error',
+                                message: '请添加至少一个分类',
                                 type: 'error'
                             })
                             setTimeout(function () {
@@ -164,8 +165,9 @@
                         }
                         _this.categorys = res.data;
                     }else {
-                        _this.$message({
-                            message: "获取数据失败",
+                        _this.$notify({
+                            title: 'error',
+                            message: '获取数据失败',
                             type: 'error'
                         })
                     }
@@ -176,21 +178,11 @@
                 _this.axios.get('/tags').then(function (response) {
                     let res = response.data;
                     if(res.status == 'success'){
-                        /*
-                        if(res.data.length < 1){
-                            _this.$message({
-                                message: "请添加至少一个标签",
-                                type: 'error'
-                            })
-                            setTimeout(function () {
-                                _this.$router.replace('/tags');
-                            }, 2000)
-                        }
-                        */
                         _this.tags = res.data;
                     }else {
-                        _this.$message({
-                            message: "获取数据失败",
+                        _this.$notify({
+                            title: 'error',
+                            message: '获取数据失败',
                             type: 'error'
                         })
                     }
@@ -206,14 +198,16 @@
                         return false;
                     }
                     if(_this.postModel.markdown.length < 1){
-                        _this.$message({
-                            message: "请输入正文",
+                        _this.$notify({
+                            title: 'error',
+                            message: '请输入正文',
                             type: 'error'
                         })
                     }
                     if(_this.postModel.content.length < 1){
-                        _this.$message({
-                            message: "内容转换失败",
+                        _this.$notify({
+                            title: 'error',
+                            message: '内容转换失败',
                             type: 'error'
                         })
                     }
@@ -221,16 +215,25 @@
                         _this.axios.post('/posts', _this.postModel).then(function (response) {
                             let res = response.data;
                             if (res.status == 'success') {
-                                _this.$message({
-                                    message: "添加成功",
+                                _this.$notify({
+                                    title: 'success',
+                                    message: '更新成功',
                                     type: 'success'
                                 })
                                 setTimeout(function () {
-                                    _this.$router.replace('/posts');
+                                    _this.$router.replace('/posts')
                                 }, 2000)
                             } else {
-                                _this.$message({
-                                    message: "添加失败",
+                                let err_msg = ''
+                                for (var errors_key in res.errors){
+                                    for (var error_info_key in res.errors[errors_key]){
+                                        err_msg += res.errors[errors_key][error_info_key]
+                                        console.log(res.errors[errors_key][error_info_key])
+                                    }
+                                }
+                                _this.$notify({
+                                    title: 'error',
+                                    message: err_msg,
                                     type: 'error'
                                 })
                             }
@@ -239,16 +242,18 @@
                         _this.axios.put('/posts/update', _this.postModel).then(function (response) {
                             let res = response.data;
                             if (res.status == 'success') {
-                                _this.$message({
-                                    message: "修改成功",
+                                _this.$notify({
+                                    title: 'success',
+                                    message: '修改成功',
                                     type: 'success'
                                 })
                                 setTimeout(function () {
-                                    _this.$router.replace('/posts');
+                                    _this.$router.replace('/posts')
                                 }, 2000)
                             } else {
-                                _this.$message({
-                                    message: "修改失败",
+                                _this.$notify({
+                                    title: 'error',
+                                    message: '修改失败',
                                     type: 'error'
                                 })
                             }
@@ -268,10 +273,11 @@
                 let imgObj = new Image();
                 imgObj.src = this.postModel.thumb;
                 if (imgObj.fileSize <= 0 || (imgObj.width <= 0 || imgObj.height <= 0)) {
-                    this.$message({
+                    this.$notify({
+                        title: 'error',
                         message: "图片地址无效",
                         type: 'error'
-                    });
+                    })
                     this.thumbUrl = this.thumbInputPrefix + '404.gif';
                 }else {
                     this.thumbUrl = this.thumbInputPrefix + this.postModel.thumbInput;
@@ -288,10 +294,11 @@
                         let slug = res.data.dst.toLowerCase()
                         _this.postModel.slug = slug.replace(/\s/g, '-')
                     }else {
-                        this.$message({
+                        this.$notify({
+                            title: 'error',
                             message: res.message,
                             type: 'error'
-                        });
+                        })
                     }
                 })
             },
@@ -299,8 +306,9 @@
                 let _this = this
                 _this.simplemde.codemirror.on('drop', function (editor, e) {
                     if(!(e.dataTransfer&&e.dataTransfer.files)){
-                        _this.$message({
-                            message: "该浏览器不支持操作",
+                        this.$notify({
+                            title: 'error',
+                            message: '该浏览器不支持操作',
                             type: 'error'
                         })
                         return
@@ -308,8 +316,9 @@
                     let dataList = e.dataTransfer.files
                     for (let i = 0; i < dataList.length; i++){
                         if(dataList[i].type.indexOf('image') === -1){
-                            _this.$message({
-                                message: "仅支持Image上传",
+                            this.$notify({
+                                title: 'error',
+                                message: '仅支持Image上传',
                                 type: 'error'
                             })
                             continue
@@ -321,8 +330,9 @@
                 })
                 _this.simplemde.codemirror.on('paste', function (editor, e) {
                     if(!(e.clipboardData&&e.clipboardData.items)){
-                        _this.$message({
-                            message: "该浏览器不支持操作",
+                        this.$notify({
+                            title: 'error',
+                            message: '该浏览器不支持操作',
                             type: 'error'
                         })
                         return

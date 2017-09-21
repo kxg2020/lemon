@@ -59,7 +59,8 @@
                         _this.fileDirs = res.data;
                         _this.formLoading = false;
                     }else {
-                        _this.$message({
+                        _this.$notify({
+                            title: 'error',
                             message: '获取数据失败',
                             type: 'error'
                         })
@@ -72,7 +73,8 @@
             uploadBefore: function () {
                 let _this = this;
                 if(!this.fileModel.dir){
-                    _this.$message({
+                    _this.$notify({
+                        title: 'error',
                         message: '请选择目录',
                         type: 'error'
                     })
