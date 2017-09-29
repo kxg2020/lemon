@@ -105,19 +105,28 @@
                         let data = response.data;
                         if(data.status == 200){
                             sessionStorage.removeItem('lemon');
-                            _this.$message({
+                            _this.$notify({
+                                title: 'success',
                                 message: data.msg,
                                 type: 'success',
                                 duration: 2000
-                            });
+                            })
                             setTimeout(function () {
                                 _this.$router.replace('/login');
                             }, 2000)
                         }else {
-                            _this.$message.error('退出失败');
+                            _this.$notify({
+                                title: 'error',
+                                message: '退出失败',
+                                type: 'error'
+                            })
                         }
                     }).catch(function (error) {
-                        _this.$message.error('退出失败');
+                        _this.$notify({
+                            title: 'error',
+                            message: '退出失败',
+                            type: 'error'
+                        })
                         console.log(error);
                     })
                 })

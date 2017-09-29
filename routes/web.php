@@ -44,3 +44,10 @@ Route::group(['prefix' => '/dashboard', 'namespace' => 'Api'], function () {
     Route::post('/logout', 'AuthController@logout');
     Route::post('/check', 'AuthController@check');
 });
+
+
+
+Route::get('/v2.0', function (){
+    return view('v2.index');
+})->name('v2.0');
+
