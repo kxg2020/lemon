@@ -38,6 +38,13 @@ const router = new VueRouter ({
     root: '/main',
     routes: [
         {
+            path: '/login',
+            component: Login,
+            meta: {
+                requireAuth: true
+            }
+        },
+        {
             path: '/',
             component: Menu,
             name: '主页',

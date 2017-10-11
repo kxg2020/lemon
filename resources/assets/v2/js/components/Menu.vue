@@ -19,7 +19,7 @@
             </mu-appbar>
             <mu-divider/>
             <mu-list>
-                <template v-for="(menu, index) in $router.options.routes" v-if="(menu.meta.requireAuth && $store.state.authLogin) || !menu.meta.requireAuth">
+                <template v-for="(menu, index) in $router.options.routes" v-if="menu.children && ((menu.meta.requireAuth && $store.state.authLogin) || !menu.meta.requireAuth)">
                     <template v-if="menu.leaf">
                         <mu-list-item :title="menu.name"  toggleNested :open="false">
                             <template v-for="(submenu, index2) in menu.children" v-if="!submenu.hidden">
