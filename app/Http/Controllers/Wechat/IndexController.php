@@ -12,7 +12,7 @@ class IndexController extends Controller
 {
     public function posts()
     {
-        return response()->json(['posts' => $this->addIntro(Post::select('id', 'cat_id', 'slug', 'title', 'created_at')->with('tags','category')->orderBy('created_at', 'desc')->get()->toArray()]));
+        return response()->json(['posts' => $this->addIntro(Post::select('id', 'content', 'cat_id', 'slug', 'title', 'created_at')->with('tags','category')->orderBy('created_at', 'desc')->get()->toArray())]);
     }
 
     public function categorys()
@@ -33,6 +33,7 @@ class IndexController extends Controller
     protected function addIntro($posts){
         foreach ($posts as &$post){
             $post['intro'] = mb_substr(strip_tags($post['content']), 0, 200, 'utf-8');
+            unset($post['content']);
         }
         return $posts;
     }
