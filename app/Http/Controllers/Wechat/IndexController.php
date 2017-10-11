@@ -12,12 +12,12 @@ class IndexController extends Controller
 {
     public function posts()
     {
-        return response()->json(['posts' => Post::select('id', 'cat_id', 'slug', 'title', 'created_at')->with('tags','category')->orderBy('created_at', 'desc')->get()->toArray()]);
+        return response()->json(['posts' => $this->addIntro(Post::select('id', 'cat_id', 'slug', 'title', 'created_at')->with('tags','category')->orderBy('created_at', 'desc')->get()->toArray()]));
     }
 
     public function categorys()
     {
-        return response()->json(['cstagorys' => Category::select('id', 'cat_name')->where('is_nav', 1)->orderBy('cat_desc', 'desc')->get()->toArray()]);
+        return response()->json(['categorys' => Category::select('id', 'cat_name')->where('is_nav', 1)->orderBy('cat_desc', 'desc')->get()->toArray()]);
     }
 
     public function tags()
@@ -28,6 +28,13 @@ class IndexController extends Controller
     public function post($post_id)
     {
         return response()->json(['post' => $post = Post::with('tags', 'category')->find($post_id)->toArray()]);
+    }
+
+    protected function addIntro($posts){
+        foreach ($posts as &$post){
+            $post['intro'] = mb_substr(strip_tags($post['content']), 0, 200, 'utf-8');
+        }
+        return $posts;
     }
 
 }
