@@ -12,7 +12,7 @@
                 <el-table-column label="文件名" prop="file_name"></el-table-column>
                 <el-table-column label="文件类型" prop="file_ext"></el-table-column>
                 <el-table-column label="操作">
-                    <template scope="scope">
+                    <template slot-scope="scope">
                         <el-popover
                                 placement="left"
                                 width="300"

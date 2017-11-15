@@ -8,12 +8,12 @@
                 <el-table-column type="selection"></el-table-column>
                 <el-table-column label="email" prop="email"></el-table-column>
                 <el-table-column label="url" prop="url">
-                    <template scope="scope">
+                    <template slot-scope="scope">
                         <a :href="scope.row.url" class="link" target="_blank">{{scope.row.url}}</a>
                     </template>
                 </el-table-column>
                 <el-table-column label="评论" prop="body_show">
-                    <template scope="scope">
+                    <template slot-scope="scope">
                         {{scope.row.body_show}}
                         <el-popover
                                 placement="left"
@@ -28,7 +28,7 @@
                 </el-table-column>
                 <el-table-column label="时间" prop="created_at"></el-table-column>
                 <el-table-column label="操作" prop="id">
-                    <template scope="scope">
+                    <template slot-scope="scope">
                         <el-button type="danger" size="small" @click="handleDistory(scope.$index, scope.row.id)">删除</el-button>
                     </template>
                 </el-table-column>

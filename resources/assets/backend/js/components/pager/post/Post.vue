@@ -58,18 +58,18 @@
 </template>
 <style>
     .fullscreen{
-        margin-top: 70px;
-        margin-left: 13%;
+        margin-top: 65px;
+        margin-left: 260px;
         z-index: 99999 !important;
     }
     .CodeMirror-fullscreen{
-        margin-top: 70px;
-        margin-left: 13%;
+        margin-top: 65px;
+        margin-left: 260px;
         z-index: 99999 !important;
     }
     .editor-preview-active-side{
-        margin-left: 13%;
-        margin-top: 70px;
+        margin-left: 260px;
+        margin-top: 65px;
         z-index: 99999 !important;
     }
     .thumb-view{

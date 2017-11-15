@@ -45,17 +45,14 @@ Route::group(['prefix' => '/dashboard', 'namespace' => 'Api'], function () {
     Route::post('/check', 'AuthController@check');
 });
 
-
-
-Route::get('/v2.0', function (){
-    return view('v2.index');
-})->name('v2.0');
-
-Route::group(['prefix' => '/wechat', 'namespace' => 'Wechat'], function () {
+Route::group(['prefix' => '/wechat', 'namespace' => 'Wechat', 'middleware' => 'wechat'], function () {
    Route::get('/posts', 'IndexController@posts');
    Route::get('/tags', 'IndexController@tags');
    Route::get('/categorys', 'IndexController@categorys');
 
    Route::get('/post/{post_id}', 'IndexController@post');
+
+   Route::post('/bind', 'IndexController@bind');
+   Route::post('/upload', 'IndexController@upload');
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wechat;
 
+use App\Lemon\QiniuUploads;
 use App\Model\Category;
 use App\Model\Post;
 use App\Model\Tag;
@@ -30,9 +31,34 @@ class IndexController extends Controller
         return response()->json(['post' => $post = Post::with('tags', 'category')->find($post_id)->toArray()]);
     }
 
+    public function bind(Request $request)
+    {
+        $username = $request->username;
+        $password = $request->password;
+        $code = $request->code;
+        $appId= "wx3d1867534a7cebad";
+        $appSecret = "fb8ba8095a41b495dea3a34185365c4f";
+        $url = "https://api.weixin.qq.com/sns/jscode2session?appid=".$appId."&secret=".$appSecret."&js_code=".$code."&grant_type=authorization_code";
+        $client = new Client();
+        $response = $client->request('GET', $url);
+        $res = json_decode($response->getBody(), true);
+        var_dump($res);exit;
+        return response()->json([
+            'username' => $username,
+            'password' => $password,
+            'code' => $code
+        ]);
+    }
+
+    public function upload(QiniuUploads $qiniuUploads, Request $request)
+    {
+        $reult =  $qiniuUploads->upload('wechat', $request);
+        return response()->json($reult);
+    }
+
     protected function addIntro($posts){
         foreach ($posts as &$post){
-            $post['intro'] = mb_substr(strip_tags($post['content']), 0, 200, 'utf-8');
+            $post['intro'] = mb_substr(strip_tags($post['content']), 0, 100, 'utf-8');
             unset($post['content']);
         }
         return $posts;

@@ -1,13 +1,6 @@
 {
-  "/js/app.js": "/js/app.js",
-  "/css/app.css": "/css/app.css",
-  "/backend//js/app.js": "/backend//js/app.js",
-  "/home//js/app.js": "/home//js/app.js",
-  "/backend/public/css/app.css": "/backend/public/css/app.css",
-  "/home/public/css/app.css": "/home/public/css/app.css",
-  "/backend/js/app.js": "/backend/js/app.6dd3d6cb3311a6b4c2b7.js",
-  "/backend/css/app.css": "/backend/css/app.0eb7dbf6257dd1fc7c40564d5832aa9e.css",
-  "/home/css/app.css": "/home/css/app.50b0eea646c4fec35c23f3f8d43a8cfb.css",
-  "/publi/chome/js/app.js": "/publi/chome/js/app.js",
-  "/home/js/app.js": "/home/js/app.dda877208c0a4ef5fe2d.js"
+    "/backend/js/app.js": "/backend/js/app.js?id=4914bff7fd508bc3a1a4",
+    "/backend/css/app.css": "/backend/css/app.css?id=fc33b465f94c44b51b06",
+    "/home/css/app.css": "/home/css/app.css?id=0d899f097e26fa39d76c",
+    "/home/js/app.js": "/home/js/app.js?id=67eec24483f565a115a1"
 }

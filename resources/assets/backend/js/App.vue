@@ -4,15 +4,10 @@
     </div>
 </template>
 <style>
-    body{
+    html, body{
         margin: 0;
         padding: 0;
         height: 100%;
-    }
-    #app{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
+        overflow-x: hidden;
     }
 </style>

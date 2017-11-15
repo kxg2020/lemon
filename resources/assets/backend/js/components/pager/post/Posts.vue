@@ -9,7 +9,7 @@
             <el-table :data="listData" v-loading="listLoading" @selection-change="handleSelectionChange">
                 <el-table-column type="selection"></el-table-column>
                 <el-table-column label="标题" prop="title">
-                    <template scope="scope">
+                    <template slot-scope="scope">
                         <router-link :to="{path: 'posts/edit/' + scope.row.id}" class="link">{{scope.row.title}}</router-link>
                     </template>
                 </el-table-column>

@@ -1,0 +1,31 @@
+/* 改变主题色变量 */
+$--color-primary: #42602D;
+//$--color-light-primary: #019898;
+//$--color-dark-primary: #017373;
+//
+//$--color-success: #13CE66;
+//$--color-warning: #F7BA2A;
+//$--color-danger: #FF4949;
+//$--color-info: #50BFFF;
+//
+//$--color-black: #1F3A3D;
+//$--color-base-black: #000000;
+//$--color-silver: #83A3A5;
+//$--color-gray: #D1E5E5;
+//$--color-dark-white: #FAFCFC;
+//
+//$--color-base-white: #FFFFFF;
+//$--color-light-black: #325157;
+//$--color-light-silver: #97B8BE;
+//$--color-light-gray: #E4EEF1;
+//
+//$--color-extra-light-black: #48666A;
+//$--color-extra-light-silver: #BFD7D9;
+//$--color-extra-light-gray: #EEF5F6;
+
+
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '../../../../node_modules/element-ui/lib/theme-chalk/fonts';
+
+@import '../../../../node_modules/element-ui/packages/theme-chalk/src/index';
