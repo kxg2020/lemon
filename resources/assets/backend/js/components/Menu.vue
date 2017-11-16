@@ -59,7 +59,7 @@
                     </el-breadcrumb>
                 </el-row>
                 <el-row>
-                    <router-view></router-view>
+                    <router-view v-on:newWidthChang="widthChange"></router-view>
                 </el-row>
             </el-row>
         </div>
@@ -172,17 +172,17 @@
                 pathName: '主页',
                 pathNameParent: '',
                 pathParent: '/posts'
-            };
+            }
         },
         watch: {
             '$route'(to, from){
-                this.pathName = to.name;
-                this.pathNameParent = to.matched[0].name;
-                this.pathParent = to.matched[0].path;
+                this.pathName = to.name
+                this.pathNameParent = to.matched[0].name
+                this.pathParent = to.matched[0].path
             }
         },
         created: function () {
-            this.checklogin();
+            this.checklogin()
             this.widthChange(document.documentElement.clientWidth)
             let that = this
             window.onresize = function () {
@@ -191,12 +191,12 @@
         },
         methods: {
             logout: function () {
-                var _this = this;
+                var _this = this
                 this.$confirm("确认退出么？", '提示', {}).then(() => {
                     _this.axios.post('/logout').then(function (response) {
-                        let data = response.data;
+                        let data = response.data
                         if(data.status == 200){
-                            sessionStorage.removeItem('lemon');
+                            sessionStorage.removeItem('lemon')
                             _this.$notify({
                                 title: 'success',
                                 message: data.msg,
@@ -204,7 +204,7 @@
                                 duration: 2000
                             })
                             setTimeout(function () {
-                                _this.$router.replace('/login');
+                                _this.$router.replace('/login')
                             }, 2000)
                         }else {
                             _this.$notify({
@@ -224,16 +224,16 @@
                 })
             },
             checklogin: function () {
-                let _this = this;
-                let user = JSON.parse(sessionStorage.getItem('lemon'));
+                let _this = this
+                let user = JSON.parse(sessionStorage.getItem('lemon'))
                 if(!user){
-                    _this.$router.push({path: '/login'});
+                    _this.$router.push({path: '/login'})
                 }
                 _this.axios.post('/check').then(function (response) {
-                    let res = response.data;
+                    let res = response.data
                     if(!res.status){
-                        sessionStorage.removeItem('lemon');
-                        _this.$router.push({path: '/login'});
+                        sessionStorage.removeItem('lemon')
+                        _this.$router.push({path: '/login'})
                     }
                 })
             },
@@ -246,7 +246,7 @@
                 } else {
                     this.navHidden = false
                 }
-            },
+            }
         }
     }
 </script>

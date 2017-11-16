@@ -97,6 +97,7 @@
                 let pubgDom = document.getElementById("pubg")
                 let pubgWidth = pubgDom.clientWidth
                 this.pubgHeight = (pubgWidth * 9 / 16) + "px"
+                this.$emit('newWidthChang', document.documentElement.clientWidth)
             }
         }
     }

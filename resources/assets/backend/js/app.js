@@ -181,10 +181,10 @@ Vue.axios.interceptors.request.use(
         if(error.response){
             switch (error.response.status){
                 case 403:
-                    this.router.$router.push({path: '/login'})
+                    router.push({path: '/login'})
                     break
                 case 200:
-                    this.this.router.$router.push({path: '/main'})
+                    router.push({path: '/main'})
                     break
             }
         }
@@ -201,10 +201,13 @@ Vue.axios.interceptors.response.use(
         if(error.response){
             switch (error.response.status){
                 case 403:
-                    this.router.$router.push({path: '/login'})
+                    router.push({path: '/login'})
                     break
                 case 200:
-                    this.this.router.$router.push({path: '/main'})
+                    router.push({path: '/main'})
+                    break
+                case 401:
+                    router.push({path: '/login'})
                     break
             }
         }
