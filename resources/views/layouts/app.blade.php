@@ -37,7 +37,8 @@
 </head>
 <body>
     <div id="app">
-        <header @if(Route::currentRouteName() != 'home')style="display: none"@endif>
+        {{--<header @if(Route::currentRouteName() != 'home')style="display: none"@endif>--}}
+        <header @if(true)style="display: none"@endif>
             <div class="header-message" id="header-message">
                 <div id="header-text" class="header-text"></div>
             </div>
