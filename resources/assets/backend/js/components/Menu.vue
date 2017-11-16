@@ -104,6 +104,7 @@
     }
     .el-menu-demo .is-active{
         background-color: #2d2f33;
+        border-bottom: none !important;
     }
     .el-menu--horizontal .el-menu-item{
         height: 64px;

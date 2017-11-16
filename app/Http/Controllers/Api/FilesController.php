@@ -22,7 +22,7 @@ class FilesController extends Controller
 
     public function store(QiniuUploads $qiniuUploads, Request $request)
     {
-        $reult =  $qiniuUploads->upload($request);
+        $reult =  $qiniuUploads->upload($request->dir, $request);
         return response()->json($reult);
     }
 

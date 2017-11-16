@@ -25,7 +25,8 @@
                         :on-success="uploadSuccess"
                         :before-upload="uploadBefore"
                         :multiple="false"
-                        :show-file-list="true">
+                        :show-file-list="true"
+                        :data="{'dir': fileModel.dir}">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -38,17 +39,18 @@
         data() {
             return {
                 formLoading: true,
-                uploadApi: window.Dashboard.apiUrl + '/files/upload',
+                uploadApi: window.Dashboard.apiUrl + '/files',
                 headers: {'X-CSRF-TOKEN': window.Dashboard.csrfToken},
                 fileModel: {
                     dir: '',
                     file: ''
                 },
-                fileDirs: []
+                fileDirs: [],
+                uploadData: {}
             }
         },
         created() {
-            this.getDirs();
+            this.getDirs()
         },
         methods: {
             getDirs: function () {
@@ -71,16 +73,16 @@
 
             },
             uploadBefore: function () {
-                let _this = this;
+                let _this = this
                 if(!this.fileModel.dir){
                     _this.$notify({
                         title: 'error',
                         message: '请选择目录',
                         type: 'error'
                     })
-                    return false;
+                    return false
                 }else {
-                    return true;
+                    return true
                 }
             }
         }
