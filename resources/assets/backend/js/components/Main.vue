@@ -9,11 +9,13 @@
             </div>
         </el-card>
         <el-card class="box-card" v-loading="pubgLoading">
-            <el-carousel indicator-position="outside" :height="pubgHeight" id="pubg">
-                <el-carousel-item v-for="(item, index) in pubgImages" :key="index">
-                    <img class="pubg-img" :src="imgPrefix + item.file_name" alt="" width="100%">
-                </el-carousel-item>
-            </el-carousel>
+            <el-row style="margin: 0 auto; max-width: 1024px;">
+                <el-carousel indicator-position="outside" :height="pubgHeight" id="pubg">
+                    <el-carousel-item v-for="(item, index) in pubgImages" :key="index">
+                        <img class="pubg-img" :src="imgPrefix + item.file_name" alt="" :width="pubgWidth">
+                    </el-carousel-item>
+                </el-carousel>
+            </el-row>
         </el-card>
     </el-row>
 </template>
@@ -29,7 +31,6 @@
         padding: 18px 0;
     }
     .pubg-img {
-        width: 100%;
         height: auto;
     }
     .box-card {
@@ -46,7 +47,7 @@
                 page_view: 0,
                 pubgImages: [],
                 imgPrefix: 'http://img.it9g.com/',
-                pubgHeight: '400px'
+                pubgHeight: '576px',
             }
         },
         created: function () {
@@ -96,6 +97,8 @@
             widthChange() {
                 let pubgDom = document.getElementById("pubg")
                 let pubgWidth = pubgDom.clientWidth
+                pubgWidth = pubgWidth > 1024 ? 1024 : pubgWidth
+                console.log(pubgWidth)
                 this.pubgHeight = (pubgWidth * 9 / 16) + "px"
                 this.$emit('newWidthChang', document.documentElement.clientWidth)
             }
