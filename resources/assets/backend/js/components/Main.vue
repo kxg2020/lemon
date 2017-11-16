@@ -12,7 +12,7 @@
             <el-row style="margin: 0 auto; max-width: 1024px;">
                 <el-carousel indicator-position="outside" :height="pubgHeight" id="pubg">
                     <el-carousel-item v-for="(item, index) in pubgImages" :key="index">
-                        <img class="pubg-img" :src="imgPrefix + item.file_name" alt="" :width="pubgWidth">
+                        <img class="pubg-img" :src="imgPrefix + item.file_name" alt="">
                     </el-carousel-item>
                 </el-carousel>
             </el-row>
@@ -31,6 +31,7 @@
         padding: 18px 0;
     }
     .pubg-img {
+        width: 100%;
         height: auto;
     }
     .box-card {
