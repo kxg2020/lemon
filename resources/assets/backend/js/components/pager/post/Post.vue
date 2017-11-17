@@ -97,7 +97,7 @@
                 categorys: [],
                 tags: [],
                 thumbUrl: '',
-                thumbInputPrefix: 'http://img.it9g.com/',
+                thumbInputPrefix: 'https://img.it9g.com/',
                 postRules: {
                     title: [
                         {required: true, type: 'string', message: '请填写标题', trigger: 'blur'}

@@ -53,7 +53,7 @@
                 currentPage: 1,
                 pageSize: 10,
                 total: 0,
-                imgPrefix: 'http://img.it9g.com/',
+                imgPrefix: 'https://img.it9g.com/',
             }
         },
         mounted() {

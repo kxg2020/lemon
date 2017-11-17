@@ -16,16 +16,19 @@ class PostsController extends Controller
     protected $fileDir = 'blog';
     //
 
-    protected function getRules($type = 'add'){
+    protected function getRules($type = 'add', $id = null){
         $rules = [
-                'title'  =>  'required|unique:posts',
-                'slug'  =>  'required|unique:posts',
+                'tags' => 'required',
                 'thumb'  =>  'required',
                 'content'    =>  'required',
                 'markdown'    =>  'required',
             ];
         if($type == 'add'){
-            $rules['tags'] = 'required';
+            $rules['title'] = 'required|unique:posts';
+            $rules['slug'] = 'required|unique:posts';
+        }else{
+            $rules['title'] = 'required|unique:posts,title,' . $id;
+            $rules['slug'] = 'required|unique:posts,slug,' . $id;
         }
         return $rules;
     }
@@ -103,7 +106,7 @@ class PostsController extends Controller
             ]);
         }
 
-        $validator = Validator::make($request->all(), $this->getRules('update'));
+        $validator = Validator::make($request->all(), $this->getRules('update', $request->id));
 
         if($validator->fails()){
             return response()->json([

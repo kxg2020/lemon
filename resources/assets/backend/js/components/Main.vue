@@ -47,7 +47,7 @@
                 post_count: 0,
                 page_view: 0,
                 pubgImages: [],
-                imgPrefix: 'http://img.it9g.com/',
+                imgPrefix: 'https://img.it9g.com/',
                 pubgHeight: '576px',
             }
         },
@@ -97,10 +97,11 @@
             },
             widthChange() {
                 let pubgDom = document.getElementById("pubg")
-                let pubgWidth = pubgDom.clientWidth
-                pubgWidth = pubgWidth > 1024 ? 1024 : pubgWidth
-                console.log(pubgWidth)
-                this.pubgHeight = (pubgWidth * 9 / 16) + "px"
+                if(pubgDom.clientWidth) {
+                    let pubgWidth = pubgDom.clientWidth
+                    pubgWidth = pubgWidth > 1024 ? 1024 : pubgWidth
+                    this.pubgHeight = (pubgWidth * 9 / 16) + "px"
+                }
                 this.$emit('newWidthChang', document.documentElement.clientWidth)
             }
         }

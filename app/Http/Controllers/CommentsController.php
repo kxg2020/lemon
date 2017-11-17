@@ -49,6 +49,6 @@ class CommentsController extends Controller
 
     protected function getGravatar_src($email)
     {
-        return Gravatar::exists($email) ? Gravatar::src($email) : 'http://img.it9g.com/default_avatar.png';
+        return Gravatar::exists($email) ? Gravatar::src($email) : 'https://img.it9g.com/default_avatar.png';
     }
 }
