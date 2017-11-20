@@ -1,9 +1,6 @@
 <template>
     <el-row>
-        <el-row class="main-header">
-
-        </el-row>
-        <el-row>
+        <el-card>
             <el-table :data="listData" v-loading="listLoading" @selection-change="handleSelectionChange">
                 <el-table-column type="selection"></el-table-column>
                 <el-table-column label="email" prop="email"></el-table-column>
@@ -33,8 +30,8 @@
                     </template>
                 </el-table-column>
             </el-table>
-        </el-row>
-        <el-row class="main-page">
+        </el-card>
+        <el-card class="main-page">
             <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
@@ -44,7 +41,7 @@
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="total">
             </el-pagination>
-        </el-row>
+        </el-card>
     </el-row>
 </template>
 <style>
@@ -56,6 +53,9 @@
         padding: 20px;
         line-height: 20px;
         font-size: 15px;
+    }
+    .el-card:nth-child(n+2) {
+        margin-top: 10px;
     }
 </style>
 <script type="text/ecmascript-6">

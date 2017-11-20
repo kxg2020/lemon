@@ -15,7 +15,7 @@ class QiniuUploads
         $this->client_id = $request->ip();
 
         if(!$file->isValid()){
-            return ['status' => 'error'];
+            return ['status' => 'error', 'msg' => '文件不合格'];
         }
 
         $fileUrl = $this->put($dir, $file);

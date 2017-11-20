@@ -97,7 +97,7 @@
             },
             widthChange() {
                 let pubgDom = document.getElementById("pubg")
-                if(pubgDom.clientWidth) {
+                if(pubgDom.clientWidth !== undefined) {
                     let pubgWidth = pubgDom.clientWidth
                     pubgWidth = pubgWidth > 1024 ? 1024 : pubgWidth
                     this.pubgHeight = (pubgWidth * 9 / 16) + "px"

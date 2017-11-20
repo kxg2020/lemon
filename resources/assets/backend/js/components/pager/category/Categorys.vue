@@ -1,29 +1,33 @@
 <template>
-    <el-row :gutter="20">
-        <el-col :span="11">
-            <el-table :data="listData" v-loading="listLoading" @selection-change="handleSelectionChange">
-                <el-table-column type="selection"></el-table-column>
-                <el-table-column label="名称" prop="cat_name"></el-table-column>
-                <el-table-column label="排序" prop="cat_desc"></el-table-column>
-                <el-table-column label="是否导航" prop="is_nav"></el-table-column>
-            </el-table>
+    <el-row>
+        <el-col :span="11" class="el-card">
+            <div class="el-card__body">
+                <el-table :data="listData" v-loading="listLoading" @selection-change="handleSelectionChange">
+                    <el-table-column type="selection"></el-table-column>
+                    <el-table-column label="名称" prop="cat_name"></el-table-column>
+                    <el-table-column label="排序" prop="cat_desc"></el-table-column>
+                    <el-table-column label="是否导航" prop="is_nav"></el-table-column>
+                </el-table>
+            </div>
         </el-col>
-        <el-col :span="11" style="border: 1px solid #bfcbd9; padding: 10px;">
-            <el-form ref="categoryForm" :model="categoryModel" :rules="categoryRules" label-width="80px">
-                <el-form-item label="分类名称" prop="cat_name">
-                    <el-input v-model="categoryModel.cat_name"></el-input>
-                </el-form-item>
-                <el-form-item label="排序" prop="cat_desc">
-                    <el-input v-model="categoryModel.cat_desc"></el-input>
-                </el-form-item>
-                <el-form-item label="首页导航">
-                    <el-switch on-text="是" off-text="否" v-model="categoryModel.is_nav" on-value="1" off-value="0"></el-switch>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit()">立即创建</el-button>
-                    <el-button>取消</el-button>
-                </el-form-item>
-            </el-form>
+        <el-col :span="11" class="el-card" style="margin-left: 10px;">
+            <div class="el-card__body">
+                <el-form ref="categoryForm" :model="categoryModel" :rules="categoryRules" label-width="80px">
+                    <el-form-item label="分类名称" prop="cat_name">
+                        <el-input v-model="categoryModel.cat_name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="排序" prop="cat_desc">
+                        <el-input v-model="categoryModel.cat_desc"></el-input>
+                    </el-form-item>
+                    <el-form-item label="首页导航">
+                        <el-switch on-text="是" off-text="否" v-model="categoryModel.is_nav" on-value="1" off-value="0"></el-switch>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="onSubmit()">立即创建</el-button>
+                        <el-button>取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
         </el-col>
     </el-row>
 </template>

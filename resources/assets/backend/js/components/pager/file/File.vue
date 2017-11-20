@@ -1,5 +1,5 @@
 <template>
-    <el-row>
+    <el-card>
         <el-form v-model="fileModel" label-width="80px" v-loading="formLoading" >
             <el-form-item label="目录" prop="dir">
                 <el-select
@@ -32,7 +32,7 @@
                 </el-upload>
             </el-form-item>
         </el-form>
-    </el-row>
+    </el-card>
 </template>
 <script type="text/ecmascript-6">
     export default {

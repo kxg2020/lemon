@@ -1,5 +1,5 @@
 <template>
-    <el-row>
+    <el-card>
         <el-form ref="postForm" :model="postModel" :rules="postRules" label-width="80px" v-loading="formLoading">
             <el-form-item label="标题" prop="title">
                 <el-input v-model="postModel.title" @blur="transSlug"></el-input>
@@ -54,7 +54,7 @@
                 <el-button>取消</el-button>
             </el-form-item>
         </el-form>
-    </el-row>
+    </el-card>
 </template>
 <style>
     .fullscreen{
