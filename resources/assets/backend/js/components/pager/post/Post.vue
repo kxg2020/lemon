@@ -263,8 +263,8 @@
             },
             uploadSuccess: function(response, file, fileList) {
                 if(response.status == 'success') {
-                    this.postModel.thumb = response.fileUrl;
-                    this.thumbUrl = response.fileUrl;
+                    this.postModel.thumb = response.fileUrl
+                    this.thumbUrl = response.fileUrl
                 }
             },
             thumbInputSuccess: function () {

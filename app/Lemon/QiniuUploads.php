@@ -30,14 +30,14 @@ class QiniuUploads
         $key = Etag::sum($realPath);
         $fileName = $dir.'/'.sprintf("%s.%s", $key[0], $ext);
         if($file = File::where('file_name', $fileName)->first()){
-            $download = $disk->downloadUrl($fileName, 'custom');
+            $download = $disk->downloadUrl($fileName, 'https');
             return $download->getUrl();
         }
         $result = $disk->put($fileName, fopen($realPath, 'r+'));
         if($result){
             $this->saveFileInfo($dir, $fileName, $ext);
         }
-        $download = $disk->downloadUrl($fileName, 'custom');
+        $download = $disk->downloadUrl($fileName, 'https');
         return $download->getUrl();
     }
 
