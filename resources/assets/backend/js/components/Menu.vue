@@ -162,6 +162,9 @@
     .example-main{
         padding: 20px;
     }
+    .el-menu {
+        border-right: none;
+    }
 </style>
 <script type="text/ecmascript-6">
     export default {

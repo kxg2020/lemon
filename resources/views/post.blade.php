@@ -53,5 +53,9 @@
         pre{
             background-color: #282c34;
         }
+        .post img {
+            width: 100%;
+            border-radius: 4px;
+        }
     </style>
 @endsection
