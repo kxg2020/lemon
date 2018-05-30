@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CommentsController extends Controller
 {
