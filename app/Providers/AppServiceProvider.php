@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Model\Category;
-use App\Model\Tag;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
