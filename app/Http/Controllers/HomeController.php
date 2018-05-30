@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Category;
 use App\Model\Post;
 use App\Model\Tag;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
 class HomeController extends Controller
@@ -72,6 +73,7 @@ class HomeController extends Controller
             $post = Post::with('tags', 'category')->find($post->id)->toArray();
             Redis::set('post:'.$slug, serialize($post));
         }
+        DB::table('posts')->where('id', $post['id'])->increment('views');
         return view('post', ['post' => $post]);
     }
 

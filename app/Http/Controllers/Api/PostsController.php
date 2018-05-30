@@ -38,12 +38,12 @@ class PostsController extends Controller
         $page_size = $request->page_size > 0 ? $request->page_size : 20;
         $listData = Post::with([
             'category' => function($query){
-                $query->select("id", "cat_name");
+                $query->select('id', 'cat_name');
             },
             'tags'  =>  function($query){
-                $query->select('tag_id', "tag_name");
+                $query->select('tag_id', 'tag_name');
             }
-        ])->paginate($page_size);
+        ])->withCount('comments')->paginate($page_size);
         return response()->json([
             'status'    =>  'success',
             'data'      =>  $listData

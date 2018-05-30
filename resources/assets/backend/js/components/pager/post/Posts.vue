@@ -14,6 +14,8 @@
                     </template>
                 </el-table-column>
                 <el-table-column label="分类" prop="category.cat_name"></el-table-column>
+                <el-table-column label="评论" prop="comments_count"></el-table-column>
+                <el-table-column label="查看" prop="views"></el-table-column>
                 <el-table-column label="日期" prop="created_at"></el-table-column>
             </el-table>
         </el-card>
