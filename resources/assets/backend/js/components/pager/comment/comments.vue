@@ -24,6 +24,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column label="时间" prop="created_at"></el-table-column>
+                <el-table-column label="文章" prop="post.title"></el-table-column>
                 <el-table-column label="操作" prop="id">
                     <template slot-scope="scope">
                         <el-button type="danger" size="small" @click="handleDistory(scope.$index, scope.row.id)">删除</el-button>

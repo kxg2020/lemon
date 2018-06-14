@@ -12,7 +12,7 @@ class CommentsController extends Controller
     public function index(Request $request)
     {
         $page_size = $request->page_size > 0 ? $request->page_size : 20;
-        $comments = Comment::select('*', DB::raw('left(body, 100) as body_show'))->orderBy('created_at', 'desc')->paginate($page_size);
+        $comments = Comment::select('*', DB::raw('left(body, 100) as body_show'))->with('post:id,title')->orderBy('created_at', 'desc')->paginate($page_size);
         return response()->json([
             'status'    =>  'success',
             'data'      =>  $comments
