@@ -14,3 +14,5 @@ npm-debug.log
 /public/home/js/app*.js
 /public/home/css/app*.css
 /public/mix-manifest.json
+/public/fonts/*
+/public/backend/fonts/*

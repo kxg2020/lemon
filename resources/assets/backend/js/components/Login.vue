@@ -1,24 +1,37 @@
 <template>
-    <el-row type="flex" class="row-bg" justify="center">
-        <el-col :span="8" :xs="{span:20}">
-            <el-form :model="loginForm" :roules="loginRules" ref="loginForm" label-positin="left" label-width="0px" class="">
-                <h3 class="title">系统登录</h3>
-                <el-form-item prop="email">
-                    <el-input type="text" v-model="loginForm.email" auto-complete="off" placeholder="email"></el-input>
-                </el-form-item>
-                <el-form-item prop="password">
-                    <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="password"></el-input>
-                </el-form-item>
-                <!--<el-checkbox v-model="loginForm.remember">Remember me</el-checkbox>-->
-                <el-form-item>
-                    <el-button type="primary" style="width: 100%;" @click.native.prevent="loginFormSubmit" :loading="logining">Login</el-button>
-                </el-form-item>
-            </el-form>
-        </el-col>
+    <el-row class="login">
+        <el-form :model="loginForm" :roules="loginRules" ref="loginForm" label-positin="left" label-width="0px" class="login-form">
+            <h3 class="login-title">Lemon</h3>
+            <el-form-item prop="email">
+                <el-input type="text" v-model="loginForm.email" auto-complete="off" placeholder="email" autofocus></el-input>
+            </el-form-item>
+            <el-form-item prop="password">
+                <el-input type="password" v-model="loginForm.password" auto-complete="off" @keyup.native.13="loginFormSubmit" placeholder="password"></el-input>
+            </el-form-item>
+            <!--<el-checkbox v-model="loginForm.remember">Remember me</el-checkbox>-->
+            <el-form-item>
+                <el-button type="primary" style="width: 100%;" @click.native.prevent="loginFormSubmit" :loading="logining">Login</el-button>
+            </el-form-item>
+        </el-form>
     </el-row>
 </template>
 <style>
-
+    .login{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .login-form{
+        width: 500px;
+        height: fit-content;
+        margin: auto;
+    }
+    .login-title{
+        margin: 1em 0;
+        font-size: 1.6em;
+        text-align: center;
+    }
 </style>
 <script type="text/ecmascript-6">
     export default {

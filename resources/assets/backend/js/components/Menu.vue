@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="wh100">
         <div class="appbar" :class="navHidden ? 'nav-hidden-appbar' : ''">
             <div class="left">
                 <button @click="changeNavStatus" class="icon-button" style="height: 64px"><i class="ion-navicon-round"></i></button>
             </div>
             <div class="center">
-                <span>Page Title</span>
+                <span>{{pathName}}</span>
             </div>
             <div class="right">
                 <el-menu
@@ -28,7 +28,7 @@
                 <span>Lemon</span>
             </div>
             <div class="paper-menu">
-                <el-row class="tac">
+                <el-scrollbar style="position: absolute;top: 64px;bottom: 0;width: 256px;">
                     <el-menu default-active="/main" class="el-menu-vertical-demo"   theme="dark" style="border-radius: 0;" :router="routerState" :unique-opened="true">
                         <template v-for="(item, index) in $router.options.routes" v-if="item.children">
                             <template v-if="item.leaf">
@@ -46,29 +46,22 @@
                             </template>
                         </template>
                     </el-menu>
-                </el-row>
+                </el-scrollbar>
             </div>
         </div>
         <div class="example" :class="navHidden ? 'nav-hidden-example' : ''">
-            <el-row class="example-main">
-                <el-row style="padding-bottom: 15px;">
-                    <el-breadcrumb separator="/">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                        <el-breadcrumb-item :to="pathParent" v-if="pathNameParent">{{pathNameParent}}</el-breadcrumb-item>
-                        <el-breadcrumb-item>{{pathName}}</el-breadcrumb-item>
-                    </el-breadcrumb>
-                </el-row>
-                <el-row>
+            <el-scrollbar class="example-scrollbar">
+                <el-row class="example-main wh100">
                     <router-view v-on:newWidthChang="widthChange"></router-view>
                 </el-row>
-            </el-row>
+            </el-scrollbar>
         </div>
     </div>
 </template>
 <style>
     .appbar{
         height: 64px;
-        position: fixed;
+        position: absolute;
         left: 256px;
         right:  0;
         top: 0;
@@ -110,7 +103,7 @@
         height: 64px;
     }
     .paper{
-        position: fixed;
+        position: absolute;
         width: 256px;
         top: 0;
         bottom: 0;
@@ -150,20 +143,32 @@
         width: 100%;
     }
     .example{
-        position: relative;
-        padding-top: 64px;
-        padding-left: 256px;
+        position: absolute;
+        top: 64px;
+        left: 256px;
+        right: 0;
+        bottom: 0;
         transition-duration: .45s;
     }
     .nav-hidden-example{
-        padding-left: 0;
+        left: 0;
         transform: translateZ(0);
+    }
+    .example-scrollbar{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
     }
     .example-main{
         padding: 20px;
     }
     .el-menu {
         border-right: none;
+    }
+    .el-scrollbar__wrap{
+        overflow-x: auto;
     }
 </style>
 <script type="text/ecmascript-6">

@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" class="wh100">
         <router-view></router-view>
     </div>
 </template>
@@ -9,5 +9,9 @@
         padding: 0;
         height: 100%;
         overflow-x: hidden;
+    }
+    .wh100{
+        width: 100%;
+        height: 100%;
     }
 </style>
