@@ -58,20 +58,20 @@
         },
         methods: {
             getPosts(){
-                let _this = this;
-                _this.listLoading = true;
+                let _this = this
+                _this.listLoading = true
                 let query = {
                     page_size:  _this.pageSize,
                     page: _this.currentPage
                 }
                 _this.axios.get('/posts', {params: query}).then(function (response) {
-                    let res = response.data;
+                    let res = response.data
                     if(res.status == 'success'){
-                        let _data = res.data;
-                        _this.total = _data.total,
-                        _this.currentPage = _data.current_page,
-                        _this.listData = _data.data;
-                        _this.listLoading = false;
+                        let _data = res.data
+                        _this.total = _data.total
+                        _this.currentPage = _data.current_page
+                        _this.listData = _data.data
+                        _this.listLoading = false
                     }else {
                         _this.$message({
                             message: "获取数据失败",
@@ -81,17 +81,17 @@
                 });
             },
             deleteRow(index, rows){
-                rows.splice(index, 1);
+                rows.splice(index, 1)
             },
             handleSelectionChange(val){
-                this.checkedAll = val;
+                this.checkedAll = val
             },
             handleSizeChange(val) {
-                this.pageSize = val;
+                this.pageSize = val
                 this.getPosts()
             },
             handleCurrentChange(val) {
-                this.currentPage = val;
+                this.currentPage = val
                 this.getPosts();
             }
         }

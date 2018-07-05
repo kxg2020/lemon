@@ -1,14 +1,15 @@
 window.Vue = require('vue')
 
-window.$ = window.jQuery = require('jquery');
-require('bootstrap-sass')
-
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueRouter from 'vue-router'
+import ElementUI from 'element-ui'
 
-window.hljs = require('../../vendor/highlight.min');
-
+Vue.use(ElementUI)
+Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
+
+window.hljs = require('../../vendor/highlight.min')
 
 let token = document.head.querySelector('meta[name="csrf-token"]')
 token = token.getAttribute('content')
@@ -18,16 +19,38 @@ Vue.axios.defaults.headers.common = {
 }
 Vue.axios.defaults.baseURL = window.Home.apiUrl
 
-
 Vue.component('comment', require('./components/comment.vue'))
 
-new Vue().$mount('#app')
+import App from './App.vue'
+import Posts from './components/pager/post/posts.vue'
+import Post from './components/pager/post/posts.vue'
 
-require('./header.js')
+const router = new VueRouter ({
+  routes: [
+    {
+      path: '/',
+      redirect: '/posts'
+    },
+    {
+      path: '/posts',
+      component: Posts,
+    },
+    {
+      path: '/post/:slug',
+      component: Post,
+    }
+  ]
+})
+
+const app = new Vue({
+  el: '#app',
+  template: '<App/>',
+  router,
+  components: { App }
+}).$mount('#app')
+
 
 window.algoliasearch = require('algoliasearch')
-
-require('./search.js')
 
 console.log('%c      ___       ___           ___           ___           ___     \n' +
     '     /\\__\\     /\\  \\         /\\__\\         /\\  \\         /\\__\\    \n' +
