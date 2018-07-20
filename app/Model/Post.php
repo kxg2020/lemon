@@ -10,17 +10,27 @@ class Post extends Model
 
     use Searchable;
 
-    //
     protected $table = 'posts';
+
+    protected $appends = [
+        'intro'
+    ];
+
+    protected function getIntroAttribute()
+    {
+        return mb_substr(str_replace('&nbsp;', '', strip_tags($this->content)), 0, 500, 'utf8');
+    }
 
     public function category()
     {
         return $this->belongsTo(Category::class, 'cat_id');
     }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

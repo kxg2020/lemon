@@ -25,13 +25,15 @@
 Route::get('/',  function (){
     return view('home.index');
 })->name('home');
-Route::get('/category/{cat_id}', 'HomeController@category')->name('category');
-Route::get('/post/{slug}', 'HomeController@post')->name('post');
-Route::get('/tag/{tag_id}', 'HomeController@tag')->name('tag');
-Route::get('/demo', 'DemoController@index');
-Route::get('/comment/{post_id}', 'CommentsController@comment');
-Route::post('/comment', 'CommentsController@store');
-Route::get('/search/{key}', 'HomeController@search')->name('search');
+Route::get('/posts', 'PostsController@index');
+
+//Route::get('/category/{cat_id}', 'HomeController@category')->name('category');
+//Route::get('/post/{slug}', 'HomeController@post')->name('post');
+//Route::get('/tag/{tag_id}', 'HomeController@tag')->name('tag');
+//Route::get('/demo', 'DemoController@index');
+//Route::get('/comment/{post_id}', 'CommentsController@comment');
+//Route::post('/comment', 'CommentsController@store');
+//Route::get('/search/{key}', 'HomeController@search')->name('search');
 
 
 
