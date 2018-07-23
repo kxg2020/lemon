@@ -1,5 +1,5 @@
 <template>
-  <div class="posts">
+  <div class="posts" id="posts" style="min-height: 500px; width: 100%;">
     <div v-if="posts.length > 0" v-for="(post, index) in posts" class="post">
       <h2 class="post-title">{{post.title}}</h2>
       <div class="post-meta">
@@ -24,20 +24,30 @@
       }
     },
     created () {
+
+    },
+    mounted () {
       this.getPosts()
     },
     methods: {
       getPosts: function () {
         let _this = this
+        let loadingInstance = _this.$loading({
+          target: document.getElementById('posts')
+        })
         _this.axios.get('/posts').then(function (response) {
           let res = response.data
           if(res.status == 'success'){
-            let _data = res.data;
+            let _data = res.data
             _this.total = _data.total
             _this.currentPage = _data.current_page
             _this.posts = _data.data
             _this.listLoading = false
+            _this.$nextTick(() => {
+              loadingInstance.close()
+            })
           }else {
+            loadingInstance.close()
             _this.$message({
               message: "获取数据失败",
               type: 'error'

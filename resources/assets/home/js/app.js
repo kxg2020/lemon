@@ -3,11 +3,13 @@ window.Vue = require('vue')
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
-import ElementUI from 'element-ui'
 
-Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
+
+import { Loading } from 'element-ui'
+// Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 } // size 用于改变组件的默认尺寸，zIndex 设置弹框的初始 z-index（默认值：2000)
+Vue.use(Loading)
 
 window.hljs = require('../../vendor/highlight.min')
 
