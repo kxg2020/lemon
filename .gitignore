@@ -17,3 +17,4 @@ npm-debug.log
 /public/fonts/*
 /public/backend/fonts/*
 /composer.lock
+/public/mix-manifest.json

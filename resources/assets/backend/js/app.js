@@ -3,11 +3,11 @@ window.Vue = require('vue')
 import VueRouter from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import ElementUI from 'element-ui'
 
-Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
+
+require('./element.js')
 
 let token = document.head.querySelector('meta[name="csrf-token"]')
 token = token.getAttribute('content')
