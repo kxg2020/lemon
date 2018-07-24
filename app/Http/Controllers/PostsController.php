@@ -16,4 +16,27 @@ class PostsController extends Controller
             'data'      =>  $posts
         ]);
     }
+
+    public function info($id)
+    {
+        $post = Post::with([
+            'category' => function($query){
+                $query->select("id", "cat_name");
+            },
+            'tags' => function($query){
+                $query->select("tag_id", "tag_name");
+            }
+        ])->find($id);
+        if ($post) {
+            return response()->json([
+                'status'    =>  'success',
+                'data'      =>  $post
+            ]);
+        }else {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Not Find.'
+            ]);
+        }
+    }
 }

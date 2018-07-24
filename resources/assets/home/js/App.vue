@@ -3,10 +3,9 @@
     <div class="navbar">
       <div class="container navbar-container">
         <div class="navbar-first">
-          <h1>Title</h1>
+          <h1><router-link :to="{path: '/'}" class="title">Title</router-link></h1>
           <div class="nav-menu-btn">
-            <button @click="changeNavbarList" class="icon-button" style="height: 64px"><i class="ion-navicon-round"></i>
-            </button>
+            <button @click="changeNavbarList" class="icon-button" style="height: 64px"><i class="ion-navicon-round"></i></button>
           </div>
         </div>
         <div class="navbar-list-box" :style="minWidth768 ? (navbarListShow ? 'height: 405px;' : 'height: 0;') : ''">
@@ -31,9 +30,7 @@
       </div>
     </div>
     <div class="footer">
-      <div class="container">
-        <h1>Footer</h1>
-      </div>
+      <div class="footer-info">© 2017-2017 Lemon|<a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17009035号</a>|<a href="http://www.qiniu.com" target="_blank">七牛云</a></div>
     </div>
   </div>
 </template>
@@ -72,42 +69,12 @@
     }
   }
 </script>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    height: 100%;
-    color: #1d1d1d;
-  }
-
-  li {
-    list-style: none;
-  }
-
-  a {
-    color: #000000;
-    list-style: none;
-    text-decoration: none;
-  }
-
-  a:hover {
-
-  }
-
+<style scoped>
   #app {
-    min-height: 100%;
-    position: relative;
+    height: 100%;
   }
 
   .navbar {
-    /*height: 80px;*/
     background-color: #656D6D;
     color: #FFFFFF;
     line-height: 80px;
@@ -116,6 +83,10 @@
   .navbar-first {
     display: flex;
     flex-direction: row;
+  }
+
+  .title {
+    color: #FFFFFF;
   }
 
   .navbar-list-box {
@@ -216,7 +187,7 @@
     .main-container:before {
       content: '';
       position: absolute;
-      right: 20%;
+      right: 25%;
       top: 0;
       height: 100%;
       width: 1px;
@@ -224,13 +195,12 @@
     }
 
     .left-main {
-      width: 80%;
-      padding-top: 30px;
-      padding-right: 30px;
+      width: 75%;
+      padding: 30px 30px 30px 0;
     }
 
     .right-main {
-      width: 20%;
+      width: 25%;
       padding-left: 30px;
       padding-top: 30px;
     }
@@ -244,6 +214,7 @@
 
     .left-main {
       width: 100%;
+      padding: 30px 0;
     }
 
     .right-main {
@@ -252,22 +223,34 @@
   }
 
   .main {
-    min-height: 100%;
     box-sizing: border-box;
-    padding-bottom: 200px;
+    padding: 80px 0 200px;
+    margin-top: -80px;
+    min-height: 100%;
   }
 
   .main-container {
-
+    height: 100%;
   }
 
   .footer {
-    position: absolute;
-    bottom: 0;
     background-color: #F7FDFD;
     width: 100%;
     height: 200px;
+    margin-top: -200px;
     padding: 40px auto;
+  }
+
+  .footer-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 90px;
+    color: rgb(149, 149, 149);
+  }
+
+  .footer-info a {
+    color: rgb(149, 149, 149);
   }
 
   .container {

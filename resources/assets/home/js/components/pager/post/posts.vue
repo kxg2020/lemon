@@ -1,13 +1,23 @@
 <template>
-  <div class="posts" id="posts" style="min-height: 500px; width: 100%;">
+  <div class="posts" id="posts" style="min-height: 600px; width: 100%;">
     <div v-if="posts.length > 0" v-for="(post, index) in posts" class="post">
-      <h2 class="post-title">{{post.title}}</h2>
+      <h2 class="post-title" @click="readPost(post.id)">{{post.title}}</h2>
       <div class="post-meta">
         <span class="author"></span>
         <time>{{post.created_at}}</time>
       </div>
       <div class="post-intro">{{post.intro}}</div>
-
+      <div class="post-footer">
+        <div class="post-tags">
+          <span><i class="ion-folder"></i>分类</span>
+          <span class="coral"><code>{{post.category.cat_name}}</code></span>
+          <span><i class="ion-pricetags"></i>标签</span>
+          <template v-for="(tag, tag_index) in post.tags" class="tag">
+            <span class="coral"><code>{{tag.tag_name}}</code></span>
+          </template>
+        </div>
+        <button class="readall" @click="readPost(post.id)">阅读全文</button>
+      </div>
     </div>
     <div v-else>
       <h1> TODO Empty. </h1>
@@ -54,6 +64,9 @@
             })
           }
         })
+      },
+      readPost: function (id) {
+        this.$router.replace('/post/' + id)
       }
     }
   }
@@ -81,5 +94,37 @@
     padding-bottom: 0.6em;
     font-size: 100%;
     vertical-align: baseline;
+  }
+  .post-footer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .post-tags{
+    color: #959595;
+  }
+  .post-tags i{
+    margin-right: 10px;
+  }
+  .coral{
+    padding: 2px 4px;
+    font-size: 14px;
+  }
+  .coral code{
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+  }
+  .readall{
+    right: 0;
+    color: #333;
+    background-color: #fff;
+    font-weight: 400;
+    text-align: center;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
   }
 </style>

@@ -7,11 +7,24 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
 
-import { Loading } from 'element-ui'
+import { Loading, Message, Form, FormItem, Button, Input } from 'element-ui'
 // Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 } // size 用于改变组件的默认尺寸，zIndex 设置弹框的初始 z-index（默认值：2000)
 Vue.use(Loading)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Button)
+Vue.use(Input)
+Vue.prototype.$message = Message
 
 window.hljs = require('../../vendor/highlight.min')
+
+Vue.directive('highlight',function (el) {
+  let blocks = el.querySelectorAll('pre code');
+  blocks.forEach((block)=>{
+    hljs.highlightBlock(block)
+  })
+})
+
 
 let token = document.head.querySelector('meta[name="csrf-token"]')
 token = token.getAttribute('content')
@@ -25,7 +38,7 @@ Vue.component('comment', require('./components/comment.vue'))
 
 import App from './App.vue'
 import Posts from './components/pager/post/posts.vue'
-import Post from './components/pager/post/posts.vue'
+import Post from './components/pager/post/post.vue'
 
 const router = new VueRouter ({
   routes: [
@@ -38,7 +51,7 @@ const router = new VueRouter ({
       component: Posts,
     },
     {
-      path: '/post/:slug',
+      path: '/post/:id',
       component: Post,
     }
   ]
