@@ -9,7 +9,7 @@
 
     <!-- Styles -->
     <link href="{{ mix('home/css/app.css') }}" rel="stylesheet">
-    <title>Lemon - Dashboard</title>
+    <title>Lemon</title>
 </head>
 <body>
 <div id="app"></div>

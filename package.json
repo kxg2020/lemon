@@ -17,6 +17,8 @@
     "bootstrap-sass": "^3.3.7",
     "cross-env": "~5.1.1",
     "css-loader": "^0.28.4",
+    "element-theme": "~2.0.1",
+    "element-theme-chalk": "^2.4.4",
     "element-ui": "~2.0.4",
     "ionicons": "^2.0.1",
     "jquery": "~3.2.1",
