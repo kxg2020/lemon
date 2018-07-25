@@ -20,13 +20,13 @@
       </template>
       <div class="comment-footer comment-edit">
         <el-form class="comment-form" ref="commentRef" :model="newComment" :rules="newCommentRules" label-width="80px">
-          <el-form-item label="联系邮箱">
+          <el-form-item label="联系邮箱" prop="email">
             <el-input v-model="newComment.email" placeholder="请输入联系邮箱"></el-input>
           </el-form-item>
-          <el-form-item label="个人站点">
+          <el-form-item label="个人站点" prop="url">
             <el-input v-model="newComment.url" placeholder="请输入个人站点"></el-input>
           </el-form-item>
-          <el-form-item label="评论内容">
+          <el-form-item label="评论内容" prop="body">
             <el-input type="textarea" :autosize="{ minRows: 5, maxRows: 20 }" v-model="newComment.body" placeholder="请输入评论内容"></el-input>
           </el-form-item>
           <el-form-item>
@@ -136,13 +136,15 @@
         },
         newCommentRules: {
           email: [
-            {required: true, type: 'string', message: '请填写联系邮箱', trigger: 'blur'}
+            {required: true, trigger: 'blur', message: '请输入联系邮箱'},
+            {type: 'email', trigger: 'blur', message: '邮箱格式不正确'}
           ],
           url: [
-            {required: true, type: 'string', message: '请填写个人站点', trigger: 'blur'}
+            {required: true, trigger: 'blur', message: '请输入个人站点'},
+            {type: 'url', trigger: 'blur', message: '站点格式不正确, http:// or https://'}
           ],
           body: [
-            {required: true, type: 'string', message: '请填写评论内容', trigger: 'blur'}
+            {required: true, type: 'string', trigger: 'blur', message: '请输入评论内容'},
           ],
         },
         submitStatus: false

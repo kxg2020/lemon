@@ -18,7 +18,7 @@
                     <el-menu-item index="1" href="/">首页</el-menu-item>
                     <el-submenu index="2">
                         <template slot="title">Lemon</template>
-                        <el-menu-item @click.native="logout" index="2-1">退出</el-menu-item>
+                        <el-menu-item @click.native="logout" index="2-1" style="min-width: unset;">退出</el-menu-item>
                     </el-submenu>
                 </el-menu>
             </div>
@@ -169,6 +169,9 @@
     }
     .el-scrollbar__wrap{
         overflow-x: auto;
+    }
+    .el-select-dropdown__wrap{
+        overflow: scroll;
     }
 </style>
 <script type="text/ecmascript-6">
