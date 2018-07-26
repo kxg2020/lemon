@@ -4,7 +4,7 @@
       <div class="container navbar-container">
         <div class="navbar-first">
           <h1>
-            <router-link :to="{path: '/'}" class="title">Title</router-link>
+            <router-link :to="{path: '/'}" class="title">Lemon</router-link>
           </h1>
           <div class="nav-menu-btn">
             <button @click="changeNavbarList" class="icon-button" style="height: 64px"><i class="ion-navicon-round"></i>
@@ -28,7 +28,15 @@
           <router-view></router-view>
         </div>
         <div class="right-main">
-          <h1>Right Main</h1>
+          <div class="right-item user">
+            <img class="user-avatar" src="https://avatars2.githubusercontent.com/u/24952193?s=460&v=4" alt="">
+            <div class="user-name">lostinfo</div>
+            <div class="user-intro">你就是打死我，我也不改这个bug</div>
+            <div class="user-links">
+              <div class="user-link"><a target="_blank" href="https://github.com/lostinfo"><i
+                class="ion-social-github"></i></a></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -83,6 +91,7 @@
     background-color: #656D6D;
     color: #FFFFFF;
     line-height: 80px;
+    box-shadow: 0 2px 12px 0 #656d6da1;
   }
 
   .navbar-first {
@@ -180,6 +189,7 @@
     .nav-item-a:hover {
       background: rgba(255, 255, 255, .08);
     }
+
   }
 
   @media screen and (min-width: 992px) {
@@ -189,25 +199,24 @@
       position: relative;
     }
 
-    .main-container:before {
-      content: '';
-      position: absolute;
-      right: 25%;
-      top: 0;
-      height: 100%;
-      width: 1px;
-      background-color: #e2e2e2;
-    }
-
     .left-main {
       width: 75%;
-      padding: 30px 30px 30px 0;
+      margin-right: 15px;
+      padding: 1em 30px;
+      background-color: #FFFFFF;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
 
     .right-main {
       width: 25%;
-      padding-left: 30px;
-      padding-top: 30px;
+      margin-left: 15px;
+    }
+
+    .right-item {
+      background-color: #FFFFFF;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      padding: 1em;
+      margin-bottom: 30px;
     }
   }
 
@@ -215,6 +224,7 @@
     .main-container {
       display: flex;
       flex-direction: column;
+      background-color: #FFFFFF;
     }
 
     .left-main {
@@ -236,6 +246,47 @@
 
   .main-container {
     height: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .user-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 1em auto;
+  }
+
+  .user-name {
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    color: #999;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .user-intro {
+    font-size: 14px;
+    line-height: 1.5em;
+    margin: 1em 0;
+    text-align: center;
+  }
+
+  .user-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .user-link i {
+    font-size: 2em;
   }
 
   .footer {
