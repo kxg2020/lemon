@@ -24,20 +24,20 @@
 
 <script>
   export default {
-    data () {
+    data() {
       return {
         id: 0,
         post: null
       }
     },
-    created () {
+    created() {
       if (typeof(this.$route.params.id) != undefined) {
         this.id = this.$route.params.id
-      }else {
+      } else {
         this.$router.replace('/')
       }
     },
-    mounted () {
+    mounted() {
       this.getPost()
     },
     methods: {
@@ -46,14 +46,14 @@
         let loadingInstance = _this.$loading({
           target: document.getElementById('post')
         })
-        _this.axios.get('/post/'+_this.id).then(function (response) {
+        _this.axios.get('/post/' + _this.id).then(function (response) {
           let res = response.data
-          if(res.status == 'success'){
+          if (res.status == 'success') {
             _this.post = res.data
             _this.$nextTick(() => {
               loadingInstance.close()
             })
-          }else {
+          } else {
             loadingInstance.close()
             _this.$message({
               message: "获取数据失败",
@@ -67,44 +67,52 @@
 </script>
 
 <style scoped>
-  .post{
+  .post {
 
   }
-  .post-title{
+
+  .post-title {
     font-weight: bold;
     margin-top: 30px;
   }
-  .post-meta{
+
+  .post-meta {
     font-size: 14px;
     padding-bottom: 15px;
     margin-bottom: 6px;
     margin: 0.9em 0 0.5em;
     vertical-align: baseline;
   }
-  .post-content{
+
+  .post-content {
     margin: 0.9em 0 0.5em;
     padding-bottom: 0.6em;
     font-size: 100%;
     vertical-align: baseline;
   }
-  .post-footer{
+
+  .post-footer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 2em 0;
   }
-  .post-tags{
+
+  .post-tags {
     color: #959595;
   }
-  .post-tags i{
+
+  .post-tags i {
     margin-right: 10px;
   }
-  .coral{
+
+  .coral {
     padding: 2px 4px;
     font-size: 14px;
   }
-  .coral code{
+
+  .coral code {
     color: #c7254e;
     background-color: #f9f2f4;
     border-radius: 4px;

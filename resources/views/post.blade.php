@@ -6,7 +6,8 @@
             <h1 class="post-title coral">{{$post['title']}}</h1>
             <div class="post-meta">
                 <span class="author"></span>
-                <time class="post-date" datetime="{{$post['created_at']}}" title="{{$post['created_at']}}">{{$post['created_at']}}</time>
+                <time class="post-date" datetime="{{$post['created_at']}}"
+                      title="{{$post['created_at']}}">{{$post['created_at']}}</time>
             </div>
         </header>
         <div class="post-thumb">
@@ -21,7 +22,8 @@
             <div class="pull-left tag-list">
                 <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                 <!--tags-->
-                <span>分类：<a class="coral" href="{{route('category', ['cat_id' => $post['cat_id']])}}"><code>{{$post['category']['cat_name']}}</code></a></span>
+                <span>分类：<a class="coral"
+                            href="{{route('category', ['cat_id' => $post['cat_id']])}}"><code>{{$post['category']['cat_name']}}</code></a></span>
             </div>
             <div class="pull-left tag-list">
                 <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
@@ -44,15 +46,16 @@
 
 @section('scripts')
     <script>
-        hljs.initHighlightingOnLoad()
+      hljs.initHighlightingOnLoad()
     </script>
 @endsection
 
 @section('styles')
     <style>
-        pre{
+        pre {
             background-color: #282c34;
         }
+
         .post img {
             width: 100%;
             border-radius: 4px;

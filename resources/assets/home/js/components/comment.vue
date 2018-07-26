@@ -27,7 +27,8 @@
             <el-input v-model="newComment.url" placeholder="请输入个人站点"></el-input>
           </el-form-item>
           <el-form-item label="评论内容" prop="body">
-            <el-input type="textarea" :autosize="{ minRows: 5, maxRows: 20 }" v-model="newComment.body" placeholder="请输入评论内容"></el-input>
+            <el-input type="textarea" :autosize="{ minRows: 5, maxRows: 20 }" v-model="newComment.body"
+                      placeholder="请输入评论内容"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">提交评论</el-button>

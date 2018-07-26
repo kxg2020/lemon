@@ -1,34 +1,41 @@
-header{
-    width: 100%;
-    height: auto;
+header {
+  width: 100%;
+  height: auto;
 }
-.header-message{
-    background: rgb(48, 48, 48);
-    border: 2px solid coral;
-    font-size: 18px;
-    font-family: Monospace;
-    padding: 10px 30px;
-    white-space: pre-wrap;
-    outline: 0;
-    overflow:auto;
+
+.header-message {
+  background: rgb(48, 48, 48);
+  border: 2px solid coral;
+  font-size: 18px;
+  font-family: Monospace;
+  padding: 10px 30px;
+  white-space: pre-wrap;
+  outline: 0;
+  overflow: auto;
 }
-.header-text{
-    color: #ffffff;
+
+.header-text {
+  color: #ffffff;
 }
-.header-text:after{
-    content: "";
-    width: 2px;
-    height: 20px;
-    vertical-align: -8px;
-    margin-left: 5px;
-    background-color: #151414;
-    display: inline-block;
-    animation: blink .4s infinite alternate;
-    margin-bottom: 7px;
+
+.header-text:after {
+  content: "";
+  width: 2px;
+  height: 20px;
+  vertical-align: -8px;
+  margin-left: 5px;
+  background-color: #151414;
+  display: inline-block;
+  animation: blink .4s infinite alternate;
+  margin-bottom: 7px;
 }
-@keyframes blink
-{
-    from {background: #212121;}
-    to {background: #e9ffe5;}
+
+@keyframes blink {
+  from {
+    background: #212121;
+  }
+  to {
+    background: #e9ffe5;
+  }
 }
 

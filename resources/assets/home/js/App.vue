@@ -3,9 +3,12 @@
     <div class="navbar">
       <div class="container navbar-container">
         <div class="navbar-first">
-          <h1><router-link :to="{path: '/'}" class="title">Title</router-link></h1>
+          <h1>
+            <router-link :to="{path: '/'}" class="title">Title</router-link>
+          </h1>
           <div class="nav-menu-btn">
-            <button @click="changeNavbarList" class="icon-button" style="height: 64px"><i class="ion-navicon-round"></i></button>
+            <button @click="changeNavbarList" class="icon-button" style="height: 64px"><i class="ion-navicon-round"></i>
+            </button>
           </div>
         </div>
         <div class="navbar-list-box" :style="minWidth768 ? (navbarListShow ? 'height: 405px;' : 'height: 0;') : ''">
@@ -30,7 +33,9 @@
       </div>
     </div>
     <div class="footer">
-      <div class="footer-info">© 2017-2017 Lemon|<a href="http://www.miitbeian.gov.cn/" target="_blank">蜀ICP备17009035号</a>|<a href="http://www.qiniu.com" target="_blank">七牛云</a></div>
+      <div class="footer-info">© 2017-2017 Lemon|<a href="http://www.miitbeian.gov.cn/"
+                                                    target="_blank">蜀ICP备17009035号</a>|<a href="http://www.qiniu.com"
+                                                                                          target="_blank">七牛云</a></div>
     </div>
   </div>
 </template>

@@ -30,7 +30,7 @@ a:hover {
   line-height: 1.6em;
 }
 
-.post p{
+.post p {
   font-size: inherit;
 }
 
@@ -43,7 +43,7 @@ a:hover {
   font-size: 1.75em;
 }
 
-.post h3{
+.post h3 {
   margin-bottom: 0.6em;
   padding: 15px 0;
   border-bottom: 1px solid #ddd;
@@ -52,7 +52,7 @@ a:hover {
   font-weight: 700;
 }
 
-.post h4, .post h5{
+.post h4, .post h5 {
   margin-bottom: 0.6em;
   padding: 15px 0;
   color: #333;
