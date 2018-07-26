@@ -11,7 +11,7 @@ class MainController extends Controller
     public function getData()
     {
         $post_count = Post::count();
-        $page_view = 100;
+        $page_view = Post::sum('views');
         return response()->json([
             'status'    =>  'success',
             'data'      =>  [
