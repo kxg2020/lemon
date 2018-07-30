@@ -18,7 +18,7 @@
 <div id="app">
   <div class="navbar">
     <div class="container navbar-container">
-      <div class="navbar-first"><h1><a href="#/"
+      <div class="navbar-first"><h1><a href="/"
                                        class="title router-link-active">Lemon</a>
         </h1>
         <div class="nav-menu-btn" onclick="changeNav()">

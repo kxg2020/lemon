@@ -9,8 +9,8 @@
 
 namespace App\Http\Controllers\V2;
 
-use App\Model\Comment;
 use App\Model\Post;
+use Illuminate\Support\Facades\DB;
 
 class IndexController
 {
@@ -24,6 +24,7 @@ class IndexController
     {
         $post = Post::with('tags', 'category')->find($id);
         if ($post) {
+            DB::table('posts')->where('id', $id)->increment('views');
             return view('v2.post', ['post' => $post]);
         }else {
             abort(404);

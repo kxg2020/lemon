@@ -126,6 +126,7 @@
     data() {
       return {
         comments: [],
+        loading: false,
         loadingError: false,
         comment_count: 0,
         newComment: {
@@ -188,6 +189,11 @@
             return false
           }
         })
+        if (_this.loading) {
+          console.log('comment post...')
+          return
+        }
+        _this.loading = true
         _this.axios.post('/comment', _this.newComment).then(function (response) {
           let res = response.data
           if (res.status == 'success') {
@@ -207,6 +213,7 @@
               type: 'error'
             })
           }
+          _this.loading = false
         })
       }
     }
