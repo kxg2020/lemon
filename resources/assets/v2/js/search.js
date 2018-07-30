@@ -23,7 +23,7 @@ $("#search-input").bind('input propertychange', function () {
       var searchListHtml = "<div class=\"content recent-post\">"
       $.each(response.hits, function (index, item) {
         searchListHtml += "<div class=\"search-list-item\">\n" +
-          "<a href=\"/post/" + item.slug + "\" class=\"new-post-title\">" + highSearch(key, item.title) + "</a>\n" +
+          "<a href=\"/post/" + item.id + "/" + item.slug + "\" class=\"new-post-title\">" + highSearch(key, item.title) + "</a>\n" +
           "</div>"
       })
       searchListHtml += "</div>"

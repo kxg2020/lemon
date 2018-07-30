@@ -117,7 +117,7 @@
   export default {
     props: {
       postId: {
-        type: Number,
+        type: [Number, String],
         default() {
           return 0
         }

@@ -28,7 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('tags','category')->orderBy('created_at', 'desc')->paginate(5);
+        $posts = Post::with('tags','category')->orderBy('created_at', 'desc')->paginate(20);
         return view('home', ['posts' => $posts]);
     }
 

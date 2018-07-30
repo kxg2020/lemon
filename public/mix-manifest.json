@@ -1,6 +1,8 @@
 {
-    "/backend/js/app.js": "/backend/js/app.js?id=aabc20254169026861b1",
-    "/backend/css/app.css": "/backend/css/app.css?id=cc5df4f8c430a0db219e",
-    "/home/css/app.css": "/home/css/app.css?id=8496fa53590a72275bad",
-    "/home/js/app.js": "/home/js/app.js?id=54a27a8a28294cb001b7"
+    "/backend/js/app.js": "/backend/js/app.js",
+    "/backend/css/app.css": "/backend/css/app.css",
+    "/home/css/app.css": "/home/css/app.css",
+    "/v2/css/app.css": "/v2/css/app.css",
+    "/home/js/app.js": "/home/js/app.js",
+    "/v2/js/app.js": "/v2/js/app.js"
 }
