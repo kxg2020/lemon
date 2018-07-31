@@ -62,4 +62,15 @@ class IndexController
             abort(404);
         }
     }
+
+    public function post_slug($slug)
+    {
+        $post = Post::with('tags', 'category')->where('slug', $slug)->first();
+        if ($post) {
+            DB::table('posts')->where('slug', $slug)->increment('views');
+            return view('v2.post', ['post' => $post]);
+        }else {
+            abort(404);
+        }
+    }
 }

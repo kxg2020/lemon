@@ -77,10 +77,6 @@
 @yield('scripts')
 <script>
   var minWidth768 = false
-  widthChange()
-  window.onresize = function () {
-    widthChange()
-  }
   function widthChange() {
     if (document.documentElement.clientWidth <= 768) {
       minWidth768 = true
@@ -89,13 +85,18 @@
       $('#navbar-list-box').height('auto')
     }
   }
-  console.log('height', $('#navbar-list-box').height())
   function changeNav() {
     console.log('changeNav')
     if (minWidth768) {
       $('#navbar-list-box').height() == 0 ? $('#navbar-list-box').height(405) : $('#navbar-list-box').height(0)
     }
   }
+  $(function () {
+    widthChange()
+    window.onresize = function () {
+      widthChange()
+    }
+  })
 </script>
 </body>
 </html>
