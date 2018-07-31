@@ -500,3 +500,18 @@ a:hover {
 .page-item{
 
 }
+
+/* empty */
+.empty-box {
+  margin: 100px 0;
+  text-align: center;
+}
+.empty-gif {
+
+}
+.empty-msg{
+  font-size: 3em;
+}
+.empty-small{
+  font-size: 0.5em;
+}

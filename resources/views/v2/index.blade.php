@@ -8,8 +8,19 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Lemon</title>
-
+  <title>
+    @if(Route::currentRouteName() == 'post')
+      @if(isset($post))
+        {{$post['title']}}
+      @endif
+    @elseif(Route::currentRouteName() == 'category')
+      分类: {{$cat_name}}
+    @elseif(Route::currentRouteName() == 'tag')
+      标签: {{$tag_name}}
+    @else
+      首页
+    @endif
+      - Lemon</title>
   <!-- Styles -->
   <link href="{{ mix('v2/css/app.css') }}" rel="stylesheet">
   @yield('styles')
@@ -30,7 +41,8 @@
       <div id="navbar-list-box" class="navbar-list-box" style="height: 0px;">
         <ul id="navbar-list" class="navbar-list">
           @foreach($nav_categorys as $nav_category)
-            <li class="navbar-item"><a href="{{route('category', ['cat_name' => $nav_category['cat_name']])}}" class="nav-item-a">{{$nav_category['cat_name']}}</a>
+            <li class="navbar-item"><a href="{{route('category', ['cat_name' => $nav_category['cat_name']])}}"
+                                       class="nav-item-a">{{$nav_category['cat_name']}}</a>
             </li>
           @endforeach
           <li class="navbar-item" id="search-show"><a href="#" class="nav-item-a"><i class="ion-search"></i></a>
@@ -77,6 +89,7 @@
 @yield('scripts')
 <script>
   var minWidth768 = false
+
   function widthChange() {
     if (document.documentElement.clientWidth <= 768) {
       minWidth768 = true
@@ -85,12 +98,14 @@
       $('#navbar-list-box').height('auto')
     }
   }
+
   function changeNav() {
     console.log('changeNav')
     if (minWidth768) {
       $('#navbar-list-box').height() == 0 ? $('#navbar-list-box').height(405) : $('#navbar-list-box').height(0)
     }
   }
+
   $(function () {
     widthChange()
     window.onresize = function () {
