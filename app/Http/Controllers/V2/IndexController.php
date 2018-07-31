@@ -24,7 +24,9 @@ class IndexController
 
     public function index()
     {
-        $posts = Post::with('tags', 'category')->orderBy('created_at', 'desc')->simplePaginate(5);
+        $posts = Post::with(['tags' => function ($query){
+            $query->select('tag_name');
+        }, 'category'])->orderBy('created_at', 'desc')->simplePaginate(5);
         return view('v2.posts', ['posts' => $posts]);
     }
 
@@ -33,7 +35,9 @@ class IndexController
         $tag = Tag::where('tag_name', $tag_name)->first();
         !empty($tag) ?: abort(404, "404 NOT FOUND.");
 
-        $posts = $tag->posts()->with('tags', 'category')->simplePaginate(5);
+        $posts = $tag->posts()->with(['tags' => function ($query){
+            $query->select('tag_name');
+        }, 'category'])->orderBy('created_at', 'desc')->simplePaginate(5);
         return view('v2.posts', ['posts' => $posts, 'tag_name' => $tag_name]);
     }
 
@@ -42,7 +46,9 @@ class IndexController
         $catetory = Category::where('cat_name', $cat_name)->first();
         !empty($catetory) ?: abort(404, "404 NOT FOUND.");
 
-        $posts = $catetory->posts()->with('tags', 'category')->simplePaginate(5);
+        $posts = $catetory->posts()->with(['tags' => function ($query){
+            $query->select('tag_name');
+        }, 'category'])->orderBy('created_at', 'desc')->simplePaginate(5);
         return view('v2.posts', ['posts' => $posts, 'cat_name' => $cat_name]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
@@ -13,12 +14,17 @@ class Post extends Model
     protected $table = 'posts';
 
     protected $appends = [
-        'intro'
+        'intro',
+        'created_at_transform'
     ];
 
     protected function getIntroAttribute()
     {
         return mb_substr(str_replace('&nbsp;', '', strip_tags($this->content)), 0, 500, 'utf8');
+    }
+
+    protected function getCreatedAtTransformAttribute(){
+        return Carbon::parse($this->created_at)->diffForHumans();
     }
 
     public function category()
