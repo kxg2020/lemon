@@ -82,3 +82,7 @@
   height: 35px;
   border-bottom: 1px dashed #ccc;
 }
+
+.search-list-item a{
+  line-height: 35px;
+}

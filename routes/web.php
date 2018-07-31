@@ -19,6 +19,8 @@
 Route::group(['prefix' => '/', 'namespace' => 'V2'], function () {
     Route::get('/', 'IndexController@index')->name('home');
     Route::get('/post/{id}/{slug}', 'IndexController@post')->name('post');
+    Route::get('/tag/{tag_name}', 'IndexController@tag')->name('tag');
+    Route::get('/category/{cat_name}', 'IndexController@category')->name('category');
 });
 
 Route::get('/comment/{post_id}', 'CommentsController@comment');

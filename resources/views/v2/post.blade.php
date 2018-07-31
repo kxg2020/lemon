@@ -13,10 +13,10 @@
     <div class="post-footer">
       <div class="post-tags">
         <span><i class="ion-folder"></i>分类</span>
-        <span class="coral"><code>{{$post['category']['cat_name']}}</code></span>
+        <span class="coral"><a href="{{route('category', ['cat_name' => $post['category']['cat_name']])}}"><code>{{$post['category']['cat_name']}}</code></a></span>
         <span><i class="ion-pricetags"></i>标签</span>
         @foreach($post['tags'] as $tag)
-          <span class="coral"><code>{{$tag['tag_name']}}</code></span>
+          <span class="coral"><a href="{{route('tag', ['tag_name' => $tag['tag_name']])}}"><code>{{$tag['tag_name']}}</code></a></span>
         @endforeach
       </div>
     </div>

@@ -29,14 +29,10 @@
       </div>
       <div id="navbar-list-box" class="navbar-list-box" style="height: 0px;">
         <ul id="navbar-list" class="navbar-list">
-          <li class="navbar-item"><a href="#" class="nav-item-a">item</a>
-          </li>
-          <li class="navbar-item"><a href="#" class="nav-item-a">item</a>
-          </li>
-          <li class="navbar-item"><a href="#" class="nav-item-a">item</a>
-          </li>
-          <li class="navbar-item"><a href="#" class="nav-item-a">item</a>
-          </li>
+          @foreach($nav_categorys as $nav_category)
+            <li class="navbar-item"><a href="{{route('category', ['cat_name' => $nav_category['cat_name']])}}" class="nav-item-a">{{$nav_category['cat_name']}}</a>
+            </li>
+          @endforeach
           <li class="navbar-item" id="search-show"><a href="#" class="nav-item-a"><i class="ion-search"></i></a>
           </li>
         </ul>

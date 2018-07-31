@@ -322,11 +322,12 @@ a:hover {
 }
 
 .footer-info {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
   padding-top: 90px;
   color: rgb(149, 149, 149);
+  font-size: 0.8em;
 }
 
 .footer-info a {
@@ -414,14 +415,6 @@ a:hover {
 
 .readall {
   right: 0;
-  color: #333;
-  background-color: #fff;
-  font-weight: 400;
-  text-align: center;
-  padding: 6px 12px;
-  font-size: 14px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
 }
 
 /* post */
@@ -475,4 +468,34 @@ a:hover {
   color: #c7254e;
   background-color: #f9f2f4;
   border-radius: 4px;
+}
+/* lemon-btn */
+.lemon-btn{
+  color: #333;
+  background-color: #fff;
+  font-weight: 400;
+  text-align: center;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.lemon-btn:not(.disabled):hover{
+  border-color: #42602D;
+}
+
+.lemon-btn:not(.disabled) a:hover{
+  color: #42602D;
+}
+
+/* pagination */
+.pagination{
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+}
+
+.page-item{
+
 }
